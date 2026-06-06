@@ -1,0 +1,21 @@
+[
+{
+    "servers": {
+        "hsp-stdio-server": {
+            "type": "stdio",
+            "command": "C:\\hsp37\\hsp3cl.exe",
+            "args": ["E:\\work\\ubuntu\\ownclone\\hsp-alacarte\\mcp\\start.ax"]
+        }
+    }
+}
+,
+{
+    "servers": {
+        "hsp-help": {
+            "type": "stdio",
+            "command": "C:/hsp37/hsp3cl.exe",
+            "args": ["E:/work/ubuntu/ownclone/hsp-alacarte/mcpresources/start.ax"]
+        }
+    }
+}
+]

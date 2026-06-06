@@ -1,0 +1,323 @@
+// SPDX-FileCopyrightText: 2025 hta393939
+// SPDX-License-Identifier: BSD-3-Clause OR CC0-1.0
+
+#include "hsp3cl.as"
+#include "kernel32.as"
+
+#include "json.hsp"
+
+#const EC_PARSE -32700
+#const EC_INVALIDREQ -32600
+#const EC_METHOD -32601
+#const EC_INVALIDPARAM -32602
+#const EC_INTERNAL -32603
+#const EC_NOTFOUND -32002
+#const EC_NOERR 0
+
+#const CP_UTF8 65001
+#const STD_INPUT_HANDLE -10
+#const STD_OUTPUT_HANDLE -11
+#const STD_ERROR_HANDLE -12
+#const NULL 0
+
+#const DEBUG 2
+
+#define _log(%1) __log %1, __line__
+
+#module
+// UTF-8 のロギング
+#deffunc __log str _in_text, int _in_line
+	if DEBUG@ == 0 {
+		return
+	}
+	s = strf("#%d: %s", _in_line, _in_text)
+	if DEBUG@ & 1 {
+		nkfcnv@ sjb, s, "Ws"
+		dialog sjb
+	}
+	if DEBUG@ & 2 {
+		len = strlen(s)
+		wb = 0
+		WriteFile stderr@, varptr(s), len, varptr(wb), NULL
+	}
+	return
+	
+#global
+
+	exe_dir = dirinfo(1)
+	protocol = "docs"
+	host = "hsphelp"
+	ext = "hs"
+
+	GetStdHandle STD_OUTPUT_HANDLE
+	stdout = stat
+
+	GetStdHandle STD_ERROR_HANDLE
+	stderr = stat
+
+	SetConsoleOutputCP CP_UTF8
+	// 後ろの引数で jsonputs 時の変換を指定
+	jsonnkf "Wsc", "Sw"
+
+	_log strf("hsp mcp resources \n")
+
+	res_num = 3
+	sdim names, 260, res_num
+	sdim uris, 4096, res_num
+	names(0) = "sprite"
+	names(1) = "hspmucom"
+	names(2) = "hgimg4"
+	repeat res_num
+		uris(cnt) = strf("%s://%s/%s.%s", protocol, host, names(cnt), ext)
+	loop
+
+	mcp_blob = ""
+	repeat
+		readbuf = ""
+		input readbuf, 1024 * 1024 - 16, 1
+		in_t = readbuf
+		gosub *parse
+		result = refstr
+		if result != "OK" {
+			mcp_message = result
+			gosub *res_err
+			wait 1
+			continue
+		}
+
+		gosub *analyze
+		wait 1
+	loop
+	end
+
+
+*parse
+	jsonopen rootp, in_t
+	if rootp == 0 {
+		result = "Parse error"
+		mcp_code = EC_PARSE
+		return result
+	}
+
+	jsongets s, "method", rootp
+	if stat == 1 {
+		result = "Method error"
+		mcp_code = EC_METHOD
+		return result
+	}
+	mcp_method = s
+	_log strf("method, %s \n", mcp_method)
+
+	index = instr(mcp_method, 0, "notifications/")
+	if index < 0 {
+		jsongetobj idp, "id", rootp
+		mcp_code = EC_PARSE
+		if idp {
+			jsonnext jtype, idp, 3 // type
+			if jtype == T_NUMBER@json {
+				jsongetd idn, "id", rootp
+				mcp_id = idn
+				mcp_code = EC_NOERR
+			} else {
+				if jtype == T_STRING@json {
+					jsongets ids, "id", rootp
+					mcp_id = ids
+					mcp_code = EC_NOERR
+				}
+			}
+		}
+		if mcp_code != EC_NOERR {
+			_log strf("idp, %s, jtype, %d \n", idp, jtype)
+			return "Id error"
+		}
+	}
+
+	result = "OK"
+	mcp_code = EC_NOERR
+	return result
+
+*analyze
+	_log strf("method, %s \n", mcp_method)
+	
+	if mcp_method == "initialize" {
+		_log strf("initialize, %s \n", in_t)
+		
+		gosub *res_ini
+		return
+	}
+	if mcp_method == "notifications/initialized" {
+		_log strf("ignore %s \n", mcp_method)
+		return // 無視する
+	}
+	if mcp_method == "resources/list" {
+		gosub *res_list
+		return
+	}
+	if mcp_method == "resources/read" {
+		jsongetobj namesp, "params", -1
+		mcp_params_uri = ""
+		if namesp {
+			jsongets mcp_params_uri, "uri", namesp
+		}
+
+		idx = -1
+		repeat res_num
+			if uris(cnt) == mcp_params_uri {
+				idx = cnt
+				break
+			}
+		loop
+
+		if idx < 0 {
+			mcp_code = EC_INVALIDPARAM
+			mcp_message = "Invalid uri"
+			gosub *res_err
+			return
+		}
+
+		mcp_base_name = names(idx)
+		goto *act_hs
+	}
+	mcp_code = EC_METHOD
+	mcp_message = "Invalid method"
+	gosub *res_err
+	return
+
+*act_hs
+	target_path = strf("%s/hsphelp/%s.hs", exe_dir, mcp_base_name)
+	_log strf("exe_dir %s, %s \n", exe_dir, target_path)
+	exist target_path
+	file_byte = strsize
+	if file_byte <= 0 {
+		mcp_code = EC_NOTFOUND
+		mcp_message = "Resource not found"
+		gosub *res_err
+		return
+	}
+	sdim buf, file_byte + 16
+	bload target_path, buf, file_byte
+
+	mcp_blob = ""
+
+	// 内部バッファの拡大。最大、半角カタカナで3倍
+	len = strlen(buf)
+	nkfcnv mcp_text, buf, "wS", -1, len * 3 + 16
+	// UTF-8 -> UTF-8 へ変更する
+	jsonnkf "Wsc", "wW"
+	gosub *res_resource
+	// jsonputs 時変換を元に戻す
+	jsonnkf "Wsc", "Sw"
+	return
+
+
+*send
+	jsonout jt, in_pt
+	j_delnl jt, 1
+
+	len = strlen(jt)
+	wb = 0
+	WriteFile stdout, varptr(jt), len, varptr(wb), NULL
+	return
+
+
+*res_err
+	jsonnewobj rootp
+	j_setstr rootp, "jsonrpc", "2.0"
+	if mcp_code == EC_PARSE {
+		j_setnull rootp, "id"
+	} else {
+		if vartype(mcp_id) == 2 { // 文字列型
+			j_setstr rootp, "id", mcp_id
+		} else {
+			j_setd rootp, "id", mcp_id
+		}
+	}
+	j_setd rootp, "error.code", mcp_code
+	j_setstr rootp, "error.message", mcp_message
+	in_pt = rootp
+	gosub *send
+
+	_log jt
+
+	jsondelobj rootp
+	return
+
+*res_ini
+	jsonnewobj rootp
+	j_setstr rootp, "jsonrpc", "2.0"
+	if vartype(mcp_id) == 2 { // 文字列型
+		j_setstr rootp, "id", mcp_id
+	} else {
+		j_setd rootp, "id", mcp_id
+	}
+	j_setstr rootp, "result.protocolVersion", "2025-03-26"
+	objpt = j_readyj(rootp, "result.capabilities.resources._")
+	j_setstr rootp, "result.serverInfo.name", "hsp-doclib-resources"
+	j_setstr rootp, "result.serverInfo.version", "0.1.1"
+	in_pt = rootp
+	gosub *send
+	_log jt
+	jsondelobj rootp
+	return
+
+*res_list
+	jsonnewobj rootp
+	j_setstr rootp, "jsonrpc", "2.0"
+	if vartype(mcp_id) == 2 { // 文字列型
+		j_setstr rootp, "id", mcp_id
+	} else {
+		j_setd rootp, "id", mcp_id
+	}
+
+	repeat res_num
+		hs_base_name = names(cnt)
+
+		p = j_readyj(rootp, strf("result.resources.%d._", cnt))
+		j_setstr p, "name", strf("%s.%s", hs_base_name, ext)
+		j_setstr p, "uri", uris(cnt)
+		j_setstr p, "title", strf("%s help file", hs_base_name)
+		j_setstr p, "description", strf("%s ヘルプファイル", hs_base_name)
+		j_setstr p, "mimeType", "text/plain"
+	loop
+
+	//j_setstr rootp, "result.nextCursor", "next-page-cursor"
+
+	j_toarr rootp, "result.resources"
+
+	in_pt = rootp
+	gosub *send
+
+	_log jt
+
+	jsondelobj rootp
+	return
+
+*res_resource
+	jsonnewobj rootp
+	j_setstr rootp, "jsonrpc", "2.0"
+	if vartype(mcp_id) == 2 { // 文字列型
+		j_setstr rootp, "id", mcp_id
+	} else {
+		j_setd rootp, "id", mcp_id
+	}
+	j_setb rootp, "result.isError", 0
+
+	j_setstr rootp, "result.contents.0.uri", strf("%s://%s/%s.%s", protocol, host, mcp_base_name, ext)
+	j_setstr rootp, "result.contents.0.name", strf("%s.%s", mcp_base_name, ext)
+	j_setstr rootp, "result.contents.0.title", strf("%s help file", mcp_base_name)
+	j_setstr rootp, "result.contents.0.mimeType", "text/plain"
+
+	if mcp_blob != "" {
+		j_setstr rootp, "result.contents.0.blob", mcp_blob
+	} else {
+		j_setstr rootp, "result.contents.0.text", mcp_text
+	}
+
+	j_toarr rootp, "result.contents"
+	in_pt = rootp
+	gosub *send
+
+	_log jt
+
+	jsondelobj rootp
+	return

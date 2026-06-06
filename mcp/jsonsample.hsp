@@ -1,0 +1,12 @@
+#include "hspinet.as"
+
+	jsonnewobj rootp
+	jsonnewobj p, rootp, "foo"
+
+	// ‚¾‚ß‚¾‚Á‚½;; ‚ß‚ñ‚Ç‚¢‚í
+	jsonputs p, "", "corge"
+	
+	jsonout jt, rootp
+	mes jt
+	stop
+

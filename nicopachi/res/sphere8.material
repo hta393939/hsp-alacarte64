@@ -1,0 +1,31 @@
+
+material mtl00000 {
+  u_ambientColor = 0.1, 0.1, 0.1
+  u_cameraPosition = CAMERA_WORLD_POSITION
+  u_diffuseColor = 1.0, 1.0, 1.0, 1.0
+  u_inverseTransposeWorldViewMatrix = INVERSE_TRANSPOSE_WORLD_VIEW_MATRIX
+  u_specularExponent = 20
+
+  sampler u_matcap {
+    mipmap = true
+    wrapS = CLAMP
+    wrapT = CLAMP
+    minFilter = LINEAR_MIPMAP_LINEAR
+    magFilter = LINEAR
+    path = res/matcap22.png
+  }
+
+  renderState {
+    cullFace = true
+    depthTest = true
+  }
+  technique {
+    pass {
+      defines = SPECULAR;DIRECTIONAL_LIGHT_COUNT 1
+      vertexShader = res/shaders/pachi.vert
+      fragmentShader = res/shaders/pachi.frag
+    }
+  }
+}
+
+
