@@ -5,18 +5,18 @@
 	LATE = GPDRAW_OPT_DRAWSCENE_LATE | GPDRAW_OPT_DRAW2D_LATE
 
 	;
-	;	©•ª‚Ìƒ‚ƒfƒ‹‚ªˆÚ“®‚µ‚½Û‚ÌÕ“Ë‚ğ—\‘z‚·‚é(gppsweeptest–½—ßƒeƒXƒg)
-	;	ƒJ[ƒ\ƒ‹ƒL[‚Å” ‚ğ“®‚©‚·‚Æ³–Ê‚ÌÕ“ËˆÊ’u‚ÉƒGƒtƒFƒNƒg‚ªo‚Ü‚·
+	;	è‡ªåˆ†ã®ãƒ¢ãƒ‡ãƒ«ãŒç§»å‹•ã—ãŸéš›ã®è¡çªã‚’äºˆæƒ³ã™ã‚‹(gppsweeptestå‘½ä»¤ãƒ†ã‚¹ãƒˆ)
+	;	ã‚«ãƒ¼ã‚½ãƒ«ã‚­ãƒ¼ã§ç®±ã‚’å‹•ã‹ã™ã¨æ­£é¢ã®è¡çªä½ç½®ã«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒå‡ºã¾ã™
 	;
 	randomize
 	title "HGIMG4 Test"
-	wx=ginfo_sx:wy=ginfo_sy			; •`‰æƒGƒŠƒA‚ÌƒTƒCƒY
+	wx=ginfo_sx:wy=ginfo_sy			; æç”»ã‚¨ãƒªã‚¢ã®ã‚µã‚¤ã‚º
 
-	;	3Dƒ‚ƒfƒ‹‚ğ¶¬
-	//gpfloor id_floor, 400,400, $008080	; °ƒm[ƒh‚ğ’Ç‰Á
+	;	3Dãƒ¢ãƒ‡ãƒ«ã‚’ç”Ÿæˆ
+	//gpfloor id_floor, 400,400, $008080	; åºŠãƒãƒ¼ãƒ‰ã‚’è¿½åŠ 
 	//gppbind id_floor, 0
 
-	// °
+	// åºŠ
 	gpbox yukaid, 2, 0x009900
 	setpos yukaid, 0, -20, 0
 	setscale yukaid, 20, 20, 20
@@ -27,7 +27,7 @@
 	max=16
 	x=-8
 	repeat max
-	gpbox id_model, 1, $808080		; ” ƒm[ƒh‚ğ¶¬‚·‚é
+	gpbox id_model, 1, $808080		; ç®±ãƒãƒ¼ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹
 	setscale id_model, 1,2,0.2
 	z=rnd(8)-8
 	setpos id_model, x,0.5,z
@@ -37,9 +37,9 @@
 	loop
 */
 
-	;	ƒCƒxƒ“ƒgƒŠƒXƒg‚ğ“o˜^
+	;	ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒˆã‚’ç™»éŒ²
 	;
-	newevent ev1			; V‚µ‚¢ƒCƒxƒ“ƒgID‚ğæ“¾
+	newevent ev1			; æ–°ã—ã„ã‚¤ãƒ™ãƒ³ãƒˆIDã‚’å–å¾—
 	event_setdir ev1, -0.05,-0.05,-0.05, 0.05,0.05,0.05
 	event_adddir ev1
 	event_fade ev1, -8
@@ -57,7 +57,7 @@
 	//setscale tamaid, 0.1, 0.1, 0.1
 
 
-	// ƒJ[ƒu‚Ì”z’u
+	// ã‚«ãƒ¼ãƒ–ã®é…ç½®
 	gpload curveid, "res/curve1"
 	repeat 10
 		i = cnt
@@ -80,11 +80,11 @@
 	setscale id_my, 2,1,3
 	//gpload id_my, "res/foo"
 
-	//gpload id_my, "res/waldo" // ’êíœ
+	//gpload id_my, "res/waldo" // åº•å‰Šé™¤
 	//gpload id_my, "res/quux"
-	//gpload id_my, "res/garply" // æ‚ê‚é
-	//gpload id_my, "res/baz" // æ‚ê‚È‚¢
-	//gpload id_my, "res/duck" // æ‚ê‚é
+	//gpload id_my, "res/garply" // å–ã‚Œã‚‹
+	//gpload id_my, "res/baz" // å–ã‚Œãªã„
+	//gpload id_my, "res/duck" // å–ã‚Œã‚‹
 	if id_my < 0 {
 		gpgetlog logstr
 		dialog logstr, 1
@@ -94,13 +94,13 @@
 
 	
 	setpos id_my,px,3,pz
-	//setangy id_my, 0,0, M_PI // — •Ô‚µ
+	//setangy id_my, 0,0, M_PI // è£è¿”ã—
 	
 	mass = 1
 	fric = 0.0
 	opt = GPPBIND_MESH
 	//opt = 0
-	gppbind id_my, mass, fric, opt		; •¨—İ’è‚ğs‚È‚¤
+	gppbind id_my, mass, fric, opt		; ç‰©ç†è¨­å®šã‚’è¡Œãªã†
 	gppset id_my, GPPSET_DAMPING, 0.0, 0.0
 	gppset id_my, GPPSET_FRICTION, 1.0, 0.02
 	gppset id_my, GPPSET_GRAVITY, 0, -9.8, 0
@@ -111,8 +111,8 @@
 	gpusecamera camid
 	//camid = GPOBJ_CAMERA
 
-	//setpos GPOBJ_CAMERA, 0,5,12		; ƒJƒƒ‰ˆÊ’u‚ğİ’è
-	//gplookat GPOBJ_CAMERA, 0,0,0	; ƒJƒƒ‰‚©‚çw’è‚µ‚½À•W‚ğŒ©‚é
+	//setpos GPOBJ_CAMERA, 0,5,12		; ã‚«ãƒ¡ãƒ©ä½ç½®ã‚’è¨­å®š
+	//gplookat GPOBJ_CAMERA, 0,0,0	; ã‚«ãƒ¡ãƒ©ã‹ã‚‰æŒ‡å®šã—ãŸåº§æ¨™ã‚’è¦‹ã‚‹
 
 *main
 	getreq fps, SYSREQ_FPS
@@ -126,25 +126,25 @@
 	
 	stick key,15+256
 	if key&128 : end
-	;	ƒJ[ƒ\ƒ‹ƒL[‚Å” ‚ğ“®‚©‚·
+	;	ã‚«ãƒ¼ã‚½ãƒ«ã‚­ãƒ¼ã§ç®±ã‚’å‹•ã‹ã™
 	rate = 0.4
-	// ¶
+	// å·¦
 	if key&1 {
 		/*
-		// ‚¤‚Ü‚­‰ñ‚ç‚È‚¢
+		// ã†ã¾ãå›ã‚‰ãªã„
 		setwork id_my, -1.0, 0.0, 0.0
 		gppapply id_my,GPPAPPLY_IMPULSE_POS, zdir(0) * rate, zdir(1) * rate, zdir(2) * rate
 		setwork id_my,  1.0, 0.0, 0.0
 		gppapply id_my,GPPAPPLY_IMPULSE_POS, -zdir(0) * rate, -zdir(1) * rate, -zdir(2) * rate
 */
 
-		// ‰ñ‚é
+		// å›ã‚‹
 		setwork id_my, -1.0, 0.0, 0.0
 		gppapply id_my,GPPAPPLY_IMPULSE_POS, 0.0, 0.0 * rate, rate
 		setwork id_my,  1.0, 0.0, 0.0
 		gppapply id_my,GPPAPPLY_IMPULSE_POS, 0.0, 0.0 * rate, -rate
 	}
-	// ‰E
+	// å³
 	if key&4 {
 		setwork id_my, 1.0, 0.0, 0.0
 		gppapply id_my,GPPAPPLY_IMPULSE_POS, rate, rate * 0.0, rate
@@ -152,7 +152,7 @@
 		gppapply id_my,GPPAPPLY_IMPULSE_POS, -rate, -rate * 0.0, -rate
 	}
 	if key&8 : gppapply id_my,GPPAPPLY_IMPULSE, -zdir(0) * rate, -zdir(1) * rate, -zdir(2) * rate
-	// ã
+	// ä¸Š
 	if key&2 : gppapply id_my,GPPAPPLY_IMPULSE, zdir(0) * rate, zdir(1) * rate, zdir(2) * rate
 
 	getpos id_my,dx,dy,dz
@@ -162,8 +162,8 @@
 	if hitres>0 {
 		setcolor hitres, 255,0,0
 		getwork id_my,dx,dy,dz
-		gpplate id, 1,1,-1,id_ptex		; ”Âƒm[ƒh‚ğ’Ç‰Á
-		setobjmode id, OBJ_MOVE			; ©“®ˆÚ“®‚ğİ’è‚·‚é
+		gpplate id, 1,1,-1,id_ptex		; æ¿ãƒãƒ¼ãƒ‰ã‚’è¿½åŠ 
+		setobjmode id, OBJ_MOVE			; è‡ªå‹•ç§»å‹•ã‚’è¨­å®šã™ã‚‹
 		setpos id,dx,dy,dz
 		setevent id, ev1
 	} */
@@ -181,7 +181,7 @@
 
 	gpnodeinfo nname, id_my, GPNODEINFO_NAME
 	gpnodeinfo ch1, id_my, GPNODEINFO_CHILD, nname
-	// objRoot, node0 ‚¾‚Á‚½
+	// objRoot, node0 ã ã£ãŸ
 
 	gpnodeinfo ch1id, id_my, GPNODEINFO_NODE, ch1
 	gpnodeinfo ch2, ch1id, GPNODEINFO_SIBLING
