@@ -8,7 +8,7 @@
 #const WAIT_OBJECT_0 0
 #const WAIT_TIMEOUT 0x102
 
-	title "dbgview ‘ã‘Ö"
+	title "dbgview ä»£æ›¿"
 
 	sdim lines, 512, 24
 	dim blacklist, 16
@@ -16,7 +16,7 @@
 	pidstr = 12345
 	input pidstr, 64, 32
 	pos 64,0
-	button gosub "’Ç‰Á", *add
+	button gosub "è¿½åŠ ", *add
 
 	onexit *onend
 
@@ -27,10 +27,10 @@
 		stop
 	}
 
-	// ó‚¯æ‚è‘¤(‚±‚ê)‚ª€”õ‚Å‚«‚½‚Æ‚«‚ÌƒCƒxƒ“ƒg
+	// å—ã‘å–ã‚Šå´(ã“ã‚Œ)ãŒæº–å‚™ã§ããŸã¨ãã®ã‚¤ãƒ™ãƒ³ãƒˆ
 	CreateEvent NULL, TRUE, FALSE, "DBWIN_BUFFER_READY"
 	evbuf = stat
-	// ‘‚«‚İ‘¤‚ª”­‰Î‚·‚éƒCƒxƒ“ƒg
+	// æ›¸ãè¾¼ã¿å´ãŒç™ºç«ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 	CreateEvent NULL, FALSE, FALSE, "DBWIN_DATA_READY"
 	evdata = stat
 
