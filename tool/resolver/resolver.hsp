@@ -1,0 +1,174 @@
+// resolve #include
+
+#include "shell32.as"
+
+#define MEGA (1024 * 1024)
+#define MARK1 "#include"
+#define MARK2 "#addition"
+#define EXC1 "hsp3dish.as"
+#define EXC2 "hgimg4.as"
+// \n only
+#define LINEEND "\n"
+
+#module
+#defcfunc _dqtrim str intext, local s, local n, local c, local i, local offset
+	sdim s, 4096
+	s = intext
+	offset = 0
+	repeat 2
+		i = cnt
+		n = strlen(s)
+		repeat n
+			if i == 0 {
+				offset = n - 1 - cnt
+			} else {
+				offset = cnt
+			}
+			c = peek(s, offset)
+			if c == 0x22 { // double quote
+				if i == 0 {
+					poke s, offset, 0x00
+				} else {
+					s = strmid(s, offset + 1, 4096)
+				}
+				break
+			}
+		loop
+	loop
+	return s
+#global
+
+    sdim note, 4 * MEGA
+    sdim linebuf, 4096
+    common_dir = dirinfo(1) + "\\common"
+// UI
+	screen 0, 640, 360, 0
+	title "resolver"
+#define WM_DROPFILES    0x0233
+	oncmd gosub *OnDropFiles, WM_DROPFILES
+	DragAcceptFiles hwnd, 1
+
+	sdim text, 4096
+    text = ""
+	input text, 560, 32, 4000
+	objid = stat
+
+	pos 560, 0
+	objsize 80, 32
+	button gosub "ref", *ref
+	objsize 80, 48
+	button gosub "convert", *resolve
+	pos 0, 32
+	stop
+
+
+*ref
+	dialog "hsp",16,"entry source"
+	if stat == 1 {
+		objprm objid, refstr
+	}
+	return
+
+*OnDropFiles
+	hdrop = wParam
+	DragQueryFile hdrop, -1, 0, 0
+	ndrop = stat
+
+	sdim filename, 4096
+	repeat ndrop
+		DragQueryFile hdrop, cnt, varptr(filename), 4000
+	loop
+	DragFinish hdrop
+
+	objprm objid, filename
+	return
+
+*resolve
+	_target_file = text
+    same_dir = getpath(_target_file, 32)
+	process_file = getpath(_target_file, 1) + "_.hsp"
+
+	exist _target_file
+	bytenum = strsize
+	if bytenum < 0 {
+		title "Not found, " + _target_file
+		return
+	}
+	sdim fullbuf, bytenum + 16
+	bload _target_file, fullbuf, bytenum
+	bsave process_file, fullbuf, bytenum
+
+	color 255,255,255
+	boxf 0,0, 640, 480
+	color 0,0,0
+	pos 0, 32
+    repeat 10
+    	mes "depth, " + cnt
+    	wait 1
+        gosub *replace
+        if _out == 0 {
+	        break
+	    }
+    loop
+    title "end"
+    return
+
+*replace
+	_out = 0
+    notesel note
+    noteload process_file
+    sdim dst, 4 * MEGA
+    // line num
+    n = noteinfo(0)
+    title "" + n + ", line..."
+    repeat n
+        noteget linebuf, cnt
+        flag = 0
+        if instr(linebuf,0,MARK1) == 0 {
+	        flag = 1
+	    } else {
+		    if instr(linebuf,0,MARK2) == 0 {
+			    flag = 1
+			}
+		}
+        if flag {
+			// trim hsp3dish.as from linebuf
+			name = _dqtrim(linebuf)
+
+			if name == EXC1 {
+				flag = 0
+			}
+			if name == EXC2 {
+				flag = 0
+			}
+		}
+		if flag {
+			_out += 1
+
+			// search same dir
+			name1 = same_dir + "\\" + name
+			exist name1
+			bytenum = strsize
+			if bytenum <= 0 {     
+				// search common
+		        name1 = common_dir + "\\" + name
+		        exist name1
+		        bytenum = strsize
+		    }
+		    if bytenum < 0 {
+			    continue
+			}
+			mes "" + bytenum
+		    
+			sdim fullbuf, bytenum + 16
+			bload name1, fullbuf, bytenum
+			dst += LINEEND + fullbuf + LINEEND
+        } else {
+	        dst += linebuf + LINEEND
+	    }
+	    await 1
+    loop
+	if _out > 0 { // overwrite
+		bsave process_file, dst, strlen(dst)
+	}
+    return
