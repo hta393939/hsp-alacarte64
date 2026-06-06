@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <title>ccc30_ - HSP3Dish</title>
+    <style>
+      body {
+        font-family: arial;
+        margin: 0;
+        padding: 0;
+      }
+
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+      div.emscripten { text-align: center; }      
+      div.emscripten_border { border: 1px solid black; }
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten { border: 0px none; }
+
+      #emscripten_logo {
+        display: inline-block;
+        margin: 0;
+      }
+
+      .spinner {
+        height: 30px;
+        width: 30px;
+        margin: 0;
+        margin-top: 20px;
+        margin-left: 20px;
+        display: inline-block;
+        vertical-align: top;
+
+        -webkit-animation: rotation .8s linear infinite;
+        -moz-animation: rotation .8s linear infinite;
+        -o-animation: rotation .8s linear infinite;
+        animation: rotation 0.8s linear infinite;
+
+        border-left: 5px solid rgb(0, 0, 0);
+        border-right: 5px solid rgb(0, 0, 0);
+        border-bottom: 5px solid rgb(0, 0, 0);
+        border-top: 5px solid rgb(0, 0, 0);
+        
+        border-radius: 100%;
+        background-color: rgb(189, 215, 46);
+      }
+
+      @-webkit-keyframes rotation {
+        from {-webkit-transform: rotate(0deg);}
+        to {-webkit-transform: rotate(360deg);}
+      }
+      @-moz-keyframes rotation {
+        from {-moz-transform: rotate(0deg);}
+        to {-moz-transform: rotate(360deg);}
+      }
+      @-o-keyframes rotation {
+        from {-o-transform: rotate(0deg);}
+        to {-o-transform: rotate(360deg);}
+      }
+      @keyframes rotation {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(360deg);}
+      }
+
+      #status {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-left: 20px;
+        font-weight: bold;
+        color: rgb(120, 120, 120);
+      }
+
+      #progress {
+        height: 20px;
+        width: 30px;
+      }
+
+      #controls {
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-right: 20px;
+      }
+
+      #output {
+        width: 100%;
+        height: 64px;
+        margin: 0 auto;
+        margin-top: 10px;
+        display: block;
+        background-color: black;
+        color: rgb(120, 120, 120);
+        font-family: 'Lucida Console', Monaco, monospace;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spinner" id='spinner'></div>
+    <div class="emscripten" id="status">Downloading...</div>
+
+    <div class="emscripten">
+      <progress value="0" max="100" id="progress" hidden></progress>
+    </div>
+
+    
+    <div class="emscripten_border">
+      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    </div>
+<!--
+    <textarea id="output" rows="8"></textarea>
+-->
+
+    <script type='text/javascript'>
+      var statusElement = document.getElementById('status');
+      var progressElement = document.getElementById('progress');
+      var spinnerElement = document.getElementById('spinner');
+      var sensor_button = 0;
+
+      var Module = {
+        INITIAL_MEMORY: 209715200,
+        preRun: [],
+        postRun: [],
+        print: (function() {
+          var element = document.getElementById('output');
+          if (element) element.value = ''; // clear browser cache
+          return function(text) {
+            text = Array.prototype.slice.call(arguments).join(' ');
+            // These replacements are necessary if you render to raw HTML
+            //text = text.replace(/&/g, "&amp;");
+            //text = text.replace(/</g, "&lt;");
+            //text = text.replace(/>/g, "&gt;");
+            //text = text.replace('\n', '<br>', 'g');
+            console.log(text);
+            if (element) {
+              element.value += text + "\n";
+              element.scrollTop = element.scrollHeight; // focus on bottom
+            }
+          };
+        })(),
+        printErr: function(text) {
+          text = Array.prototype.slice.call(arguments).join(' ');
+          if (0) { // XXX disabled for safety typeof dump == 'function') {
+            dump(text + '\n'); // fast, straight to the real console
+          } else {
+            console.error(text);
+          }
+        },
+        canvas: document.getElementById('canvas'),
+        setStatus: function(text) {
+          if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+          if (text === Module.setStatus.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+          var now = Date.now();
+          if (m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
+          if (m) {
+            text = m[1];
+            progressElement.value = parseInt(m[2])*100;
+            progressElement.max = parseInt(m[4])*100;
+            progressElement.hidden = false;
+            spinnerElement.hidden = false;
+          } else {
+            progressElement.value = null;
+            progressElement.max = null;
+            progressElement.hidden = true;
+            if (!text) spinnerElement.style.display = 'none';
+          }
+          statusElement.innerHTML = text;
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        },
+        arguments: ["ccc30_.ax"]
+      };
+      Module.setStatus('Downloading...');
+
+/* block.js */
+
+var Module;
+if (typeof Module === 'undefined') Module = eval('(function() { try { return Module || {} } catch(e) { return {} } })()');
+if (!Module.expectedDataFileDownloads) {
+  Module.expectedDataFileDownloads = 0;
+  Module.finishedDataFileDownloads = 0;
+}
+Module.expectedDataFileDownloads++;
+(function() {
+
+    var PACKAGE_PATH;
+    if (typeof window === 'object') {
+      PACKAGE_PATH = window['encodeURIComponent'](window.location.pathname.toString().substring(0, window.location.pathname.toString().lastIndexOf('/')) + '/');
+    } else {
+      // worker
+      PACKAGE_PATH = encodeURIComponent(location.pathname.toString().substring(0, location.pathname.toString().lastIndexOf('/')) + '/');
+    }
+    var PACKAGE_NAME = 'ccc30_.data';
+    var REMOTE_PACKAGE_NAME = (Module['filePackagePrefixURL'] || '') + 'ccc30_.data';
+    var REMOTE_PACKAGE_SIZE = 225513;
+    var PACKAGE_UUID = '51f84d03-0c74-4552-ac13-924e79e76977';
+  
+    function fetchRemotePackage(packageName, packageSize, callback, errback) {
+      var xhr = new XMLHttpRequest();
+      // NOTE: gzip file
+      let _filetype = 'compress';
+      _filetype = '';
+      let _pathname = packageName;
+      if (_filetype === 'compress') {
+        _pathname += '.data';
+      }
+      xhr.open('GET', _pathname, true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onprogress = function(event) {
+        var url = packageName;
+        var size = packageSize;
+        if (event.total) size = event.total;
+        if (event.loaded) {
+          if (!xhr.addedTotal) {
+            xhr.addedTotal = true;
+            if (!Module.dataFileDownloads) Module.dataFileDownloads = {};
+            Module.dataFileDownloads[url] = {
+              loaded: event.loaded,
+              total: size
+            };
+          } else {
+            Module.dataFileDownloads[url].loaded = event.loaded;
+          }
+          var total = 0;
+          var loaded = 0;
+          var num = 0;
+          for (var download in Module.dataFileDownloads) {
+          var data = Module.dataFileDownloads[download];
+            total += data.total;
+            loaded += data.loaded;
+            num++;
+          }
+          total = Math.ceil(total * Module.expectedDataFileDownloads/num);
+          if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + total + ')');
+        } else if (!Module.dataFileDownloads) {
+          if (Module['setStatus']) Module['setStatus']('Downloading data...');
+        }
+      };
+      xhr.onload = async function(event) {
+        var packageData = xhr.response;
+        if (_filetype === 'compress') {
+          const ds = new DecompressionStream('gzip');
+          const ab = packageData;
+          const stream = new Blob([ab]).stream().pipeThrough(ds);
+          const conv = await new Response(stream).arrayBuffer();
+          console.log('uncompressed', conv.byteLength, xhr.responseURL);
+          packageData = conv;
+        }
+
+        callback(packageData);
+      };
+      xhr.onerror = function(ev) {
+        console.log('xhr error fire', ev);
+      };
+      xhr.send(null);
+    };
+
+    function handleError(error) {
+      console.error('package error:', error);
+    };
+  
+      var fetched = null, fetchedCallback = null;
+      fetchRemotePackage(REMOTE_PACKAGE_NAME, REMOTE_PACKAGE_SIZE, function(data) {
+        if (fetchedCallback) {
+          fetchedCallback(data);
+          fetchedCallback = null;
+        } else {
+          fetched = data;
+        }
+      }, handleError);
+    
+  function runWithFS() {
+
+function assert(check, msg) {
+  if (!check) throw msg + new Error().stack;
+}
+
+Module['FS_createPath']('/', 'res', true, true);
+Module['FS_createPath']('/res', 'shaders', true, true);
+
+
+    function DataRequest(start, end, crunched, audio) {
+      this.start = start;
+      this.end = end;
+      this.crunched = crunched;
+      this.audio = audio;
+    }
+    DataRequest.prototype = {
+      requests: {},
+      open: function(mode, name) {
+        this.name = name;
+        this.requests[name] = this;
+        Module['addRunDependency']('fp ' + this.name);
+      },
+      send: function() {},
+      onload: function() {
+        var byteArray = this.byteArray.subarray(this.start, this.end);
+
+          this.finish(byteArray);
+
+      },
+      finish: function(byteArray) {
+        var that = this;
+        Module['FS_createPreloadedFile'](this.name, null, byteArray, true, true, function() {
+          Module['removeRunDependency']('fp ' + that.name);
+        }, function() {
+          if (that.audio) {
+            Module['removeRunDependency']('fp ' + that.name); // workaround for chromium bug 124926 (still no audio with this, but at least we don't hang)
+          } else {
+            Module.printErr('Preloading file ' + that.name + ' failed');
+          }
+        }, false, true); // canOwn this data in the filesystem, it is a slide into the heap that will never change
+        this.requests[this.name] = null;
+      },
+    };
+
+      new DataRequest(0, 18819, 0, 0).open('GET', 'ccc30_.ax');
+      new DataRequest(18819, 19338, 0, 0).open('GET', 'res/axis.gpb');
+      new DataRequest(19338, 20125, 0, 0).open('GET', 'res/axis.material');
+      new DataRequest(20125, 153540, 0, 0).open('GET', 'res/font.gpb');
+      new DataRequest(153540, 156684, 0, 0).open('GET', 'res/grid.gpb');
+      new DataRequest(156684, 157235, 0, 0).open('GET', 'res/grid.material');
+      new DataRequest(157235, 157344, 0, 0).open('GET', 'res/s001.txt');
+      new DataRequest(157344, 157492, 0, 0).open('GET', 'res/s002.txt');
+      new DataRequest(157492, 157650, 0, 0).open('GET', 'res/s003.txt');
+      new DataRequest(157650, 157759, 0, 0).open('GET', 'res/s004.txt');
+      new DataRequest(157759, 157949, 0, 0).open('GET', 'res/s005.txt');
+      new DataRequest(157949, 158053, 0, 0).open('GET', 'res/s006.txt');
+      new DataRequest(158053, 158174, 0, 0).open('GET', 'res/s007.txt');
+      new DataRequest(158174, 158650, 0, 0).open('GET', 'res/s008.txt');
+      new DataRequest(158650, 158766, 0, 0).open('GET', 'res/s009.txt');
+      new DataRequest(158766, 158971, 0, 0).open('GET', 'res/s010.txt');
+      new DataRequest(158971, 159155, 0, 0).open('GET', 'res/s011.txt');
+      new DataRequest(159155, 161109, 0, 0).open('GET', 'res/s012.txt');
+      new DataRequest(161109, 161225, 0, 0).open('GET', 'res/s013.txt');
+      new DataRequest(161225, 161438, 0, 0).open('GET', 'res/s014.txt');
+      new DataRequest(161438, 161922, 0, 0).open('GET', 'res/s015.txt');
+      new DataRequest(161922, 162050, 0, 0).open('GET', 'res/s016.txt');
+      new DataRequest(162050, 162901, 0, 0).open('GET', 'res/s017.txt');
+      new DataRequest(162901, 163134, 0, 0).open('GET', 'res/s018.txt');
+      new DataRequest(163134, 163340, 0, 0).open('GET', 'res/s019.txt');
+      new DataRequest(163340, 163751, 0, 0).open('GET', 'res/s020.txt');
+      new DataRequest(163751, 163920, 0, 0).open('GET', 'res/s021.txt');
+      new DataRequest(163920, 164143, 0, 0).open('GET', 'res/s022.txt');
+      new DataRequest(164143, 164342, 0, 0).open('GET', 'res/s023.txt');
+      new DataRequest(164342, 164626, 0, 0).open('GET', 'res/s024.txt');
+      new DataRequest(164626, 164887, 0, 0).open('GET', 'res/s025.txt');
+      new DataRequest(164887, 165121, 0, 0).open('GET', 'res/s026.txt');
+      new DataRequest(165121, 165320, 0, 0).open('GET', 'res/s027.txt');
+      new DataRequest(165320, 165501, 0, 0).open('GET', 'res/s028.txt');
+      new DataRequest(165501, 166810, 0, 0).open('GET', 'res/s029.txt');
+      new DataRequest(166810, 167192, 0, 0).open('GET', 'res/s030.txt');
+      new DataRequest(167192, 167933, 0, 0).open('GET', 'res/s031.txt');
+      new DataRequest(167933, 168395, 0, 0).open('GET', 'res/s032.txt');
+      new DataRequest(168395, 169001, 0, 0).open('GET', 'res/s033.txt');
+      new DataRequest(169001, 169365, 0, 0).open('GET', 'res/s034.txt');
+      new DataRequest(169365, 169903, 0, 0).open('GET', 'res/s035.txt');
+      new DataRequest(169903, 170799, 0, 0).open('GET', 'res/s036.txt');
+      new DataRequest(170799, 171304, 0, 0).open('GET', 'res/s037.txt');
+      new DataRequest(171304, 172064, 0, 0).open('GET', 'res/s038.txt');
+      new DataRequest(172064, 172824, 0, 0).open('GET', 'res/s039.txt');
+      new DataRequest(172824, 173253, 0, 0).open('GET', 'res/s040.txt');
+      new DataRequest(173253, 173424, 0, 0).open('GET', 'res/s041.txt');
+      new DataRequest(173424, 173869, 0, 0).open('GET', 'res/s042.txt');
+      new DataRequest(173869, 174348, 0, 0).open('GET', 'res/s043.txt');
+      new DataRequest(174348, 174658, 0, 0).open('GET', 'res/s044.txt');
+      new DataRequest(174658, 176611, 0, 0).open('GET', 'res/s045.txt');
+      new DataRequest(176611, 179448, 0, 0).open('GET', 'res/s046.txt');
+      new DataRequest(179448, 180930, 0, 0).open('GET', 'res/s047.txt');
+      new DataRequest(180930, 181145, 0, 0).open('GET', 'res/s048.txt');
+      new DataRequest(181145, 181313, 0, 0).open('GET', 'res/s049.txt');
+      new DataRequest(181313, 181860, 0, 0).open('GET', 'res/s050.txt');
+      new DataRequest(181860, 184501, 0, 0).open('GET', 'res/vpad.png');
+      new DataRequest(184501, 185604, 0, 0).open('GET', 'res/wirebox.gpb');
+      new DataRequest(185604, 186160, 0, 0).open('GET', 'res/wirebox.material');
+      new DataRequest(186160, 189176, 0, 0).open('GET', 'res/shaders/colored.frag');
+      new DataRequest(189176, 192336, 0, 0).open('GET', 'res/shaders/colored.vert');
+      new DataRequest(192336, 193201, 0, 0).open('GET', 'res/shaders/font.frag');
+      new DataRequest(193201, 193710, 0, 0).open('GET', 'res/shaders/font.vert');
+      new DataRequest(193710, 197001, 0, 0).open('GET', 'res/shaders/lighting.frag');
+      new DataRequest(197001, 199297, 0, 0).open('GET', 'res/shaders/lighting.vert');
+      new DataRequest(199297, 200507, 0, 0).open('GET', 'res/shaders/simpletex.frag');
+      new DataRequest(200507, 201540, 0, 0).open('GET', 'res/shaders/simpletex.vert');
+      new DataRequest(201540, 201782, 0, 0).open('GET', 'res/shaders/skinning-none.vert');
+      new DataRequest(201782, 204153, 0, 0).open('GET', 'res/shaders/skinning.vert');
+      new DataRequest(204153, 205415, 0, 0).open('GET', 'res/shaders/skybox.frag');
+      new DataRequest(205415, 206641, 0, 0).open('GET', 'res/shaders/skybox.vert');
+      new DataRequest(206641, 207086, 0, 0).open('GET', 'res/shaders/sprite.frag');
+      new DataRequest(207086, 207594, 0, 0).open('GET', 'res/shaders/sprite.vert');
+      new DataRequest(207594, 207832, 0, 0).open('GET', 'res/shaders/spritecol.frag');
+      new DataRequest(207832, 208079, 0, 0).open('GET', 'res/shaders/spritecol.vert');
+      new DataRequest(208079, 211937, 0, 0).open('GET', 'res/shaders/terrain.frag');
+      new DataRequest(211937, 214533, 0, 0).open('GET', 'res/shaders/terrain.vert');
+      new DataRequest(214533, 217947, 0, 0).open('GET', 'res/shaders/textured.frag');
+      new DataRequest(217947, 222113, 0, 0).open('GET', 'res/shaders/textured.vert');
+      new DataRequest(222113, 225513, 0, 0).open('GET', 'res/shaders/textured_gray.frag');
+
+
+    function processPackageData(arrayBuffer) {
+      Module.finishedDataFileDownloads++;
+      assert(arrayBuffer, 'Loading data file failed.');
+      var byteArray = new Uint8Array(arrayBuffer);
+      var curr;
+      
+      // copy the entire loaded file into a spot in the heap. Files will refer to slices in that. They cannot be freed though.
+      var ptr = Module['_malloc'](byteArray.length);
+      Module['HEAPU8'].set(byteArray, ptr);
+      DataRequest.prototype.byteArray = Module['HEAPU8'].subarray(ptr, ptr+byteArray.length);
+
+          DataRequest.prototype.requests["ccc30_.ax"].onload();
+          DataRequest.prototype.requests["res/axis.gpb"].onload();
+          DataRequest.prototype.requests["res/axis.material"].onload();
+          DataRequest.prototype.requests["res/font.gpb"].onload();
+          DataRequest.prototype.requests["res/grid.gpb"].onload();
+          DataRequest.prototype.requests["res/grid.material"].onload();
+          DataRequest.prototype.requests["res/s001.txt"].onload();
+          DataRequest.prototype.requests["res/s002.txt"].onload();
+          DataRequest.prototype.requests["res/s003.txt"].onload();
+          DataRequest.prototype.requests["res/s004.txt"].onload();
+          DataRequest.prototype.requests["res/s005.txt"].onload();
+          DataRequest.prototype.requests["res/s006.txt"].onload();
+          DataRequest.prototype.requests["res/s007.txt"].onload();
+          DataRequest.prototype.requests["res/s008.txt"].onload();
+          DataRequest.prototype.requests["res/s009.txt"].onload();
+          DataRequest.prototype.requests["res/s010.txt"].onload();
+          DataRequest.prototype.requests["res/s011.txt"].onload();
+          DataRequest.prototype.requests["res/s012.txt"].onload();
+          DataRequest.prototype.requests["res/s013.txt"].onload();
+          DataRequest.prototype.requests["res/s014.txt"].onload();
+          DataRequest.prototype.requests["res/s015.txt"].onload();
+          DataRequest.prototype.requests["res/s016.txt"].onload();
+          DataRequest.prototype.requests["res/s017.txt"].onload();
+          DataRequest.prototype.requests["res/s018.txt"].onload();
+          DataRequest.prototype.requests["res/s019.txt"].onload();
+          DataRequest.prototype.requests["res/s020.txt"].onload();
+          DataRequest.prototype.requests["res/s021.txt"].onload();
+          DataRequest.prototype.requests["res/s022.txt"].onload();
+          DataRequest.prototype.requests["res/s023.txt"].onload();
+          DataRequest.prototype.requests["res/s024.txt"].onload();
+          DataRequest.prototype.requests["res/s025.txt"].onload();
+          DataRequest.prototype.requests["res/s026.txt"].onload();
+          DataRequest.prototype.requests["res/s027.txt"].onload();
+          DataRequest.prototype.requests["res/s028.txt"].onload();
+          DataRequest.prototype.requests["res/s029.txt"].onload();
+          DataRequest.prototype.requests["res/s030.txt"].onload();
+          DataRequest.prototype.requests["res/s031.txt"].onload();
+          DataRequest.prototype.requests["res/s032.txt"].onload();
+          DataRequest.prototype.requests["res/s033.txt"].onload();
+          DataRequest.prototype.requests["res/s034.txt"].onload();
+          DataRequest.prototype.requests["res/s035.txt"].onload();
+          DataRequest.prototype.requests["res/s036.txt"].onload();
+          DataRequest.prototype.requests["res/s037.txt"].onload();
+          DataRequest.prototype.requests["res/s038.txt"].onload();
+          DataRequest.prototype.requests["res/s039.txt"].onload();
+          DataRequest.prototype.requests["res/s040.txt"].onload();
+          DataRequest.prototype.requests["res/s041.txt"].onload();
+          DataRequest.prototype.requests["res/s042.txt"].onload();
+          DataRequest.prototype.requests["res/s043.txt"].onload();
+          DataRequest.prototype.requests["res/s044.txt"].onload();
+          DataRequest.prototype.requests["res/s045.txt"].onload();
+          DataRequest.prototype.requests["res/s046.txt"].onload();
+          DataRequest.prototype.requests["res/s047.txt"].onload();
+          DataRequest.prototype.requests["res/s048.txt"].onload();
+          DataRequest.prototype.requests["res/s049.txt"].onload();
+          DataRequest.prototype.requests["res/s050.txt"].onload();
+          DataRequest.prototype.requests["res/vpad.png"].onload();
+          DataRequest.prototype.requests["res/wirebox.gpb"].onload();
+          DataRequest.prototype.requests["res/wirebox.material"].onload();
+          DataRequest.prototype.requests["res/shaders/colored.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/colored.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/font.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/font.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/lighting.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/lighting.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/simpletex.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/simpletex.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/skinning-none.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/skinning.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/skybox.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/skybox.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/sprite.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/sprite.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/spritecol.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/spritecol.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/terrain.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/terrain.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/textured.frag"].onload();
+          DataRequest.prototype.requests["res/shaders/textured.vert"].onload();
+          DataRequest.prototype.requests["res/shaders/textured_gray.frag"].onload();
+
+          Module['removeRunDependency']('datafile_ccc30_.data');
+
+    };
+    Module['addRunDependency']('datafile_ccc30_.data');
+  
+    if (!Module.preloadResults) Module.preloadResults = {};
+  
+      Module.preloadResults[PACKAGE_NAME] = {fromCache: false};
+      if (fetched) {
+        processPackageData(fetched);
+        fetched = null;
+      } else {
+        fetchedCallback = processPackageData;
+      }
+    
+        ENV.HSP_WX = "800";//スクリプトの動作解像度
+        ENV.HSP_WY = "600";
+        ENV.HSP_SX = "800";//表示解像度
+        ENV.HSP_SY = "600";
+        ENV.HSP_AUTOSCALE = "0";//スケーリングモード
+        ENV.HSP_FPS = "0";//フレームレート
+// NOTE: 
+        ENV.HSP_LIMIT_STEP = "30000";//ブラウザに処理を返すまでの実行ステップ数
+        ENV.HSP_SENSOR = String( sensor_button );//センサーを使用する
+
+  }
+  if (Module['calledRun']) {
+    runWithFS();
+  } else {
+    if (!Module['preRun']) Module['preRun'] = [];
+    Module["preRun"].push(runWithFS); // FS is not initialized yet, wait for it
+  }
+
+})();
+
+
+				var fixAudioContext = function (e) {
+console.log('sdl', Module["SDL"], Module["SDL2"]);
+					var context = Module["SDL2"]?.audioContext;
+					if (context) {
+						// Create empty buffer
+						var buffer = context.createBuffer(1, 1, 22050);
+						var source = context.createBufferSource();
+						source.buffer = buffer;
+						// Connect to output (speakers)
+						source.connect(context.destination);
+						// Play sound
+						if (source.start) {
+							source.start(0);
+						} else if (source.play) {
+							source.play(0);
+						} else if (source.noteOn) {
+							source.noteOn(0);
+						}
+						//const soundEffect = new Audio();
+						//soundEffect.play();
+					      console.log('audio unlock:');
+					}
+
+					var target = document;
+					//var target = document.getElementById('canvas');
+
+					// Remove events
+					target.removeEventListener('touchstart', fixAudioContext);
+					target.removeEventListener('touchend', fixAudioContext);
+					target.removeEventListener('mousedown', fixAudioContext);
+				};
+				var addpermission = function (e) {
+				    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+				        // (optional) Do something before API request prompt.
+				        DeviceMotionEvent.requestPermission()
+			            .then( response => {
+			          	  // (optional) Do something after API prompt dismissed.
+				            if ( response == "granted" ) {
+				                    // do something for 'e' here.
+				            }
+				        })
+			            .catch( console.error )
+				    }
+				    //target.removeEventListener("click", addpermission);
+				}
+
+				//var target = document.getElementById('canvas');
+				var target = document;
+				// iOS 6-8
+				target.addEventListener('touchstart', fixAudioContext);
+				// iOS 9
+				target.addEventListener('touchend', fixAudioContext);
+				target.addEventListener('mousedown', fixAudioContext);
+
+const btn_flg = document.getElementById('btn_flg');
+if (btn_flg) {
+				if ( sensor_button == 0 ) {
+					btn_flg.style.display = 'none';
+				} else {
+				    const btn_flg = document.getElementById('btn_flg'); //for iOS
+					if(window.DeviceMotionEvent){
+					 if(DeviceMotionEvent.requestPermission){
+					  btn_flg.addEventListener( "click", addpermission );
+					 }else{
+					  btn_flg.style.display = 'none';
+					 }
+					}
+				}
+}
+console.log('script end line');
+    </script>
+    <script async src="hsp3dishw-gp.js"></script>
+  </body>
+</html>

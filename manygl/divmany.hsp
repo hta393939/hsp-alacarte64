@@ -1,0 +1,533 @@
+#include "dotfw.as"
+
+	DEBUG = 1
+
+	_skiplb = *include_skip
+#include "../lib/input.hsp"
+#include "../lib/dotfwchar.hsp"
+*include_skip
+
+
+	_runos = sysinfo(0)
+	_isem = 0
+	if instr(_runos, 0, "Emscripten") == 0 {
+		_isem = 1
+	}
+	if _isem == 0 {
+		chdir "data"
+	}
+
+	gosub *preini
+
+	vpad = ""
+	_maxtouch = 1
+	if _maxtouch >= 1 {
+		vpad = "vpad"
+	}
+	df_config strf("ps1 Z200 %s", vpad) // 320x240
+	df_reset
+
+	title "kei's monster attack typeB 0.1.0"
+	_pxw = 320 // 画面ピクセル幅
+	_pxh = 240
+	_textw = _pxw / 8
+	_texth = _pxh / 8
+	gosub *appini
+
+	gosub *jsini
+
+	_mainlb = *titleframe
+	_dontmes = 0
+
+	goto _mainlb
+	
+*main
+	// key は dotfw でセットされる
+	if key&PLAYER_KEY_ESC : end		; [ESC]キーで終了
+
+	_noreact -= 1
+	if _noreact <= 1 {
+		_noreact = 1
+		hspvpad_set BUT_C@_vpad, PX_RESTORE@_vpad
+	}
+
+// 移動アニメ
+	df_getplayer
+	mysp = sp_player@HSP3MOD_DOTFW
+	px = _dotfw_myx
+	py = _dotfw_myy
+	// 左右振り
+	dim chnos, 4
+	chnos(0) = CHR_KEI_D, CHR_KEI_U, CHR_KEI_L, CHR_KEI_R
+	d = _dotfw_mydir
+	dir256 = d
+	dir4 = 0 // 下
+	if 32 <= d & d <= 96 {
+		dir4 = 3 // 右
+	} else {
+		if 96 < d & d < 160 {
+			dir4 = 1 // 上
+		} else {
+			if 160 <= d & d <= 224 {
+				// 左
+				dir4 = 2
+			}
+		}
+	}
+
+	isset = 1
+	chcand = chnos(dir4)
+	if key & MASK_MOVE {
+		es_get result, mysp, ESI_CHRNO
+		result = (result & 0x7ffffffc)
+		if result == chcand {
+			isset = 0
+		}
+	}
+	if isset {
+		es_chr mysp, chcand
+	}
+
+// 経験値の実際の上昇
+	i = _exppool
+	if i > 100 {
+		i = 100
+	}
+	_exppool -= i
+	_exp += i
+	if _exp >= _nextexp {
+		_level += 1
+		_nextexp += 100
+		//gosub *levelup
+	}
+
+// 自動発砲	
+	gosub *updatefire
+
+// ゲーム中表示
+	lx = 2
+	rx = _textw - 8
+
+	// fps カウント
+	getreq ts, SYSREQ_TIMER
+	if _prets > 0 {
+		diff = ts - _prets
+	}
+	_mseccount += diff
+	_prets = ts
+
+	restmsec = _endcount - _mseccount
+	_restsec = restmsec / 1000
+	if _restsec < 0 {
+		_restsec = 0
+	}
+	if restmsec <= 0 {
+		_gameovercount = _dotfw_fps * 10
+		gosub *totitle
+		// NOTE: 
+		_dontmes = 0
+		goto _mainlb
+	}
+
+	df_mes strf("SCORE:%3d          ", _score), lx,1
+	df_mes strf("TIME :%3d", _restsec), lx,2
+
+	df_mes strf("PAD:%2d  ", _padnum()), rx, 1
+	cursec = _mseccount / 1000
+	if cursec > _presec {
+		df_mes strf("FPS:%2d", _fpscount), rx,2
+
+		_presec = cursec
+		_fpscount = 0
+
+		// 敵の出現
+		if (cursec \ 30) == 0 {
+			gosub *emitene3
+		} else {
+		
+			if (cursec \ 5) == 0 {
+				gosub *emitene2
+			} else {
+				gosub *emitene1
+			}
+		}
+	} else {
+		_fpscount += 1
+	}
+	if DEBUG >= 1 {
+		df_mes strf("EXP: %d, NEXT: %d, LEVEL: %d", _exp, _nextexp, _level), lx,4
+		df_mes strf("ENE %3d", _dotfw_enemy), lx,5, 11
+		df_mes strf("PAD %08X", _padkey), lx,8, FONT_WHITE
+	}
+
+	df_update
+	_dontmes = 0
+	goto _mainlb
+
+*levelup
+	gosub *toselect
+	return
+
+
+//// プレイヤー弾
+
+*fire1
+	// デフォルト通常弾
+	chno = CHR_SHOOT_0 + 4
+	opt = 1
+	dir = DIR_LEFT
+	df_addpmis _x - 8, _y - 8, dir, 110 * 2, chno, opt
+	dir = DIR_RIGHT
+	df_addpmis _x - 8, _y - 8, dir, 110 * 2, chno, opt
+	return
+
+*fire2
+	// あんまり面白くない
+	chno = CHR_SHOOT_0 + 8
+	opt = 2
+	dir = dir256
+	df_addpmis _x - 8, _y - 8, dir - 8, 120 * 2, chno, opt
+	df_addpmis _x - 8, _y - 8, dir, 110 * 2, chno, opt
+	df_addpmis _x - 8, _y - 8, dir + 8, 120 * 2, chno, opt
+	return
+
+*fire3
+	return
+	chno = CHR_SHOOT_0 + 12
+	opt = 3
+	df_addpmis _x - 8 + mv * 8, _y - 8, dir, 100 * 3, chno, opt
+	return
+
+*fire4
+	return
+	chno = CHR_SHOOT_0 + 16
+	opt = 4
+	df_addpmis _x - 8 + mv * 8, _y - 8, dir, 100 * 2, chno, opt
+	return
+
+*fire5
+	return
+	chno = CHR_SHOOT_0 + 20
+	opt = 5
+	df_addpmis _x - 8 + mv * 8, _y - 8, dir, 100 * 2, chno, opt
+	return
+
+*fire6
+	return
+	chno = CHR_SHOOT_0 + 24
+	opt = 6
+	df_addpmis _x - 8 + mv * 8, _y - 8, dir, 100 * 2, chno, opt
+	return
+
+*fire7
+	return
+	dir = DIR_LEFT
+	chno = CHR_SHOOT_0 + 28
+	opt = 7
+	df_addpmis _x - 8 + mv * 8, _y - 8, dir, 100 * 2, chno, opt
+	return
+
+*fire8
+	return
+	dir = DIR_RIGHT
+	chno = CHR_SHOOT_0
+	opt = 8
+	df_addpmis _x - 8 + 8, _y - 8, dir, 100 * 2, chno, opt
+	return
+
+*updatefire
+	x = _dotfw_myx
+	y = _dotfw_myy
+	_x = x + 8
+	_y = y + 8
+	num = length(_firelbs)
+	repeat num
+		_firetimers(cnt) -= 1
+		if _firetimers(cnt) <= 0 {
+			_firetimers(cnt) = _firecools(cnt)
+			gosub _firelbs(cnt)
+		}
+	loop
+	return
+
+
+//// 敵の出現
+
+*emitene1
+	// スライム
+	shootrate = 0 // 発砲無し
+	chno = CHR_MON_0 + 16 * 4
+		//chno = CHR_MONSTER1 + rnd(4) * 2
+
+	frnext = 10
+	sp100 = 50
+	df_emode 14, chno, shootrate, frnext, sp100
+	x = 32
+	y = 32
+	if px < _mappxw / 2 {
+		x = _mappxw - 48
+	}
+	if py < _mappxh / 2 {
+		y = _mappxh - 48
+	}
+	df_addenemy x,y, DIR_RIGHT / 2, sp100, 0
+	spno = _dotfw_cursp
+	es_flag spno, ESSPFLAG_NOWIPE, 1 // 1: 追加
+	//es_aim spno, px + 8, py + 8, sp100
+
+	es_setlife spno, 5, 0 // ライフセット
+	return
+
+*emitene2
+	// 少し足速い敵
+	shootrate = 0
+	chno = CHR_MONSTER1 + rnd(1) * 2
+
+	frnext = 10
+	sp100 = 100
+	df_emode 14, chno, shootrate, frnext, sp100
+	x = 32
+	y = 32
+	if px < _mappxw / 2 {
+		x = _mappxw - 48
+	}
+	if py < _mappxh / 2 {
+		y = _mappxh - 48
+	}
+	df_addenemy x,y, DIR_DOWN, sp100, 0
+	spno = _dotfw_cursp
+	es_flag spno, ESSPFLAG_NOWIPE, 1 // 1: 追加
+	es_aim spno, px + 8, py + 8, sp100
+	return
+
+*emitene3
+	// 移動が遅く弾を撃つ敵
+	chno = CHR_MONSTER1 + 4 + rnd(1) * 2
+	shootrate = 5 // 発射確率%
+	frnext = 2
+	sp100 = 10
+	df_emode 14, chno, shootrate, frnext, sp100
+	x = 32
+	y = 32
+	if px < _mappxw / 2 {
+		x = _mappxw - 48
+	}
+	if py < _mappxh / 2 {
+		y = _mappxh - 48
+	}
+	df_addenemy x,y, DIR_DOWN, sp100, 0
+	spno = _dotfw_cursp
+	es_flag spno, ESSPFLAG_NOWIPE, 1 // 1: 追加
+	es_aim spno, px + 8, py + 8, sp100
+	return
+
+*emitene4
+	return
+
+*emitene5
+	return
+
+*emitene6
+	return
+
+*emitene7
+	return
+
+*emitene8
+	return
+
+*oneneframe
+	// 旧敵毎ターン処理
+	spno = _dotfw_cursp
+	x = _dotfw_myx
+	y = _dotfw_myy
+	sp100 = 25
+	es_aim spno, x,y, sp100
+	return
+
+*onenedest
+	opt = 123
+	df_emode ,,,,-1,,opt
+	x = _dotfw_cx
+	y = _dotfw_cy
+	chno = CHR_STONE4
+	// NOTE: アイテム出現
+	//df_additem x, y, chno, 0, DIR_DOWN, 0
+
+	scoreup = 10
+	_score += scoreup
+	// TODO: NOTE: 
+	if _score \ 100 == 50 {
+		gosub *levelup
+	}
+	
+	_emitnumdeco strf("%d", scoreup), x + rnd(4), y - 8, 2 // 2: 緑
+	if DEBUG >= 1 {
+		_emitnumdeco strf("+-*<>%d", scoreup), x,y - 8, 0 // 0: 白
+	}
+	if _volswitch {
+		mmplay SE_BREAK2
+	}
+	return
+
+
+*onbut1
+	if DEBUG == 0 {
+		return
+	}
+	if _volswitch {
+		mmplay SE_PUYO
+	//mmplay SE_FOOT
+	}
+	
+	// 0下から反時計周り
+	x = _dotfw_myx
+	y = _dotfw_myy
+	_x = x + 8
+	_y = y + 8
+	repeat length(_firelbs)
+		gosub _firelbs(cnt)
+	loop
+	return // X
+
+*onbut2
+	// Z
+
+	if DEBUG == 0 {
+		return
+	}
+
+	df_emodesub *oneneframe, 14
+	dir = DIR_DOWN
+	en = _dotfw_enemy
+	if en > 800 {
+		return
+	}
+	repeat 801 - en
+		x = 180 - 40 + (cnt \ 10) * 10
+		y = 200 + (cnt / 10) * 4
+		shootrate = 10 * 0
+		chno = CHR_MON_0 + 16 * 4 + rnd(4)
+		//chno = CHR_MONSTER1 + rnd(4) * 2
+
+		frnext = 10
+		sp100 = 50
+		df_emode 14, chno, shootrate, frnext, sp100
+		df_addenemy x,y, dir, 8, 0
+		spno = _dotfw_cursp
+		es_flag spno, ESSPFLAG_NOWIPE, 1 // 1: 追加
+	loop
+	return
+
+*onbut3
+	if _noreact <= 1 {
+		_beforescene = "main"
+		gosub *tomenu
+		if _volswitch {
+			mmplay SE_CLICK
+		}
+	}
+	return // C
+
+
+
+*onitem
+	mysp = _dotfw_cursp
+	es_kill mysp
+	if 1 {
+		_exppool += 1
+	}
+	return
+
+
+*mesrest
+	return
+
+
+*onmiss
+	spno = _dotfw_cursp
+	scoredown = SCORE_DOWN
+	_score -= scoredown
+	if _score < 0 {
+		_score = 0
+	}
+	text = strf("-%d", scoredown)
+	es_getpos sp_player@HSP3MOD_DOTFW, x, y, ESSPSET_POS
+	_emitnumdeco text, x + 8, y, 1
+	es_kill spno
+	if _volswitch {
+		mmplay SE_PUYO
+	}
+	return
+
+
+*readygame
+	// 1ゲームの開始初期化
+	_prets = 0
+	_mseccount = 0
+	// NOTE: ゲーム時間
+	_endcount = 1000 * 120
+	//_endcount = 1000 * 3
+	_score = 0
+	_exp = 0
+	_exppool = 0
+	_nextexp = 100
+	_level = 1
+	_prunfactor = 1
+	gosub *setprun
+
+	gosub *clearsp
+
+	// TODO: map
+	es_pos sp_player@HSP3MOD_DOTFW, 300,100, ESSPSET_POS
+	df_bgpoint DOTFW_BGID_BGMAP + 0, 300, 24
+	//df_getbgpoint x, y, DOTFW_BGID_BGMAP + 0
+
+	getreq ts, SYSREQ_TIMER
+	_presec = 0
+	_fpscount = 0
+	return
+
+/*
+*readymenubg
+	// 枠あり背景
+	_mew = _pxw / 16
+	_meh = _pxh / 16
+	dim menubgbuf, _mew * _meh
+	repeat _meh
+		y = cnt
+		repeat _mew
+			x = cnt
+			i = x + _mew * y
+			mx = 0
+			my = 0
+			if x == 0 {
+				mx = -1
+			} else {
+				if x == _mew - 1 {
+					mx = 1
+				}
+			}
+			if y == 0 {
+				my = -1
+			} else {
+				if y == _meh / 2 + 1 {
+					my = 1
+				}
+			}
+			if y > _meh / 2 + 1 {
+				mx = 0
+			}
+			val = (mx + 14) + (my + 14) * 16
+			menubgbuf(i) = val
+		loop
+	loop
+	celload "chip16white.png", WID_MENUCHIP
+	celdiv WID_MENUCHIP, 16,16, 0,0
+	// 黒透明は黒になる
+	es_bgmap BG_MENU, menubgbuf, _mew,_meh, _mew,_meh, WID_MENUCHIP, ESBGOPT_NOTRANS
+	return
+*/
+
+
+
