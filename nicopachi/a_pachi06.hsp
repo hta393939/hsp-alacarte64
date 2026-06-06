@@ -8,7 +8,7 @@
 #const DEBUG 1
 
 #const UPPER_ARCH_OFFSET_Y 0.0
-// Œ³‚ÌƒTƒCƒY
+// å…ƒã®ã‚µã‚¤ã‚º
 //#const UPPER_ARCH_OFFSET_Y 14.0
 
 #define GRAVY (-9.8 * 3.0)
@@ -78,7 +78,7 @@
 
 	_calcfps = 30
 	maxid = -1
-// 60fps
+// 60fpsæ™‚
 //	_powerindex = 187
 	_powerindex = 220
 	_ballstock = 250 + 2
@@ -89,16 +89,16 @@
 	gosub *init01
 	gosub *make01
 
-// •¨—”ò‚Ô‚Ì‚Å
+// ç‰©ç†é£›ã¶ã®ã§
 	gpdraw
 
 	pre = 1
-	camflag = 1 // ‰‰ñ‚í‚´‚Æ 1
+	camflag = 1 // åˆå›ã‚ã–ã¨ 1
 	prehead = M_PI * 0.0 / 180.0
 	prepitch = - M_PI * 0.0 / 180.0
 	head = prehead
 	pitch = prepitch
-// Œ³ƒTƒCƒY
+// å…ƒã‚µã‚¤ã‚º
 //	cam_r = 100.0
 	cam_r = 64.0	
 	look = 0.0, 0.0 - 2.0, 0.0
@@ -112,14 +112,14 @@
 		escdown = 0
 		escsel = 0
 
-//// ƒJƒƒ‰—pƒ‹[ƒ`ƒ“
+//// ã‚«ãƒ¡ãƒ©ç”¨ãƒ«ãƒ¼ãƒãƒ³
 		mx = mousex
 		my = mousey
 
 		area = _checkarea(mx, my)
 		
 		stick key, 256
-		if key & 16 { // b’è‚ÅƒXƒy[ƒX
+		if key & 16 { // æš«å®šã§ã‚¹ãƒšãƒ¼ã‚¹
 			enterdown = 1
 			entersel = 1
 		}
@@ -138,7 +138,7 @@
 		}
 
 		if pre {
-// ’¼‘O‚Íƒ_ƒEƒ“
+// ç›´å‰ã¯ãƒ€ã‚¦ãƒ³
 			if key & 256 {
 				dx = double(mx - prex) * 0.01
 				dy = double(my - prey) * 0.01
@@ -167,7 +167,7 @@
 				pre = 0
 			}
 		} else {
-// ’¼‘O‚Íƒ_ƒEƒ“‚Å‚Í‚È‚¢
+// ç›´å‰ã¯ãƒ€ã‚¦ãƒ³ã§ã¯ãªã„
 			if key & 256 {
 				prehead = head
 				prepitch = pitch
@@ -212,7 +212,7 @@
 			gplookat GPOBJ_CAMERA, look.0, look.1, look.2
 		}
 
-// ‘Å‚¿o‚µ
+// æ‰“ã¡å‡ºã—
 		if 1 {
 //			if rnd(100) < 20 {
 			if (cnt \ (_calcfps / 2) == 0) {
@@ -222,7 +222,7 @@
 
 		gpdraw CALC4
 
-// ƒXƒvƒ‰ƒCƒg
+// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 		pos 0,0
 		celput slideid
 
@@ -286,7 +286,7 @@
 
 
 *calcpower01
-// _powerindex ‚ğ‘‚«Š·‚¦‚é
+// _powerindex ã‚’æ›¸ãæ›ãˆã‚‹
 	if PADDING > _powerindex {
 		_powerindex = PADDING
 	} else {
@@ -325,7 +325,7 @@
 
 
 *shotball01
-// ‘Å‚¿o‚·
+// æ‰“ã¡å‡ºã™
 	if _ballstock <= 0 {
 	}
 	if _powerindex >= LOWERLIMIT {
@@ -334,7 +334,7 @@
 
 	_ballstock -= 1
 
-// ”­Ë
+// ç™ºå°„
 		x = -23.4
 		y = UPPER_ARCH_OFFSET_Y + 1.0
 		gpclone id, spid
@@ -358,23 +358,23 @@
 		setobjmode id, OBJ_BORDER, 0
 
 /*
-// 60fps 
+// 60fps æ™‚
 		power = 10000.0
-// -30.0 ‘Î‰
+// -30.0 å¯¾å¿œ
 		power = 2500.0
-// 4300.0 ‚®‚ç‚¢
+// 4300.0 ãã‚‰ã„
 		power = 4300.0
 
-// 3000.0 ‚®‚ç‚¢‚ ‚ê‚Î”ò‚ñ‚Å‚¢‚­
+// 3000.0 ãã‚‰ã„ã‚ã‚Œã°é£›ã‚“ã§ã„ã
 		power = 3000.0
-// ‚½‚Ü‚É‰º‚É—‚¿‚é
+// ãŸã¾ã«ä¸‹ã«è½ã¡ã‚‹
 		power = 2500.0
-// ÅŒã‚Ü‚Å”ò‚Ô
+// æœ€å¾Œã¾ã§é£›ã¶
 		//power = 6000.0
 
 //		power = 5500.0
 
-// 300 l—¶‚Â‚«‚Å 2500-5500 ‚Å‚¢‚¢‚©D
+// 300 è€ƒæ…®ã¤ãã§ 2500-5500 ã§ã„ã„ã‹ï¼
 //		power = 2500.0 + 3000.0 * double(LOGICH - _powerindex) / double(LOGICH)
 
 		content_h = LOGICH - PADDING - PADDING
@@ -391,19 +391,19 @@
 
 
 *init01
-// ‰Šú‰»
+// åˆæœŸåŒ–
 	fov = 35.0
 
 	gpreset
 	setcls CLSMODE_SOLID, 0x036eb8
 
-// TODO: ‚±‚ê???
+// TODO: ã“ã‚Œ???
 //	gpresetlight 1,0,0
 
 	setangy GPOBJ_LIGHT, -45.0 * M_PI / 180.0, -45.0 * M_PI / 180.0, 0.0
 	setcolor GPOBJ_LIGHT, 0.5, 0.5, 0.5
 
-// ambient ­‚µ‘‚â‚µ‚½ 2021/6/19
+// ambient å°‘ã—å¢—ã‚„ã—ãŸ 2021/6/19
 	setdir GPOBJ_LIGHT, 0.75, 0.75, 0.75
 
 	gpnull idc1
@@ -413,7 +413,7 @@
 // 2D
 	gmode 3, 32,32, 256
 
-// ‘fŞ
+// ç´ æ
 	celload "res/enteresc.png"
 	enterescid = stat
 	celdiv enterescid, 64, 64, 32, 32
@@ -425,9 +425,9 @@
 
 
 *make01
-//// ”Õ–Êì¬
+//// ç›¤é¢ä½œæˆ
 
-// ƒsƒ“
+// ãƒ”ãƒ³
 	pinr = 0.2 * 1.0
 	gosub *pindata01
 	note = refstr
@@ -460,14 +460,14 @@
 
 	rot = 0.0, 0.0, 0.0
 
-// ‹Ê‚Ì‘f ’¼Œa11mm
+// ç‰ã®ç´  ç›´å¾„11mm
 	sprad = 11.0 / 10.0 * 0.5
 
 	setborder -30.0, -35.0, -10.0, 1
 
 	gpload spid, "res/sphere8"
 
-	if spid < 0 { // ƒGƒ‰[‚Íƒ}ƒCƒiƒX
+	if spid < 0 { // ã‚¨ãƒ©ãƒ¼ã¯ãƒã‚¤ãƒŠã‚¹
 		gpgetlog st
 		dialog "" + st, 1, "" + spid
 		end
@@ -476,7 +476,7 @@
 	setscale spid, 1.0, 1.0, 1.0
 
 	if 1 {
-// ‰œ
+// å¥¥
 		thick_r = 0.8
 		fw = 52.0 * 0.5
 		fh = 81.0 * 0.5
@@ -514,8 +514,8 @@
 			id = _box(size, ps, rot, col, 0, fric, pong)
 		loop
 
-// ‰œ ŠO‚êü•Ó
-		if 1 { // ’i‰º
+// å¥¥ å¤–ã‚Œå‘¨è¾º
+		if 1 { // æ®µä¸‹
 			size = 2.0, 5.0, 1.0
 			ps = 0.0, -28.5, -thick_r - 1.0
 			id = _box(size, ps, rot, col, 0, fric, pong)
@@ -528,7 +528,7 @@
 		loop
 
 		
-// ƒKƒ‰ƒX
+// ã‚¬ãƒ©ã‚¹
 		lowcut = 9.0
 		col = 0xeeeeff
 		size = fw, fh - lowcut, 0.6
@@ -537,14 +537,14 @@
 		id = _box(size, ps, rot, col, 0, fric, pong)
 		setalpha id, 64 * 1
 
-// ƒXƒRƒA‹Ê—pÎ–Ê
+// ã‚¹ã‚³ã‚¢ç‰ç”¨æ–œé¢
 		size = 2.0 + 8.0, 0.2, 4.0
 		ps = 0.0, -fh * 0.5 - 5.0 - 1.0, 0.0
 		rot = M_PI * 10.0 / 180.0, 0.0, 0.0
 		pong = 1.0
 		id = _box(size, ps, rot, col, 0, fric, pong)
 
-// —¼˜e
+// ä¸¡è„‡
 		pong = 1.0
 		col = 0xffffff
 		repeat 2
@@ -555,7 +555,7 @@
 			id = _box(size, ps, rot, col, 0, fric, pong)
 		loop
 
-// ã‰º
+// ä¸Šä¸‹
 		repeat 2
 			size = 52.0 * 0.5, 1.0, 2.0
 			my = double(cnt * 2 - 1)
@@ -564,13 +564,13 @@
 			id = _box(size, ps, rot, col, 0, fric, pong)
 		loop
 
-// ‰º‚Ì•û
+// ä¸‹ã®æ–¹
 		gpfloor id, fw * 2.0, 8.0, 0xff1111
 		setpos id, 0, -fh + 4.0, thick_r + 1.0
 		setangy id, 90.0 * M_PI / 180.0, 0,0
 	}
 
-// ƒsƒ“
+// ãƒ”ãƒ³
 	pinr = 0.2
 
 	repeat RANDOM_PIN
@@ -594,7 +594,7 @@
 	return
 
 *arch01
-//// ã•”ƒA[ƒ`
+//// ä¸Šéƒ¨ã‚¢ãƒ¼ãƒ
 	div = 36
 	div = 40
 	num = div / 2 + 1
@@ -622,7 +622,7 @@
 	return
 
 *arch05
-//// ‰º•”ƒA[ƒ`
+//// ä¸‹éƒ¨ã‚¢ãƒ¼ãƒ
 	div = 36
 	div = 40
 	num = div / 2 + 1
@@ -654,16 +654,16 @@
 
 
 *makecatcher01
-// ó‚¯æ‚é” 
+// å—ã‘å–ã‚‹ç®±
 	repeat 6
 		c = cnt
 
 		size.0 = 1.0, 1.0, 0.98
-		if c == 0 { // ¶ã
+		if c == 0 { // å·¦ä¸Š
 			scorelv = 3
 			ps.0 = -7.0, 10.0, 0.0
 		}
-		if c == 1 { // ã
+		if c == 1 { // ä¸Š
 			scorelv = 3
 			ps.0 = 7.0, 10.0, 0.0
 		}
@@ -671,7 +671,7 @@
 			scorelv = 15
 			ps.0 = -15.0, -5.0, 0.0
 		}
-		if c == 3 { // ^‚ñ’†
+		if c == 3 { // çœŸã‚“ä¸­
 			scorelv = 15
 			ps.0 = 0.0, -10.0, 0.0
 		}
@@ -700,7 +700,7 @@
 		_catchers.CE_L.c = -1
 		_catchers.CE_R.c = -1
 
-// ‰H
+// ç¾½
 		rots.0 = 0.0, 0.0, M_PI * 0.25
 		if c == 3 {
 			rots.2 = 0.0
@@ -713,7 +713,7 @@
 		setangy id, rots.0, rots.1, rots.2
 
 		gppbind id, mass, fric, GPPBIND_MESH
-// ‰H
+// ç¾½
 		rots.0 = 0.0, 0.0, -M_PI * 0.25
 		if c == 3 {
 			rots.2 = 0.0
@@ -790,16 +790,16 @@
 		setpos _id9, _x9, _y9, _z9
 
 		gppbind _id9, _mass9, _fric9
-// ‹«ŠE‚ÅÁ‚¦‚é
+// å¢ƒç•Œã§æ¶ˆãˆã‚‹
 		setobjmode _id9, OBJ_BORDER, 0
-// ­‚µ¨‚¢‚Â‚¯‚é
+// å°‘ã—å‹¢ã„ã¤ã‘ã‚‹
 		_power9 = 200.0
 		gppapply _id9, GPPSET_IMPULSE, double(rnd(200) - 100), -_power9 * 0.0, _power9
 	loop
 	return _num9
 
 
-// ’¼•û‘Ì„‘Ì‚ğì¬‚·‚é
+// ç›´æ–¹ä½“å‰›ä½“ã‚’ä½œæˆã™ã‚‹
 #defcfunc _box array _size, array _pos, array _rot, int _col, double _mass, double _fric, double _pong, local _id
 	gpbox _id, 2, col
 	setpos _id, _pos.0, _pos.1, _pos.2
@@ -841,8 +841,8 @@ window.RPGAtsumaru.scoreboards.setRecord(1, %d);
 
 
 *pindata01
-// 0.8 ‚Å‚æ‚¢‚ª‚¿‚Æ‚Í‚Ü‚é
-// Î‚ß 0.8 ‚Íã‚©‚ç—‚¿‚é‚·‚è‚Ê‚¯‚½‚©‚à
+// 0.8 ã§ã‚ˆã„ãŒã¡ã¨ã¯ã¾ã‚‹
+// æ–œã‚ 0.8 ã¯ä¸Šã‹ã‚‰è½ã¡ã‚‹ã™ã‚Šã¬ã‘ãŸã‹ã‚‚
 	_data = {"
 5, 8, 0, 0.8, 0.6
 3, 9,10, 0.6,0.6
@@ -850,7 +850,7 @@ window.RPGAtsumaru.scoreboards.setRecord(1, %d);
 3, 10.25, -10, 0.6,0.6
 5, -5,-5, 0.7,0.7
 10, 2,-7, 0.7, 0.7
-# ‚æ‚­‚ ‚é’›
+# ã‚ˆãã‚ã‚‹å…†
 5, 10, 6, 0,1
 5, 10.8, 6, 0,1
 5, 10, 5, -0.5,-1

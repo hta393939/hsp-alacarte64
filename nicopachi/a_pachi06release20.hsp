@@ -11,7 +11,7 @@
 #const MAX_COUNT_SEC 120
 
 #const UPPER_ARCH_OFFSET_Y 0.0
-// Œ³‚ÌƒTƒCƒY
+// å…ƒã®ã‚µã‚¤ã‚º
 //#const UPPER_ARCH_OFFSET_Y 14.0
 
 #define GRAVY (-9.8 * 3.0)
@@ -92,22 +92,22 @@
 
 	_calcfps = 30
 	maxid = -1
-// 60fps
+// 60fpsæ™‚
 //	_powerindex = 187
-// 30fps
+// 30fpsæ™‚
 //	_powerindex = 220
 
 	_status = ST_START
 
 	getreq _platform, SYSREQ_PLATFORM
 
-	_theme = 0xf8f8f0 // ƒe[ƒ}ƒJƒ‰[
-	_frame = 0xf8f8f8 // ˜gƒJƒ‰[
+	_theme = 0xf8f8f0 // ãƒ†ãƒ¼ãƒã‚«ãƒ©ãƒ¼
+	_frame = 0xf8f8f8 // æ ã‚«ãƒ©ãƒ¼
 
 	gosub *init01
 	gosub *make01
 
-// •¨—”ò‚Ô‚Ì‚Å
+// ç‰©ç†é£›ã¶ã®ã§
 	gpdraw
 
 	_enterpre = 0
@@ -115,12 +115,12 @@
 	_powpre = 0
 
 	pre = 1
-	camflag = 1 // ‰‰ñ‚í‚´‚Æ 1
+	camflag = 1 // åˆå›ã‚ã–ã¨ 1
 	prehead = M_PI * 0.0 / 180.0
 	prepitch = - M_PI * 0.0 / 180.0
 	head = prehead
 	pitch = prepitch
-// Œ³ƒTƒCƒY
+// å…ƒã‚µã‚¤ã‚º
 //	cam_r = 100.0
 	cam_r = 64.0	
 	look = 0.0, 0.0 - 2.0, 0.0
@@ -134,10 +134,10 @@
 		getreq fps, SYSREQ_FPS
 		getreq timer, SYSREQ_TIMER
 
-		enterdown = 0 // ¡‰ñƒ_ƒEƒ“‚µ‚½‚©‚Ç‚¤‚©
-		escdown = 0 // ¡‰ñƒ_ƒEƒ“‚µ‚½‚©‚Ç‚¤‚©
+		enterdown = 0 // ä»Šå›ãƒ€ã‚¦ãƒ³ã—ãŸã‹ã©ã†ã‹
+		escdown = 0 // ä»Šå›ãƒ€ã‚¦ãƒ³ã—ãŸã‹ã©ã†ã‹
 		powdown = 0
-// sel ‚Íã‚ª‚Á‚Ä‚é‰º‚ª‚Á‚Ä‚é‚©‚Ç‚¤‚©•Ê‚É‚µ‚Ä‘I‘ğ‚³‚ê‚Ä‚¢‚é
+// sel ã¯ä¸ŠãŒã£ã¦ã‚‹ä¸‹ãŒã£ã¦ã‚‹ã‹ã©ã†ã‹åˆ¥ã«ã—ã¦é¸æŠã•ã‚Œã¦ã„ã‚‹
 		entersel = 0
 		escsel = 0
 		powsel = 0
@@ -201,7 +201,7 @@
 			escsel = 0
 		}
 
-// ƒ}ƒEƒXƒJ[ƒ\ƒ‹—p‘I‘ğ”»’è
+// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ç”¨é¸æŠåˆ¤å®š
 			mx = mousex
 			my = mousey
 
@@ -219,9 +219,9 @@
 
 
 
-//// ƒJƒƒ‰—pƒ‹[ƒ`ƒ“
+//// ã‚«ãƒ¡ãƒ©ç”¨ãƒ«ãƒ¼ãƒãƒ³
 
-// ƒzƒC[ƒ‹—LŒø‚¾‚¯
+// ãƒ›ã‚¤ãƒ¼ãƒ«æœ‰åŠ¹æ™‚ã ã‘
 		mw = 0
 		if DEBUG > 0 {
 			mw = mousew
@@ -232,7 +232,7 @@
 		}
 
 		if pre {
-// ’¼‘O‚Íƒ_ƒEƒ“
+// ç›´å‰ã¯ãƒ€ã‚¦ãƒ³
 			if key & 256 {
 				dx = double(mx - prex) * 0.01
 				dy = double(my - prey) * 0.01
@@ -259,7 +259,7 @@
 				pre = 0
 			}
 		} else {
-// ’¼‘O‚Íƒ_ƒEƒ“‚Å‚Í‚È‚¢
+// ç›´å‰ã¯ãƒ€ã‚¦ãƒ³ã§ã¯ãªã„
 			if key & 256 {
 				prehead = head
 				prepitch = pitch
@@ -283,7 +283,7 @@
 			}
 		}
 
-//// •`‰æ
+//// æç”»
 		redraw 0
 
 		color 3, 110, 184
@@ -309,7 +309,7 @@
 			}
 		}
 
-// ‘Å‚¿o‚µ
+// æ‰“ã¡å‡ºã—
 		if _status == ST_GO {
 			if (cnt \ (_calcfps / 2) == 0) {
 				gosub *shotball01
@@ -318,7 +318,7 @@
 
 		gosub *calcrest01
 
-//// ƒXƒe[ƒ^ƒX‚²‚Æ‚Ì”»’è
+//// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã”ã¨ã®åˆ¤å®š
 		if enterdown {
 			result = _display()
 		}
@@ -349,9 +349,9 @@
 
 		gpdraw CALC4
 
-//// ƒXƒvƒ‰ƒCƒgŒQ
+//// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç¾¤
 
-// –Ú·‚èü
+// ç›®ç››ã‚Šç·š
 		cx = BELTX / 2
 		repeat 3
 			y = 64, LOGICH / 2, LOGICH-PADDING
@@ -361,12 +361,12 @@
 			celput enterescid, 13
 		loop
 		
-// ‚Â‚Ü‚İ
+// ã¤ã¾ã¿
 		pos cx, _powerindex
 		celput enterescid, 6
 
 		if _status == ST_TITLE {
-// ƒ^ƒbƒ`ƒXƒ^[ƒg
+// ã‚¿ãƒƒãƒã‚¹ã‚¿ãƒ¼ãƒˆ
 			if (cnt \ (_calcfps * 3 / 2)) >= (_calcfps / 4) {
 				y = (64 + LOGICH / 2) / 2
 				pos cx - 32, y
@@ -376,7 +376,7 @@
 			}
 		}
 
-// ƒ‰ƒ“ƒLƒ“ƒOƒ{ƒ^ƒ“
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒœã‚¿ãƒ³
 		x = ENTERX
 		y = ENTERY
 		index = 4
@@ -390,7 +390,7 @@
 		pos x, y
 		celput enterescid, index
 
-// ’â~ƒ{ƒ^ƒ“
+// åœæ­¢ãƒœã‚¿ãƒ³
 		x = ESCX
 		y = ESCY
 		index = 0
@@ -433,7 +433,7 @@
 
 		gpdraw DRAW4 | LATE4
 
-// ƒ^ƒCƒgƒ‹
+// ã‚¿ã‚¤ãƒˆãƒ«
 		if _status == ST_TITLE {
 			y = LOGICH / 2 - 64
 			y = 64
@@ -441,7 +441,7 @@
 //			celput captionid, 3
 			celput captionid, 2
 		}
-// ƒQ[ƒ€ƒI[ƒo[
+// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
 		if _status == ST_GAMEOVER {
 //			if ((cnt \ (_calcfps * 5 / 2)) >= _calcfps / 2) {
 				pos LOGICW / 2, LOGICH / 2 - 64
@@ -490,7 +490,7 @@
 
 
 *calcrest01
-// c‚èƒJƒEƒ“ƒg‚ğŒvZ‚·‚é
+// æ®‹ã‚Šã‚«ã‚¦ãƒ³ãƒˆã‚’è¨ˆç®—ã™ã‚‹
 	getreq timer, SYSREQ_TIMER
 	diff = timer - _startts
 	restmsec = MAX_COUNT_SEC * 1000 - diff
@@ -499,7 +499,7 @@
 	}
 	_restcount = (restmsec + 999) / 1000
 
-//// ƒ{[ƒiƒXŠúŠÔ‚Ì”»’è
+//// ãƒœãƒ¼ãƒŠã‚¹æœŸé–“ã®åˆ¤å®š
 	if 30 <= _restcount & _restcount <= 60 {
 		if _bonus == 0 {
 			result = _flower(3, FLS_OPEN)
@@ -514,7 +514,7 @@
 
 
 *calcpower01
-// _powerindex ‚ğ‘‚«Š·‚¦‚é
+// _powerindex ã‚’æ›¸ãæ›ãˆã‚‹
 	if PADDING > _powerindex {
 		_powerindex = PADDING
 	} else {
@@ -548,7 +548,7 @@
 				ret = _scoreball(scorelv)
 			loop
 
-			// ŠJ‚¢‚½‚è•Â‚¶‚½‚è‚Ì§Œä‚ğ‚·‚é
+			// é–‹ã„ãŸã‚Šé–‰ã˜ãŸã‚Šã®åˆ¶å¾¡ã‚’ã™ã‚‹
 			status = _catchers.CE_STATUS.c
 			if c <= 1 {
 				if c == 0 {
@@ -556,7 +556,7 @@
 				} else {
 					result = _flower(2, FLS_OPEN)
 				}
-			} else { // ƒtƒ‰ƒ[
+			} else { // ãƒ•ãƒ©ãƒ¯ãƒ¼
 				if (status & 0xff) == FLS_OPEN {
 					if _bonus {
 						if c == 3 {
@@ -577,7 +577,7 @@
 
 
 *shotball01
-// ‘Å‚¿o‚·
+// æ‰“ã¡å‡ºã™
 	if _ballstock <= 0 {
 	}
 	if _powerindex >= LOWERLIMIT {
@@ -586,7 +586,7 @@
 
 	_ballstock -= 1
 
-// ”­Ë
+// ç™ºå°„
 		x = -23.4
 		y = UPPER_ARCH_OFFSET_Y + 1.0
 		gpclone id, spid
@@ -610,23 +610,23 @@
 		setobjmode id, OBJ_BORDER, 0
 
 /*
-// 60fps 
+// 60fps æ™‚
 		power = 10000.0
-// -30.0 ‘Î‰
+// -30.0 å¯¾å¿œ
 		power = 2500.0
-// 4300.0 ‚®‚ç‚¢
+// 4300.0 ãã‚‰ã„
 		power = 4300.0
 
-// 3000.0 ‚®‚ç‚¢‚ ‚ê‚Î”ò‚ñ‚Å‚¢‚­
+// 3000.0 ãã‚‰ã„ã‚ã‚Œã°é£›ã‚“ã§ã„ã
 		power = 3000.0
-// ‚½‚Ü‚É‰º‚É—‚¿‚é
+// ãŸã¾ã«ä¸‹ã«è½ã¡ã‚‹
 		power = 2500.0
-// ÅŒã‚Ü‚Å”ò‚Ô
+// æœ€å¾Œã¾ã§é£›ã¶
 		//power = 6000.0
 
 //		power = 5500.0
 
-// 300 l—¶‚Â‚«‚Å 2500-5500 ‚Å‚¢‚¢‚©D
+// 300 è€ƒæ…®ã¤ãã§ 2500-5500 ã§ã„ã„ã‹ï¼
 //		power = 2500.0 + 3000.0 * double(LOGICH - _powerindex) / double(LOGICH)
 
 		content_h = LOGICH - PADDING - PADDING
@@ -655,13 +655,13 @@
 	wait 1
 	
 	result = _setss()
-// ‰Šú‰»
+// åˆæœŸåŒ–
 	fov = 35.0
 
 	setangy GPOBJ_LIGHT, -45.0 * M_PI / 180.0, -45.0 * M_PI / 180.0, 0.0
 	setcolor GPOBJ_LIGHT, 0.5, 0.5, 0.5
 
-// ambient ­‚µ‘‚â‚µ‚½ 2021/6/19
+// ambient å°‘ã—å¢—ã‚„ã—ãŸ 2021/6/19
 	setdir GPOBJ_LIGHT, 0.75, 0.75, 0.75
 
 	if DEBUG > 0 {
@@ -676,7 +676,7 @@
 // 2D
 	gmode 3, 32,32, 256
 
-// ‘fŞ
+// ç´ æ
 	celload "res/enteresc.png"
 	enterescid = stat
 	celdiv enterescid, 64, 64, 32, 32
@@ -693,9 +693,9 @@
 
 
 *make01
-//// ”Õ–Êì¬
+//// ç›¤é¢ä½œæˆ
 
-// ƒsƒ“
+// ãƒ”ãƒ³
 	pinr = 0.2 * 1.0
 	gosub *pindata01
 	note = _data
@@ -741,14 +741,14 @@
 
 	rot = 0.0, 0.0, 0.0
 
-// ‹Ê‚Ì‘f ’¼Œa11mm
+// ç‰ã®ç´  ç›´å¾„11mm
 	sprad = 11.0 / 10.0 * 0.5
 
 	setborder -30.0, -35.0, -10.0, 1
 
 	gpload spid, "res/sphere8"
 
-	if spid < 0 { // ƒGƒ‰[‚Íƒ}ƒCƒiƒX
+	if spid < 0 { // ã‚¨ãƒ©ãƒ¼ã¯ãƒã‚¤ãƒŠã‚¹
 		gpgetlog st
 		dialog "" + st, 1, "" + spid
 		end
@@ -757,7 +757,7 @@
 	setscale spid, 1.0, 1.0, 1.0
 
 	if 1 {
-// ‰œ
+// å¥¥
 		thick_r = 0.8
 		fw = 52.0 * 0.5
 		fh = 81.0 * 0.5
@@ -795,8 +795,8 @@
 			id = _box(size, ps, rot, col, 0, fric, pong)
 		loop
 
-// ‰œ ŠO‚êü•Ó
-		if 1 { // ’i‰º
+// å¥¥ å¤–ã‚Œå‘¨è¾º
+		if 1 { // æ®µä¸‹
 			size = 2.0, 5.0, 1.0
 			ps = 0.0, -28.5, -thick_r - 1.0
 			id = _box(size, ps, rot, col, 0, fric, pong)
@@ -809,7 +809,7 @@
 		loop
 
 		
-// ƒKƒ‰ƒX
+// ã‚¬ãƒ©ã‚¹
 		lowcut = 9.0
 		col = 0xeeeeff
 		size = fw, fh - lowcut, 0.6
@@ -818,7 +818,7 @@
 		id = _box(size, ps, rot, col, 0, fric, pong)
 		setalpha id, 64 * 0
 
-// ƒXƒRƒA‹Ê—pÎ–Ê
+// ã‚¹ã‚³ã‚¢ç‰ç”¨æ–œé¢
 		size = 2.0 + 8.0, 0.2, 4.0
 		ps = 0.0, -fh * 0.5 - 5.0 - 1.0, 0.0
 		rot = M_PI * 10.0 / 180.0, 0.0, 0.0
@@ -826,7 +826,7 @@
 		pong = 1.0
 		id = _box(size, ps, rot, col, 0, fric, pong)
 
-// —¼˜e
+// ä¸¡è„‡
 		pong = 1.0
 		col = _frame
 		repeat 2
@@ -837,7 +837,7 @@
 			id = _box(size, ps, rot, col, 0, fric, pong)
 		loop
 
-// ã‰º
+// ä¸Šä¸‹
 		col = _frame
 		repeat 2
 			size = 52.0 * 0.5, 1.0, 2.0
@@ -847,13 +847,13 @@
 			id = _box(size, ps, rot, col, 0, fric, pong)
 		loop
 
-// ‰º‚Ì•û
+// ä¸‹ã®æ–¹
 		gpfloor id, fw * 2.0, 8.0, 0xff1111
 		setpos id, 0, -fh + 4.0, thick_r + 1.0
 		setangy id, 90.0 * M_PI / 180.0, 0,0
 	}
 
-// ƒsƒ“
+// ãƒ”ãƒ³
 /*
 	pinr = 0.2
 
@@ -878,7 +878,7 @@
 	return
 
 *arch01
-//// ã•”ƒA[ƒ`
+//// ä¸Šéƒ¨ã‚¢ãƒ¼ãƒ
 	div = 36
 	div = 40
 	num = div / 2 + 1
@@ -904,7 +904,7 @@
 	return
 
 *arch05
-//// ‰º•”ƒA[ƒ`
+//// ä¸‹éƒ¨ã‚¢ãƒ¼ãƒ
 	div = 36
 	div = 40
 	num = div / 2 + 1
@@ -936,23 +936,23 @@
 
 
 *makecatcher01
-// ó‚¯æ‚é” 
+// å—ã‘å–ã‚‹ç®±
 	repeat 5
 		c = cnt
 
 		if c >= 2 {
 
-//// ƒ`ƒ…[ƒŠƒbƒv
+//// ãƒãƒ¥ãƒ¼ãƒªãƒƒãƒ—
 
-// ƒTƒCƒY¬‚³‚­‚µ‚Ä‚İ‚é
+// ã‚µã‚¤ã‚ºå°ã•ãã—ã¦ã¿ã‚‹
 			size.0 = 1.0, 1.0, 0.98
 			size.0 = 0.125, 0.125, 0.125
 		/*
-		if c == 0 { // ¶ã
+		if c == 0 { // å·¦ä¸Š
 			scorelv = 3
 			ps.0 = -7.0, 10.0, 0.0
 		}
-		if c == 1 { // ã
+		if c == 1 { // ä¸Š
 			scorelv = 3
 			ps.0 = 7.0, 10.0, 0.0
 		}
@@ -961,7 +961,7 @@
 				scorelv = 15
 				ps.0 = -13.0, -8.0, 0.0
 			}
-			if c == 3 { // ^‚ñ’†
+			if c == 3 { // çœŸã‚“ä¸­
 				scorelv = 15
 				ps.0 = 0.0, -14.0, 0.0
 			}
@@ -993,7 +993,7 @@
 			_catchers.CE_L.c = -1
 			_catchers.CE_R.c = -1
 
-// •\¦‚¾‚¯
+// è¡¨ç¤ºã ã‘
 			rots.0 = 0.0, 0.0, M_PI * 0.25
 			col = 0x00913a
 			gpbox id, 1.8, col
@@ -1003,7 +1003,7 @@
 
 
 			mass = 2.0
-// ‰H
+// ç¾½
 			gpload id, "res/flowerl"
 			_catchers.CE_L.c = id
 
@@ -1012,7 +1012,7 @@
 			gppbind id, mass, fric, GPPBIND_MESH
 			gppset id, GPPSET_KINEMATIC, 1.0
 		
-// ‰H
+// ç¾½
 			gpload id, "res/flowerr"
 			_catchers.CE_R.c = id
 
@@ -1023,15 +1023,15 @@
 			gppset id, GPPSET_KINEMATIC, 1.0
 
 		} else {
-// “®‚©‚È‚¢” 
+// å‹•ã‹ãªã„ç®±
 
-// ƒqƒbƒgƒRƒA‚ÌƒTƒCƒY¬‚³‚­‚µ‚Ä‚İ‚é
+// ãƒ’ãƒƒãƒˆã‚³ã‚¢ã®ã‚µã‚¤ã‚ºå°ã•ãã—ã¦ã¿ã‚‹
 			size.0 = 0.125, 0.125, 0.125
-			if c == 0 { // ¶ã
+			if c == 0 { // å·¦ä¸Š
 				scorelv = 3
 				ps.0 = -7.0, 7.0, 0.0
 			}
-			if c == 1 { // ã
+			if c == 1 { // ä¸Š
 				scorelv = 3
 				ps.0 = 7.0, 7.0, 0.0
 			}
@@ -1052,10 +1052,10 @@
 			_catchers.CE_L.c = -1
 			_catchers.CE_R.c = -1
 
-// •\¦‚¾‚¯
+// è¡¨ç¤ºã ã‘
 			rots.0 = 0.0, 0.0, 0.0
-			col = 0x00913a // ƒAƒcƒ}[ƒ‹—Î
-			col = 0x036eb8 // ƒAƒcƒ}[ƒ‹ƒuƒ‹[
+			col = 0x00913a // ã‚¢ãƒ„ãƒãƒ¼ãƒ«ç·‘
+			col = 0x036eb8 // ã‚¢ãƒ„ãƒãƒ¼ãƒ«ãƒ–ãƒ«ãƒ¼
 			gpbox id, 1.8, col
 			setpos id, ps.0, ps.1, ps.2
 
@@ -1064,11 +1064,11 @@
 			mass = 0.0
 			fric = LOW_FRIC
 			size.0 = 0.2, 1.6, 1.0
-// ‰H
+// ç¾½
 			ps.0 = ps.0 - 1.2, ps.1 + 0.6, ps.2			
 			id = _box(size, ps, rots, col, mass, fric, pong)
 
-// ‰H
+// ç¾½
 			ps.0 = ps.0 + 2.4, ps.1, ps.2
 			id = _box(size, ps, rots, col, mass, fric, pong)
 		}
@@ -1079,7 +1079,7 @@
 
 
 #defcfunc _flower int _c, int _open, local _id6, local _zr6
-// ƒtƒ‰ƒ[‚ğŠJ‚­‚Ü‚½‚Í•Â‚¶‚é
+// ãƒ•ãƒ©ãƒ¯ãƒ¼ã‚’é–‹ãã¾ãŸã¯é–‰ã˜ã‚‹
 	_catchers.CE_STATUS._c = _open
 
 	_zr6 = 0.0
@@ -1168,16 +1168,16 @@
 		setpos _id9, _x9, _y9, _z9
 
 		gppbind _id9, _mass9, _fric9
-// ‹«ŠE‚ÅÁ‚¦‚é
+// å¢ƒç•Œã§æ¶ˆãˆã‚‹
 		setobjmode _id9, OBJ_BORDER, 0
-// ­‚µ¨‚¢‚Â‚¯‚é
+// å°‘ã—å‹¢ã„ã¤ã‘ã‚‹
 		_power9 = 200.0
 		gppapply _id9, GPPAPPLY_FORCE, double(rnd(200) - 100), -_power9 * 0.0, _power9
 	loop
 	return _num9
 
 
-// ’¼•û‘Ì„‘Ì‚ğì¬‚·‚é
+// ç›´æ–¹ä½“å‰›ä½“ã‚’ä½œæˆã™ã‚‹
 #defcfunc _box array _size, array _pos, array _rot, int _col, double _mass, double _fric, double _pong, local _id
 	gpbox _id, 2, col
 	setpos _id, _pos.0, _pos.1, _pos.2
@@ -1219,7 +1219,7 @@ window.RPGAtsumaru.scoreboards.setRecord(1, %d);
 
 
 #defcfunc _setss local _st2
-// ƒXƒNƒVƒ‡ŠÖ”“o˜^‚¾‚ªA‚Ü‚Á‚­‚ë‚¾‚í;;
+// ã‚¹ã‚¯ã‚·ãƒ§é–¢æ•°ç™»éŒ²ã ãŒã€ã¾ã£ãã‚ã ã‚;;
 	return 0
 
 	if _platform != PLATFORM_WEBGL {
@@ -1230,7 +1230,7 @@ var _handler = async () => {
 	const qs = document.querySelectorAll('canvas');
 	for (const q of qs) {
 		const s = q.toDataURL('image/png');
-		console.log('’·‚³', s.length);
+		console.log('é•·ã•', s.length);
 		return s;
 	}
 	throw new Error('Not found');
@@ -1243,8 +1243,8 @@ window.RPGAtsumaru.screenshot.setScreenshotHandler(_handler);
 
 
 *pindata01
-// 0.8 ‚Å‚æ‚¢‚ª‚¿‚Æ‚Í‚Ü‚é
-// Î‚ß 0.8 ‚Íã‚©‚ç—‚¿‚é‚·‚è‚Ê‚¯‚½‚©‚à
+// 0.8 ã§ã‚ˆã„ãŒã¡ã¨ã¯ã¾ã‚‹
+// æ–œã‚ 0.8 ã¯ä¸Šã‹ã‚‰è½ã¡ã‚‹ã™ã‚Šã¬ã‘ãŸã‹ã‚‚
 	_data = {"
 5, 8, 0, 0.8, 0.6
 3, 9,10, 0.6,0.6
@@ -1252,7 +1252,7 @@ window.RPGAtsumaru.screenshot.setScreenshotHandler(_handler);
 3, 10.25, -10, 0.6,0.6
 5, -5,-5, 0.7,0.7
 10, 2,-7, 0.7, 0.7
-# ‚æ‚­‚ ‚é’›
+# ã‚ˆãã‚ã‚‹å…†
 5, 10, 6, 0,1
 5, 10.8, 6, 0,1
 5, 10, 5, -0.5,-1
@@ -1267,26 +1267,26 @@ window.RPGAtsumaru.screenshot.setScreenshotHandler(_handler);
 10, -9, 14, 2, 0
 19, -18, 12, 2, 0
 5, -4, 6, 2, 0
-# ‰E
+# å³
 3, 23, 7, -0.5, -1
-# ¶
+# å·¦
 6, -18, 4, 2, 0
 5, -17, 2, 2, 0
 6, -18, 0, 2, 0
 5, -17, -2, 2, 0
 6, -18, -4, 2, 0
-# ‰E
+# å³
 6, 18, 4, -2, 0
 5, 17, 2, -2, 0
 6, 18, 0, -2, 0
 5, 17, -2, -2, 0
 6, 18, -4, -2, 0
-# ‚¿‚å‚Á‚Æ‚µ‚½–Í—l
+# ã¡ã‚‡ã£ã¨ã—ãŸæ¨¡æ§˜
 1, -4, 1, 0, 0
 1,  4, 2, 0, 0
 1, 0, -1, 0, 0
 2, -0.8, -2, 1.6, 0
-# ‰º‚Ì•û
+# ä¸‹ã®æ–¹
  8, -7, -6, 2, 0
  7, -6, -8, 2, 0
  6, -5, -10, 2, 0
