@@ -6,7 +6,7 @@
 // Copyright (C) 2016- Usagi
 // SPDX-License-Identifier: BSD 3-Clause "New" or "Revised" License
 // https://opensource.org/licenses/BSD-3-Clause
-// Oğ€C³BSDƒ‰ƒCƒZƒ“ƒX‚Å‚·B
+// ä¸‰æ¡é …ä¿®æ­£BSDãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§ã™ã€‚
 
 #module
 #defcfunc _padstick
@@ -34,7 +34,7 @@
 
 	sdim _embuf, 4096 + 8*256 + 4*256
 	_pembuf = varptr(_embuf)
-	// 16ƒoƒCƒgƒAƒ‰ƒCƒ“
+	// 16ãƒã‚¤ãƒˆã‚¢ãƒ©ã‚¤ãƒ³
 	_palign = ((_pembuf + 15) >> 4) << 4
 	_pf64 = _palign + (4096-16)
 	_ps32 = _pf64 + 8 * 256
@@ -93,7 +93,7 @@ const _update = () => {
     _update();
   });
 
-  { // ƒpƒbƒh
+  { // ãƒ‘ãƒƒãƒ‰
     let padnum = 0;
     const povbits = [2, 6, 4, 12, 8, 9, 1, 3];
     //const dead = 0.25;
@@ -105,12 +105,12 @@ const _update = () => {
 	    continue;
 	  }
 	  padnum += 1
-	  // 10²
+	  // 10è»¸
 	  for (let i = 0; i < 10; ++i) {
 	    const a = g.axes[i] || 0;
-	    _f64[i] = a; // ÅV‚Åã‘‚«
+	    _f64[i] = a; // æœ€æ–°ã§ä¸Šæ›¸ã
 	  }
-	  // 31bit‚Ü‚Å
+	  // 31bitã¾ã§
 	  for (let i = 0; i < 31; ++i) {
 	    const b = g.buttons[i]?.pressed ? 1 : 0;
 	    bp |= b << i;
@@ -152,11 +152,11 @@ const _update = () => {
 	  const ay = _f64[1];
 	  const pov = _f64[9];
 	  if (Math.abs(ax) > dead) {
-		// ¶‚Æ‰E
+		// å·¦ã¨å³
 	    key |= (ax < 0) ? 0x1 : 0x4;
 	  }
 	  if (Math.abs(ay) > dead) {
-		// ã‚Æ‰º
+		// ä¸Šã¨ä¸‹
 	    key |= (ay < 0) ? 0x2 : 0x8;
 	  }
 	  if (pov) {
@@ -204,10 +204,10 @@ const _update = () => {
       _predcleft = curdcleft;
 	  _predcright = curdcright;
 
-	  _s32[252] |= key; // or ‚Å’Ç‰Á
+	  _s32[252] |= key; // or ã§è¿½åŠ 
 	}
 	_s32[251] = padnum;
-	_s32[253] |= bp; // –³‰ÁH‚ÌÅVó‘Ô‚Ì or
+	_s32[253] |= bp; // ç„¡åŠ å·¥ã®æœ€æ–°çŠ¶æ…‹ã® or
   }
 
 };
