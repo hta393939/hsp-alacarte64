@@ -107,7 +107,7 @@ const _update = () => {
     _update();
   });
 
-  { // ƒpƒbƒh
+  { // ãƒ‘ãƒƒãƒ‰
     let padnum = 0;
     const povbits = [2, 6, 4, 12, 8, 9, 1, 3];
     const dead = 0.25;
@@ -118,10 +118,10 @@ const _update = () => {
 	    continue;
 	  }
 	  padnum += 1
-	  // 10²
+	  // 10è»¸
 	  for (let i = 0; i < 10; ++i) {
 	    const a = g.axes[i] || 0;
-	    _f64[i] = a; // ÅV‚Åã‘‚«
+	    _f64[i] = a; // æœ€æ–°ã§ä¸Šæ›¸ã
 	  }
 	  // 16bit
 	  for (let i = 0; i < 31; ++i) {
@@ -167,10 +167,10 @@ const _update = () => {
 		}
 	  }
 
-	  _s32[252] |= key; // or ‚Å’Ç‰Á
+	  _s32[252] |= key; // or ã§è¿½åŠ 
 	}
 	_s32[251] = padnum;
-	_s32[253] |= bp; // –³‰ÁH‚ÌÅVó‘Ô‚Ì or
+	_s32[253] |= bp; // ç„¡åŠ å·¥ã®æœ€æ–°çŠ¶æ…‹ã® or
   }
 
 };

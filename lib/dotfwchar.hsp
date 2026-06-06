@@ -48,7 +48,7 @@
 #const CHR_SHOOT_0 512
 #const CHR_EFFNUM_0 768
 
-// 0 ‚ª‚È‚ñ‚©g‚í‚ê‚é‚ñ‚¾‚¯‚Ç...
+// 0 ãŒãªã‚“ã‹ä½¿ã‚ã‚Œã‚‹ã‚“ã ã‘ã©...
 #const SPR_CARDBACK0 1
 #const SPR_CARDBACK1 2
 #const SPR_CARDBACK2 3
@@ -57,7 +57,7 @@
 
 
 *setprun
-	// ƒvƒŒƒCƒ„[‚Ì‘¬“x‚ğƒZƒbƒg‚·‚é 2,2 ‚®‚ç‚¢‚¾‚Æ‘f‘‚­“®‚¯‚é
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€Ÿåº¦ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ 2,2 ãã‚‰ã„ã ã¨ç´ æ—©ãå‹•ã‘ã‚‹
 	val = _prunfactor
 	df_pmode 0, val, val
 	return
@@ -85,7 +85,7 @@
 	gosub *clearmes
 
 	es_flag SPR_BACK0, ESSPFLAG_NODISP, 2
-	es_flag SPR_BACK1, ESSPFLAG_NODISP, 2 // íœ
+	es_flag SPR_BACK1, ESSPFLAG_NODISP, 2 // å‰Šé™¤
 
 	_giveupfactor = 0
 
@@ -99,15 +99,15 @@
 	return
 
 *onbut1menu
-	// ‰½‚à‚µ‚È‚¢
+	// ä½•ã‚‚ã—ãªã„
 	return // X
 
 *onbut2menu
-	// ‰½‚à‚µ‚È‚¢
+	// ä½•ã‚‚ã—ãªã„
 	return // Z
 
 *onbut3menu
-	// NOTE: ˜A‘Å‘Îô‚ğl‚¦‚é
+	// NOTE: é€£æ‰“å¯¾ç­–ã‚’è€ƒãˆã‚‹
 	if _noreact <= 1 {
 		gosub *closemenu
 		if _volswitch {
@@ -121,7 +121,7 @@
 	_noreact = NOREACT_COUNT
 
 	if _giveupfactor != 0 {
-		// NOTE: ƒMƒuƒAƒbƒv
+		// NOTE: ã‚®ãƒ–ã‚¢ãƒƒãƒ—
 		gosub *totitle
 		return
 	}
@@ -218,7 +218,7 @@
 	return
 
 *menuframe
-	// ƒƒjƒ…[’†‚ÍƒJƒEƒ“ƒgi‚ß‚È‚¢
+	// ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä¸­ã¯ã‚«ã‚¦ãƒ³ãƒˆé€²ã‚ãªã„
 	getreq ts, SYSREQ_TIMER
 	_prets = ts
 	
@@ -259,7 +259,7 @@
 	_dontmes = 0
 	goto _mainlb
 
-//// ƒ^ƒCƒgƒ‹
+//// ã‚¿ã‚¤ãƒˆãƒ«
 
 *totitle
 	_dontmes = 1
@@ -277,7 +277,7 @@
 	gosub *clearmes
 
 	es_flag SPR_BACK0, ESSPFLAG_NODISP, 2
-	es_flag SPR_BACK1, ESSPFLAG_NODISP, 2 // íœ
+	es_flag SPR_BACK1, ESSPFLAG_NODISP, 2 // å‰Šé™¤
 
 	lx = 10
 	df_mes "KEI'S MONSTER ATTACK!", lx, 3, 10
@@ -298,7 +298,7 @@
 	return // X
 
 *onbut2title
-	// ‰½‚à‚µ‚È‚¢
+	// ä½•ã‚‚ã—ãªã„
 	return // Z
 
 *onbut3title
@@ -313,7 +313,7 @@
 	return // C
 
 *titletomain
-// ƒ^ƒCƒgƒ‹‚©‚çƒQ[ƒ€ŠJn‚Ö
+// ã‚¿ã‚¤ãƒˆãƒ«ã‹ã‚‰ã‚²ãƒ¼ãƒ é–‹å§‹ã¸
 	_noreact = NOREACT_COUNT
 	df_paction *onbut1, PACTION_BUTTON
 	df_paction *onbut2, PACTION_BUTTON2
@@ -393,7 +393,7 @@
 	return
 
 *titleframe
-	// ƒƒjƒ…[’†‚ÍƒJƒEƒ“ƒgi‚ß‚È‚¢
+	// ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä¸­ã¯ã‚«ã‚¦ãƒ³ãƒˆé€²ã‚ãªã„
 	getreq ts, SYSREQ_TIMER
 	_prets = ts
 
@@ -438,10 +438,10 @@
 	goto _mainlb
 
 
-//// ƒZƒŒƒNƒg
+//// ã‚»ãƒ¬ã‚¯ãƒˆ
 
 *toselect
-// ƒQ[ƒ€‚©‚ç‘I‘ğ‚Ö
+// ã‚²ãƒ¼ãƒ ã‹ã‚‰é¸æŠã¸
 	_noreact = NOREACT_COUNT
 	df_paction *onkeyselect, PACTION_KEY
 	df_paction *onbut1select, PACTION_BUTTON
@@ -451,7 +451,7 @@
 	hspvpad_set BUT_Z@_vpad, -1
 	hspvpad_set BUT_C@_vpad, -1
 
-	es_flag SPR_BACK0, ESSPFLAG_NODISP, 2 // ’Ç‰Á
+	es_flag SPR_BACK0, ESSPFLAG_NODISP, 2 // è¿½åŠ 
 	es_flag SPR_BACK1, ESSPFLAG_NODISP, 2
 	es_flag SPR_CARDBACK0, ESSPFLAG_NODISP, 2
 	es_flag SPR_CARDBACK1, ESSPFLAG_NODISP, 2
@@ -459,7 +459,7 @@
 
 	gosub *clearmes
 
-// 3‚Â•\¦‚·‚é
+// 3ã¤è¡¨ç¤ºã™ã‚‹
 	df_mes "SELECT", (40-6)/2, 2, FONT_RED
 	df_mes "PUSH X FOR SELECT", 12, 4, FONT_WHITE
 
@@ -514,8 +514,8 @@
 	if _noreact > 1 {
 		return
 	}
-	// TODO: –¢À‘•
-	//_selectx ‚Å“®ì‚ğ‚«‚ß‚é
+	// TODO: æœªå®Ÿè£…
+	//_selectx ã§å‹•ä½œã‚’ãã‚ã‚‹
 	gosub *tomain
 	if _volswitch {
 		mmplay SE_CLICK
@@ -523,7 +523,7 @@
 	return
 
 *onbut2select
-	// ‰½‚à‚µ‚È‚¢
+	// ä½•ã‚‚ã—ãªã„
 	return
 
 *onbut3select
@@ -538,7 +538,7 @@
 	return
 
 *selectframe
-	// ƒƒjƒ…[’†‚ÍƒJƒEƒ“ƒgi‚ß‚È‚¢
+	// ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä¸­ã¯ã‚«ã‚¦ãƒ³ãƒˆé€²ã‚ãªã„
 	getreq ts, SYSREQ_TIMER
 	_prets = ts
 
@@ -556,7 +556,7 @@
 
 #module
 #deffunc _emitnumdeco str intext, int inx, int iny, int col
-// ”š‚ÌƒfƒR‚ğ”­¶‚³‚¹‚é
+// æ•°å­—ã®ãƒ‡ã‚³ã‚’ç™ºç”Ÿã•ã›ã‚‹
 	text = "" + intext
 	num = strlen(text)
 	x = inx - num * 4
@@ -569,7 +569,7 @@
 			decono = _numdecos@(i)
 			es_setdeco x, y, decono
 			spno = stat
-			es_setparent spno, parentbg, 1 // 1: BGƒ}ƒbƒv
+			es_setparent spno, parentbg, 1 // 1: BGãƒãƒƒãƒ—
 		}
 		x += 8
 	loop
@@ -577,18 +577,18 @@
 #global
 
 *hideback
-	// ”wŒiƒXƒvƒ‰ƒCƒg‚ğÁ‚·
+	// èƒŒæ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æ¶ˆã™
 	flag = ESSPFLAG_NODISP
 	dim sps, 5
 	sps(0) = SPR_BACK0, SPR_BACK1, SPR_CARDBACK0, SPR_CARDBACK1, SPR_CARDBACK2
 	repeat 5
-		es_flag sps(cnt), flag, 1 // ƒrƒbƒg’Ç‰Á
+		es_flag sps(cnt), flag, 1 // ãƒ“ãƒƒãƒˆè¿½åŠ 
 	loop
 	return
 
 
 *clearsp
-	// ƒvƒŒƒCƒ„[‚Æ”wŒi—pˆÈŠO‚ğÁ‚·
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨èƒŒæ™¯ç”¨ä»¥å¤–ã‚’æ¶ˆã™
 	repeat _dotfw_essmax
 		if sp_player@HSP3MOD_DOTFW == cnt {
 			continue
@@ -610,7 +610,7 @@
 
 	_score = -1
 	
-	// Œø‰Ê‰¹
+	// åŠ¹æœéŸ³
 	mmload "se_puyo.wav", SE_PUYO, 0
 	mmload "se_click.wav", SE_CLICK, 0
 	mmload "se_break2.wav", SE_BREAK2, 0
@@ -620,7 +620,7 @@
 	_volfactor = 5
 	gosub *setvol
 
-// ƒVƒ‡ƒbƒgƒ‹[ƒ`ƒ“
+// ã‚·ãƒ§ãƒƒãƒˆãƒ«ãƒ¼ãƒãƒ³
 	ldim _firelbs, 9
 	_firelbs(0) = *nop, *fire1, *fire2, *fire3, *fire4, *fire5, *fire6, *fire7, *fire8
 	dim _firecools, 9
@@ -631,7 +631,7 @@
 	loop
 	_firetimers(0) = 1,1
 
-// ƒJ[ƒh”wŒi
+// ã‚«ãƒ¼ãƒ‰èƒŒæ™¯
 	celload "back256.png", WID_MENUBACK
 	es_size 8*8,8*8, 0
 	es_pat CHR_CARDBACK, 0,256, 0, WID_MENUBACK
@@ -642,24 +642,24 @@
 	es_setp SPR_CARDBACK1, ESI_TYPE, TYPE_MENUBG, 0
 	es_setp SPR_CARDBACK2, ESI_TYPE, TYPE_MENUBG, 0
 	flag = ESSPFLAG_NODISP | ESSPFLAG_DECORATE
-	//flag = ESSPFLAG_DECORATE // NOTE: ‚¢‚Á‚½‚ñ•\¦‚¾‚¯
+	//flag = ESSPFLAG_DECORATE // NOTE: ã„ã£ãŸã‚“è¡¨ç¤ºã ã‘
 	es_flag SPR_CARDBACK0, flag, 1
 	es_flag SPR_CARDBACK1, flag, 1
 	es_flag SPR_CARDBACK2, flag, 1
 
-// ƒƒjƒ…[”wŒi
+// ãƒ¡ãƒ‹ãƒ¥ãƒ¼èƒŒæ™¯
 
 	es_size 256,256, 0
 	es_pat CHR_MENUBACK, 0,0,0, WID_MENUBACK
 	es_set SPR_BACK0, 0,0, CHR_MENUBACK
 	es_set SPR_BACK1, 256,0, CHR_MENUBACK
-	es_setp SPR_BACK0, ESI_TYPE, TYPE_MENUBG, 0 // 0: ã‘‚«
+	es_setp SPR_BACK0, ESI_TYPE, TYPE_MENUBG, 0 // 0: ä¸Šæ›¸ã
 	es_setp SPR_BACK1, ESI_TYPE, TYPE_MENUBG, 0
 	flag = ESSPFLAG_NODISP | ESSPFLAG_DECORATE
-	es_flag SPR_BACK0, flag, 1 // ’Ç‰Á
+	es_flag SPR_BACK0, flag, 1 // è¿½åŠ 
 	es_flag SPR_BACK1, flag, 1
 
-// ƒGƒtƒF
+// ã‚¨ãƒ•ã‚§
 	celload "mfont8.png", WID_EFFNUM
 	//celdiv WID_EFFNUM, 8,8
 	es_size 8,8, 0
@@ -671,12 +671,12 @@
 		y = i / 8 * 8
 		chno = CHR_EFFNUM_0 + i
 		es_pat chno, x,y, 0, WID_EFFNUM
-		es_regdeco chno, op, DIR_UP, 32, _dotfw_fps * 2 // ÅŒã‚Ìˆø”‚Íã‘‚«‚Ì‚Æ‚«‚¾‚¯
+		es_regdeco chno, op, DIR_UP, 32, _dotfw_fps * 2 // æœ€å¾Œã®å¼•æ•°ã¯ä¸Šæ›¸ãã®ã¨ãã ã‘
 		decono = stat
 		_numdecos(i) = decono
 	loop
 
-// ‚¯‚¢ƒLƒƒƒ‰
+// ã‘ã„ã‚­ãƒ£ãƒ©
 	celload "kei16.png", WID_KEI16
 	es_size 16, 16, 100
 
@@ -698,7 +698,7 @@
 	df_paction *onitem, PACTION_ITEM
 	//df_paction *onmapitem, PACTION_MAPITEM
 
-// ƒ‚ƒ“ƒXƒ^[
+// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼
 	celload "mondot.png", WID_MON32
 	es_size 32, 32, 50
 
@@ -719,7 +719,7 @@
 		ch += 4
 	loop
 
-// ƒVƒ‡ƒbƒg
+// ã‚·ãƒ§ãƒƒãƒˆ
 	celload "shootdot16.png", WID_SHOOT16
 	//es_size 32, 32, 50
 	es_sizeex 16,16, , 10,10, (16-10)/2,(16-10)/2, ,
@@ -731,30 +731,30 @@
 		ch += 4
 	loop
 	
-// ƒOƒ[ƒoƒ‹“G”j‰ó
+// ã‚°ãƒ­ãƒ¼ãƒãƒ«æ•µç ´å£Šæ™‚
 	df_eaction *onenedest, EACTION_DESTROY
 
 
-// ƒ{ƒ^ƒ“
-	hspvpad_set 4, -1 // ƒ`ƒFƒbƒN–³Œø
+// ãƒœã‚¿ãƒ³
+	hspvpad_set 4, -1 // ãƒã‚§ãƒƒã‚¯ç„¡åŠ¹
 
-// NOTE: ƒ}ƒbƒv
+// NOTE: ãƒãƒƒãƒ—
 	mapname = "squarewall32_16.tmap"
 	df_loadbgmap MYMAP_ID, mapname
-	mapsx = _dotfw_curmapx			; ƒ}ƒbƒvƒTƒCƒYX‚ğæ“¾
-	mapsy = _dotfw_curmapy			; ƒ}ƒbƒvƒTƒCƒYY‚ğæ“¾
+	mapsx = _dotfw_curmapx			; ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºXã‚’å–å¾—
+	mapsy = _dotfw_curmapy			; ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºYã‚’å–å¾—
 	_mappxw = mapsx * 16
 	_mappxh = mapsy * 16
-	df_getbgmap map, MYMAP_ID		; ƒ}ƒbƒv”z—ñ•Ï”‚ğæ“¾
+	df_getbgmap map, MYMAP_ID		; ãƒãƒƒãƒ—é…åˆ—å¤‰æ•°ã‚’å–å¾—
 
 	//df_bgpoint 0, 10,10
 
-	// mapaction ƒZƒbƒg‚µ‚È‚©‚Á‚½‚çƒVƒ‡ƒbƒg‚àŒ‚‚Ä‚é
-	// ƒZƒbƒg‚µ‚È‚¢‚Æƒtƒ‹ƒXƒNƒ[ƒ‹‚µ‚È‚¢
-	df_mapaction MYMAP_ID, 0, 6 ; d—Í–³‚µ
+	// mapaction ã‚»ãƒƒãƒˆã—ãªã‹ã£ãŸã‚‰ã‚·ãƒ§ãƒƒãƒˆã‚‚æ’ƒã¦ã‚‹
+	// ã‚»ãƒƒãƒˆã—ãªã„ã¨ãƒ•ãƒ«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„
+	df_mapaction MYMAP_ID, 0, 6 ; é‡åŠ›ç„¡ã—
 
-	df_bgview MYMAP_ID, 90,90, 10,10, 32,32	; ƒXƒNƒ[ƒ‹İ’è
-	//df_paction *player_mapev,PACTION_MAPITEM	; ƒ}ƒbƒvƒCƒxƒ“ƒgˆ—
+	df_bgview MYMAP_ID, 90,90, 10,10, 32,32	; ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«è¨­å®š
+	//df_paction *player_mapev,PACTION_MAPITEM	; ãƒãƒƒãƒ—ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 	df_addplayer 300,100, CHR_KEI_D
 
@@ -764,7 +764,7 @@
 
 
 *clearmes
-	// ƒeƒLƒXƒg–Ê‘SÁ‚µ
+	// ãƒ†ã‚­ã‚¹ãƒˆé¢å…¨æ¶ˆã—
 	spc = ""
 	repeat _textw
 		spc += " "
@@ -775,6 +775,6 @@
 	return
 
 *nop
-	// ‰½‚à‚µ‚È‚¢ƒTƒuƒ‹[ƒ`ƒ“
+	// ä½•ã‚‚ã—ãªã„ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³
 	return
 

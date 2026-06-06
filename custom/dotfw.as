@@ -9,63 +9,63 @@
 ;
 ;
 ;============================================================
-; ì‰¹ƒhƒbƒgƒtƒŒ[ƒ€ƒ[ƒN
-;  ƒhƒbƒgŠG‚ğg‚Á‚½2DƒQ[ƒ€Œü‚¯‚ÌƒtƒŒ[ƒ€ƒ[ƒN
-;  (HSP3”Ä—pƒ‰ƒCƒuƒ‰ƒŠ)
+; ç éŸ³ãƒ‰ãƒƒãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯
+;  ãƒ‰ãƒƒãƒˆçµµã‚’ä½¿ã£ãŸ2Dã‚²ãƒ¼ãƒ å‘ã‘ã®ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯
+;  (HSP3æ±ç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒª)
 
 	randomize
-	_dotfw_flag = 0					; ‰Šú‰»ƒtƒ‰ƒO
-	_dotfw_opt = 0					; İ’èƒIƒvƒVƒ‡ƒ“
-	_dotfw_style = 0				; ƒQ[ƒ€ƒXƒ^ƒCƒ‹
-	_dotfw_sx = 320					; ‰¡ƒTƒCƒY
-	_dotfw_sy = 224					; cƒTƒCƒY
-	_dotfw_dir = 0					; ‰¡’·=0,c’·=1
-	_dotfw_zoom = 300				; ƒEƒCƒ“ƒhƒE•\¦Šg‘å—¦
-	_dotfw_aspect = 100				; ƒAƒXƒyƒNƒg”ä
-	_dotfw_fps = 60					; ƒtƒŒ[ƒ€ƒŒ[ƒg
-	_dotfw_fullscr = 0				; ƒtƒ‹ƒXƒNƒŠ[ƒ“
-	_dotfw_noresize = 0				; ‰æ–ÊƒŠƒTƒCƒY‚È‚µ
-	_dotfw_sprmax = 256				; ƒGƒtƒFƒNƒgƒXƒvƒ‰ƒCƒgÅ‘å”
-	_dotfw_essmax = 1024			; HSP3DishƒXƒvƒ‰ƒCƒgÅ‘å”
-	_dotfw_bgpic_max = 6			; ”wŒiBGÅ‘å”
-	_dotfw_frame = 0				; ƒtƒŒ[ƒ€
-	_dotfw_enemy = 0				; “G•\¦”
-	_dotfw_player = 0				; ƒvƒŒƒCƒ„[•\¦”
-	_dotfw_effect = 0				; ƒGƒtƒFƒNƒg•\¦”
-	_dotfw_cursp = 0				; ƒJƒŒƒ“ƒgƒXƒvƒ‰ƒCƒg
-	_dotfw_hitsp = 0				; ÚGƒXƒvƒ‰ƒCƒg
-	_dotfw_curemode = 0				; ƒJƒŒƒ“ƒg“Gƒ‚[ƒh
-	_dotfw_curemis = 0				; ƒJƒŒƒ“ƒg“Gƒ~ƒTƒCƒ‹
-	_dotfw_interval = 8				; ˜AËƒCƒ“ƒ^[ƒoƒ‹
-	_dotfw_contkey = 15				; ˜A‘±“ü—ÍƒL[
-	_dotfw_myx =0					; ƒvƒŒƒCƒ„[X
-	_dotfw_myy =0					; ƒvƒŒƒCƒ„[Y
-	_dotfw_myani =0					; ƒvƒŒƒCƒ„[ƒAƒjƒ[ƒVƒ‡ƒ“ƒJƒEƒ“ƒ^
-	_dotfw_mydir =0					; ƒvƒŒƒCƒ„[•ûŒüID
-	_dotfw_myjmp =0					; ƒvƒŒƒCƒ„[ƒWƒƒƒ“ƒvƒtƒ‰ƒO
-	_dotfw_cx =0					; “GX
-	_dotfw_cy =0					; “GY
-	_dotfw_movex =0					; ˆÚ“®¬•ªX
-	_dotfw_movey =0					; ˆÚ“®¬•ªY
-	_dotfw_enemy_turn =0			; “Gİ’è(ƒ^[ƒ“”)
-	_dotfw_enemy_timer =0			; “Gİ’è(ƒ^ƒCƒ}[’l)
-	_dotfw_enemy_speed =0			; “Gİ’è(‘¬“x%)
-	_dotfw_enemy_dir =0				; “Gİ’è(•ûŒü)
-	_dotfw_enemy_exprm =0			; “Gİ’è(exprm)
-	_dotfw_update_flag =0			; XVƒtƒ‰ƒO(UPDATE_*)
-	_dotfw_curmapx = 0				; ƒJƒŒƒ“ƒgƒ}ƒbƒvX
-	_dotfw_curmapy = 0				; ƒJƒŒƒ“ƒgƒ}ƒbƒvY
-	_dotfw_curmapcel = 0			; ƒJƒŒƒ“ƒgƒ}ƒbƒvƒZƒ‹No.
-	_dotfw_curmapattr = 0			; ƒJƒŒƒ“ƒgƒ}ƒbƒvƒAƒgƒŠƒrƒ…[ƒg
-	_dotfw_bgcolor = 0				; ”wŒiF(RGB)
-	_dotfw_device = ""				; ƒfƒoƒCƒX–¼
-	_dotfw_joystick = -1			; ƒWƒ‡ƒCƒXƒeƒBƒbƒN—LŒøƒtƒ‰ƒO
-	_dotfw_vpad = 0					; ƒo[ƒ`ƒƒƒ‹ƒpƒbƒh—LŒøƒtƒ‰ƒO
-	_dotfw_vpadopt = 0				; ƒo[ƒ`ƒƒƒ‹ƒpƒbƒhƒIƒvƒVƒ‡ƒ“
+	_dotfw_flag = 0					; åˆæœŸåŒ–ãƒ•ãƒ©ã‚°
+	_dotfw_opt = 0					; è¨­å®šã‚ªãƒ—ã‚·ãƒ§ãƒ³
+	_dotfw_style = 0				; ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ã‚¤ãƒ«
+	_dotfw_sx = 320					; æ¨ªã‚µã‚¤ã‚º
+	_dotfw_sy = 224					; ç¸¦ã‚µã‚¤ã‚º
+	_dotfw_dir = 0					; æ¨ªé•·=0,ç¸¦é•·=1
+	_dotfw_zoom = 300				; ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦è¡¨ç¤ºæ‹¡å¤§ç‡
+	_dotfw_aspect = 100				; ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”
+	_dotfw_fps = 60					; ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
+	_dotfw_fullscr = 0				; ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³
+	_dotfw_noresize = 0				; ç”»é¢ãƒªã‚µã‚¤ã‚ºãªã—
+	_dotfw_sprmax = 256				; ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæœ€å¤§æ•°
+	_dotfw_essmax = 1024			; HSP3Dishã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæœ€å¤§æ•°
+	_dotfw_bgpic_max = 6			; èƒŒæ™¯BGæœ€å¤§æ•°
+	_dotfw_frame = 0				; ãƒ•ãƒ¬ãƒ¼ãƒ 
+	_dotfw_enemy = 0				; æ•µè¡¨ç¤ºæ•°
+	_dotfw_player = 0				; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡¨ç¤ºæ•°
+	_dotfw_effect = 0				; ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¡¨ç¤ºæ•°
+	_dotfw_cursp = 0				; ã‚«ãƒ¬ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+	_dotfw_hitsp = 0				; æ¥è§¦ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+	_dotfw_curemode = 0				; ã‚«ãƒ¬ãƒ³ãƒˆæ•µãƒ¢ãƒ¼ãƒ‰
+	_dotfw_curemis = 0				; ã‚«ãƒ¬ãƒ³ãƒˆæ•µãƒŸã‚µã‚¤ãƒ«
+	_dotfw_interval = 8				; é€£å°„ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«
+	_dotfw_contkey = 15				; é€£ç¶šå…¥åŠ›ã‚­ãƒ¼
+	_dotfw_myx =0					; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼X
+	_dotfw_myy =0					; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼Y
+	_dotfw_myani =0					; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚«ã‚¦ãƒ³ã‚¿
+	_dotfw_mydir =0					; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ–¹å‘ID
+	_dotfw_myjmp =0					; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¸ãƒ£ãƒ³ãƒ—ãƒ•ãƒ©ã‚°
+	_dotfw_cx =0					; æ•µX
+	_dotfw_cy =0					; æ•µY
+	_dotfw_movex =0					; ç§»å‹•æˆåˆ†X
+	_dotfw_movey =0					; ç§»å‹•æˆåˆ†Y
+	_dotfw_enemy_turn =0			; æ•µè¨­å®š(ã‚¿ãƒ¼ãƒ³æ•°)
+	_dotfw_enemy_timer =0			; æ•µè¨­å®š(ã‚¿ã‚¤ãƒãƒ¼å€¤)
+	_dotfw_enemy_speed =0			; æ•µè¨­å®š(é€Ÿåº¦%)
+	_dotfw_enemy_dir =0				; æ•µè¨­å®š(æ–¹å‘)
+	_dotfw_enemy_exprm =0			; æ•µè¨­å®š(exprm)
+	_dotfw_update_flag =0			; æ›´æ–°ãƒ•ãƒ©ã‚°(UPDATE_*)
+	_dotfw_curmapx = 0				; ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒƒãƒ—X
+	_dotfw_curmapy = 0				; ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒƒãƒ—Y
+	_dotfw_curmapcel = 0			; ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒƒãƒ—ã‚»ãƒ«No.
+	_dotfw_curmapattr = 0			; ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒƒãƒ—ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆ
+	_dotfw_bgcolor = 0				; èƒŒæ™¯è‰²(RGB)
+	_dotfw_device = ""				; ãƒ‡ãƒã‚¤ã‚¹å
+	_dotfw_joystick = -1			; ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯æœ‰åŠ¹ãƒ•ãƒ©ã‚°
+	_dotfw_vpad = 0					; ãƒãƒ¼ãƒãƒ£ãƒ«ãƒ‘ãƒƒãƒ‰æœ‰åŠ¹ãƒ•ãƒ©ã‚°
+	_dotfw_vpadopt = 0				; ãƒãƒ¼ãƒãƒ£ãƒ«ãƒ‘ãƒƒãƒ‰ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 
-	_dotfw_soundflag = 0			; ƒTƒEƒ“ƒh‰Šú‰»ƒtƒ‰ƒO(0=none/1=OK)
-	_dotfw_music = 0				; ƒTƒEƒ“ƒh(‰¹Šy)‘Î‰
-	_dotfw_se = 0					; ƒTƒEƒ“ƒh(Œø‰Ê‰¹)‘Î‰
+	_dotfw_soundflag = 0			; ã‚µã‚¦ãƒ³ãƒ‰åˆæœŸåŒ–ãƒ•ãƒ©ã‚°(0=none/1=OK)
+	_dotfw_music = 0				; ã‚µã‚¦ãƒ³ãƒ‰(éŸ³æ¥½)å¯¾å¿œ
+	_dotfw_se = 0					; ã‚µã‚¦ãƒ³ãƒ‰(åŠ¹æœéŸ³)å¯¾å¿œ
 
 	dim _dotfw_res, 16
 	_dotfw_resmax = 0
@@ -73,7 +73,7 @@
 	sdim s1,256
 	sdim s2,256
 	sdim s3,256
-	key = 0							; ƒL[ƒR[ƒh(stick‚Ì’l)
+	key = 0							; ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰(stickã®å€¤)
 
 #module HSP3MOD_DOTFW
 
@@ -235,7 +235,7 @@
 
 #deffunc df_reset int _p1
 
-	;	ƒhƒbƒgƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰Šú‰»
+	;	ãƒ‰ãƒƒãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®åˆæœŸåŒ–
 	;
 	if _p1>0 : _dotfw_opt@|=_p1
 	;
@@ -271,7 +271,7 @@
 	rgbcolor _dotfw_bgcolor@:boxf
 	redraw 1
 	;
-	es_ini _dotfw_essmax@,1024,256		; ƒXƒvƒ‰ƒCƒg‰Šú‰»
+	es_ini _dotfw_essmax@,1024,256		; ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆåˆæœŸåŒ–
 	_dotfw_rotbase@ = 6.28318530718 / 256
 	es_area  -DOTFW_CHRX,-DOTFW_CHRY,sx+DOTFW_CHRX,sy+DOTFW_CHRY
 	_dotfw_frame@ = 0
@@ -280,33 +280,33 @@
 		_dotfw_soundflag@=1
 	}
 
-	;	ƒtƒF[ƒh“o˜^
+	;	ãƒ•ã‚§ãƒ¼ãƒ‰ç™»éŒ²
 	layer_fade
 
-	;	8x8ƒtƒHƒ“ƒg
+	;	8x8ãƒ•ã‚©ãƒ³ãƒˆ
 	;
 	fntfile="afont8.png"
 	poke fntfile, 0, (_dotfw_flag@ & 3)+'a'
 	celload fntfile, DOTFW_FONTID
 	celdiv DOTFW_FONTID,8,8
 	texbg=0
-	texsx=sx/8:texsy=sy/8		; ƒeƒLƒXƒg‚Ìƒ}ƒbƒvƒTƒCƒY
-	dim tvram,texsx*texsy		; ƒ}ƒbƒvƒf[ƒ^•Ï”
-	es_bgmap texbg,tvram,texsx,texsy,texsx,texsy,DOTFW_FONTID	; ƒ}ƒbƒv“o˜^
+	texsx=sx/8:texsy=sy/8		; ãƒ†ã‚­ã‚¹ãƒˆã®ãƒãƒƒãƒ—ã‚µã‚¤ã‚º
+	dim tvram,texsx*texsy		; ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿å¤‰æ•°
+	es_bgmap texbg,tvram,texsx,texsy,texsx,texsy,DOTFW_FONTID	; ãƒãƒƒãƒ—ç™»éŒ²
 
-	;	ì‰¹16dot
+	;	ç éŸ³16dot
 	;
 	buffer DOTFW_TAMAID
 	picload DOTFW_TAMARES
 	celdiv DOTFW_TAMAID,DOTFW_CHRX,DOTFW_CHRY
 	es_size DOTFW_CHRX,DOTFW_CHRY,60
 	aniframe=4
-	;	ì‰¹‚¿‚á‚ñ
+	;	ç éŸ³ã¡ã‚ƒã‚“
 	es_patanim 0, 4, 0,0, aniframe
 	es_patanim 4, 4, 4*DOTFW_CHRX,0, aniframe
 	es_patanim 8, 4, 0, DOTFW_CHRX, aniframe
 	es_patanim 12, 4, 4*DOTFW_CHRX, DOTFW_CHRY, aniframe
-	;	“Gƒ‚ƒ“ƒXƒ^[
+	;	æ•µãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼
 	no=CHR_MONSTER1
 	repeat 4
 	es_patanim no, 2, 2*DOTFW_CHRX*cnt, 2*DOTFW_CHRY, 8
@@ -333,10 +333,10 @@
 	es_pat CHR_DOT1+cnt, cnt*DOTFW_CHRX,4*DOTFW_CHRY
 	loop
 	gsel 0
-	es_regdeco CHR_BOM,0, 0,0, 24						; ƒ_ƒ~[‚Ì“o˜^
+	es_regdeco CHR_BOM,0, 0,0, 24						; ãƒ€ãƒŸãƒ¼ã®ç™»éŒ²
 
 
-	;	¯(Star Field)
+	;	æ˜Ÿ(Star Field)
 	;
 	if _dotfw_flag@ & DOTFW_USE_STARFIELD {
 		buffer DOTFW_STARID,256,256,screen_offscreen
@@ -354,7 +354,7 @@
 		}
 	}
 
-	;	ƒvƒŒƒCƒ„[İ’è
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¨­å®š
 	;
 	sp_player_mode=-1
 	sp_player_acttype=0
@@ -402,7 +402,7 @@
 	sp_player_bgyadj=0
 	res=0
 
-	;	“Gİ’è
+	;	æ•µè¨­å®š
 	;
 	dim enemy_mode,_dotfw_essmax@
 	dim enemy_cnt,_dotfw_essmax@
@@ -458,7 +458,7 @@
 	dim hitinfo,10
 
 
-	;	ƒGƒtƒFƒNƒg—p“à•”ƒXƒvƒ‰ƒCƒg
+	;	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”¨å†…éƒ¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	;
 	sprmax=_dotfw_sprmax@
 	dim sprflag,sprmax
@@ -473,9 +473,9 @@
 	dim spranim,sprmax
 	sdim sprmes,64,sprmax
 
-	;	ƒo[ƒ`ƒƒƒ‹ƒpƒbƒh
+	;	ãƒãƒ¼ãƒãƒ£ãƒ«ãƒ‘ãƒƒãƒ‰
 	;
-	if _dotfw_vpad@ : hspvpad_init _dotfw_vpad@, _dotfw_vpadopt@		; ƒo[ƒ`ƒƒƒ‹ƒpƒbƒh‚Ì‰Šú‰»
+	if _dotfw_vpad@ : hspvpad_init _dotfw_vpad@, _dotfw_vpadopt@		; ãƒãƒ¼ãƒãƒ£ãƒ«ãƒ‘ãƒƒãƒ‰ã®åˆæœŸåŒ–
 
 	// NOTE: 
 	_usejspad = 0	
@@ -485,7 +485,7 @@
 	return
 
 *df_bgput
-	;	”wŒi•\¦
+	;	èƒŒæ™¯è¡¨ç¤º
 	;
 	gfilter FILTER_NONE
 	;
@@ -516,7 +516,7 @@
 			gmp_id=gmp_id & (BGID_MAP-1)
 			es_bgparam gmp_id, 0, ESMAP_PRM_GROUP
 			es_bgparam gmp_id, (_dotfw_frame@>>3)&3, ESMAP_PRM_ANIM
-			es_putbg gmp_id,0,0,x,y				; ƒ}ƒbƒvBG‚ğ•`‰æ
+			es_putbg gmp_id,0,0,x,y				; ãƒãƒƒãƒ—BGã‚’æç”»
 			continue
 		}
 
@@ -541,7 +541,7 @@
 	return
 
 *df_bgput2
-	;	”wŒi•\¦(è‘O)
+	;	èƒŒæ™¯è¡¨ç¤º(æ‰‹å‰)
 	;
 	gmp_mode=1
 	repeat _dotfw_bgpic_max@
@@ -554,14 +554,14 @@
 			gmp_id=gmp_id & (BGID_MAP-1)
 			es_bgparam gmp_id, 1+16, ESMAP_PRM_GROUP
 			es_bgparam gmp_id, (_dotfw_frame@>>3)&3, ESMAP_PRM_ANIM
-			es_putbg gmp_id,0,0,x,y				; ƒ}ƒbƒvBG‚ğ•`‰æ
+			es_putbg gmp_id,0,0,x,y				; ãƒãƒƒãƒ—BGã‚’æç”»
 		}
 	loop
 	;
 	return
 
 *df_bgupdate
-	;	”wŒiXV
+	;	èƒŒæ™¯æ›´æ–°
 	;
 	repeat _dotfw_bgpic_max@
 	gmp_id = bgp_id(cnt)
@@ -595,17 +595,17 @@
 
 
 *actdefault
-	;	ƒAƒNƒVƒ‡ƒ“—pƒfƒtƒHƒ‹ƒgƒ‰ƒxƒ‹(‰½‚à‚µ‚È‚¢)
+	;	ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ç”¨ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ©ãƒ™ãƒ«(ä½•ã‚‚ã—ãªã„)
 	return
 
 
 ;------------------------------------------------------------
-;	“à•”—pƒXƒvƒ‰ƒCƒg
+;	å†…éƒ¨ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 ;------------------------------------------------------------
 
 #deffunc dfi_sprdel int _p1
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgíœ
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆå‰Šé™¤
 	;	id
 	;
 	sprflag(_p1)=SPR_NONE
@@ -613,7 +613,7 @@
 
 #deffunc dfi_sprtimer int _p1, int _p2
 
-	;	(“à•”—p)íœƒ^ƒCƒ}[İ’è
+	;	(å†…éƒ¨ç”¨)å‰Šé™¤ã‚¿ã‚¤ãƒãƒ¼è¨­å®š
 	;	id, timer
 	;
 	flg=sprflag(_p1)&$fffff000
@@ -622,7 +622,7 @@
 
 #deffunc dfi_sprmove int _p1, int _p2, int _p3
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgÀ•Wİ’è
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆåº§æ¨™è¨­å®š
 	;	id, x,y
 	;
 	sprx(_p1)=_p2<<DOTFW_SPRSHIFT
@@ -631,7 +631,7 @@
 
 #deffunc dfi_sprchr int _p1, int _p2, int _p3
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgƒLƒƒƒ‰ƒNƒ^[İ’è
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼è¨­å®š
 	;	id, chr, bufid
 	;
 	sprid(_p1)=_p3
@@ -641,7 +641,7 @@
 
 #deffunc dfi_sprset int _p1, int _p2, int _p3, int _p4, int _p5
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgİ’u
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆè¨­ç½®
 	;	id, x,y, chr, bufid
 	;
 	sprflag(_p1)=SPR_OK
@@ -657,7 +657,7 @@
 
 #deffunc dfi_move int _p1, int _p2, int _p3
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgŠg’£ƒpƒ‰ƒ[ƒ^[İ’è
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ‹¡å¼µãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è¨­å®š
 	;	id, gx,gy
 	;
 	sprflag(_p1)|=SPR_MOVE
@@ -667,7 +667,7 @@
 
 #deffunc dfi_rotmove int _p1, int _p2, int _p3
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgŠg’£ƒpƒ‰ƒ[ƒ^[İ’è
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ‹¡å¼µãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è¨­å®š
 	;	id, rot, factor(16=1.0)
 	;
 	sprflag(_p1)|=SPR_MOVE
@@ -680,7 +680,7 @@
 
 #deffunc dfi_sprstr int _p1, str _p2, int _p3, int _p4
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒg•¶šİ’è
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ–‡å­—è¨­å®š
 	;	id, "str", color, wait
 	;
 	sprflag(_p1)=SPR_MES
@@ -691,7 +691,7 @@
 
 #deffunc dfi_spranim int _p1, int _p2, int _p3, local i
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgƒAƒjƒ[ƒVƒ‡ƒ“İ’è
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
 	;	id, count, animpat
 	;
 	spranim(_p1)=_p2
@@ -704,7 +704,7 @@
 
 #deffunc dfi_sprnew
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgV‹KID
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ–°è¦ID
 	;
 	spid=sprmax-1
 	repeat sprmax
@@ -716,7 +716,7 @@
 
 #deffunc dfi_sprupdate
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒgXV
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ›´æ–°
 	;
 	gmode 2,16,16
 	repeat sprmax
@@ -773,7 +773,7 @@
 
 #deffunc dfi_sprdraw
 
-	;	(“à•”—p)ƒXƒvƒ‰ƒCƒg•`‰æ
+	;	(å†…éƒ¨ç”¨)ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæç”»
 	;
 	_dotfw_effect@=0
 	gmode 2,16,16
@@ -800,7 +800,7 @@
 		}
 		es_bgmes texbg,x,y,s1,256*sprgx(cnt)
 		if nstr_end {
-			sprflag(cnt)=SPR_NONE		; ‘S•”o‚µI‚í‚Á‚½
+			sprflag(cnt)=SPR_NONE		; å…¨éƒ¨å‡ºã—çµ‚ã‚ã£ãŸ
 		}
 		continue
 	}
@@ -817,11 +817,11 @@
 	return
 
 *nstr_wipe
-	;	1•¶š‚¸‚Âo‚·(i‚ÌƒJƒEƒ“ƒg‚Å‹æØ‚é)
+	;	1æ–‡å­—ãšã¤å‡ºã™(iã®ã‚«ã‚¦ãƒ³ãƒˆã§åŒºåˆ‡ã‚‹)
 	j=0
 	nstr_end=0
 	skipbyte=2
-	if hspstat&$20000 : skipbyte=3		; UTF8‚ÌŠÈˆÕ“I‚È‘Î‰
+	if hspstat&$20000 : skipbyte=3		; UTF8ã®ç°¡æ˜“çš„ãªå¯¾å¿œ
 	repeat i
 		a1=peek(s1,j)
 		if a1=0 {
@@ -839,12 +839,12 @@
 
 
 ;------------------------------------------------------------
-;	ŠO•”—p(ƒVƒXƒeƒ€)
+;	å¤–éƒ¨ç”¨(ã‚·ã‚¹ãƒ†ãƒ )
 ;------------------------------------------------------------
 
 #deffunc df_screen int _p1, int _p2, int _p3, int _p4
 
-	;	‰ğ‘œ“xİ’è
+	;	è§£åƒåº¦è¨­å®š
 	;	sx,sy,zoom,fps
 	;
 	if _p1>0 : _dotfw_sx@ = _p1
@@ -857,7 +857,7 @@
 
 #deffunc df_zoom int _p1, int _p2
 
-	;	ƒY[ƒ€İ’è
+	;	ã‚ºãƒ¼ãƒ è¨­å®š
 	;	zoom, aspect
 	;
 	_dotfw_zoom@ = 300
@@ -870,7 +870,7 @@
 
 #deffunc df_config str _p1
 
-	;	ƒ^ƒO–¼‚É‚æ‚éİ’è
+	;	ã‚¿ã‚°åã«ã‚ˆã‚‹è¨­å®š
 	;	"tag1 tag2..."
 	;
 	_dotfw_opt@=0
@@ -979,7 +979,7 @@
 
 #deffunc df_star int _p1, int _p2, int _p3, int _p4
 
-	;	¯•\¦ƒpƒ‰ƒ[ƒ^[İ’è
+	;	æ˜Ÿè¡¨ç¤ºãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è¨­å®š
 	;
 	star_rate = _p1
 	if _p1<0 : return
@@ -993,7 +993,7 @@
 
 #deffunc df_mes str _p1, int _p2, int _p3, int _p4
 
-	;	ƒeƒLƒXƒg•\¦
+	;	ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤º
 	;
 	es_bgmes texbg,_p2,_p3,_p1,256*_p4
 	return
@@ -1001,7 +1001,7 @@
 
 #deffunc df_vpoke int _p1, int _p2, int _p3, int _p4
 
-	;	ƒeƒLƒXƒg‚ÉƒLƒƒƒ‰ƒNƒ^ƒR[ƒh‘‚«‚İ
+	;	ãƒ†ã‚­ã‚¹ãƒˆã«ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ã‚³ãƒ¼ãƒ‰æ›¸ãè¾¼ã¿
 	;	x,y,code,length
 	x=_p1:i=texsx*_p2+x:z=_p4:a=_p3
 	if z<=0 : z=1
@@ -1015,7 +1015,7 @@
 
 #defcfunc df_vpeek int _p1, int _p2
 
-	;	ƒeƒLƒXƒg‚ÌƒLƒƒƒ‰ƒNƒ^ƒR[ƒh‚ğ•Ô‚·
+	;	ãƒ†ã‚­ã‚¹ãƒˆã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ã‚³ãƒ¼ãƒ‰ã‚’è¿”ã™
 	;
 	if _p1<0|_p1>=texsx : return -1
 	if _p2<0|_p2>=texsy : return -1
@@ -1024,7 +1024,7 @@
 
 #deffunc df_vshift int _p1
 
-	;	ƒeƒLƒXƒg‚ğ”CˆÓ‚Ì•ûŒü‚ÉƒVƒtƒg
+	;	ãƒ†ã‚­ã‚¹ãƒˆã‚’ä»»æ„ã®æ–¹å‘ã«ã‚·ãƒ•ãƒˆ
 	;
 	i=texsx*(texsy-1)*4
 	a=texsx*4
@@ -1062,7 +1062,7 @@
 
 #deffunc df_celload var _p1, str _p2
 
-	;	‰æ‘œ“Ç‚İ‚İ
+	;	ç”»åƒèª­ã¿è¾¼ã¿
 	;		var,"file"
 	;
 	exist _p2
@@ -1078,8 +1078,8 @@
 
 #deffunc df_setbgpic int _p1, int _p2
 
-	;	”wŒi‰æ‘œ‚ğw’è
-	;		BGNo., ƒEƒCƒ“ƒhƒEID
+	;	èƒŒæ™¯ç”»åƒã‚’æŒ‡å®š
+	;		BGNo., ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ID
 	;
 	i=_p2
 	a=_p1
@@ -1099,7 +1099,7 @@
 
 #deffunc df_setbgpicfile int _p1, str _p2
 
-	;	”wŒi‰æ‘œ‚ğw’è
+	;	èƒŒæ™¯ç”»åƒã‚’æŒ‡å®š
 	;		BGNo., "filename"
 	;
 	a=_p1
@@ -1120,7 +1120,7 @@
 
 #deffunc df_loadbgmap int _p1, str _p2, int _p3
 
-	;	”wŒiƒ}ƒbƒv“Ç‚İ‚İ
+	;	èƒŒæ™¯ãƒãƒƒãƒ—èª­ã¿è¾¼ã¿
 	;		BGNo. , "file", option
 	;
 	a=_p1
@@ -1182,7 +1182,7 @@
 
 #deffunc df_bgmaplabel var _p1, var _p2, int _p3
 
-	;	“Ç‚İ‚ñ‚¾ƒ}ƒbƒv‚Ìƒ‰ƒxƒ‹’l‚ğæ“¾
+	;	èª­ã¿è¾¼ã‚“ã ãƒãƒƒãƒ—ã®ãƒ©ãƒ™ãƒ«å€¤ã‚’å–å¾—
 	;		var1, var2, id
 	;
 	_p1=labx(_p3)
@@ -1191,7 +1191,7 @@
 
 #deffunc df_setbgmap int _p1, int _p2, int _p3, int _p4, int _p5, int _p6
 
-	;	”wŒiƒ}ƒbƒv‚ğw’è
+	;	èƒŒæ™¯ãƒãƒƒãƒ—ã‚’æŒ‡å®š
 	;		BGNo., bufid, xsize, ysize, celsize, option
 	;
 	a=_p1
@@ -1230,7 +1230,7 @@
 
 #deffunc df_getbgmap var _p1, int _p2
 
-	;	”wŒiƒ}ƒbƒv•Ï”‚ğæ“¾
+	;	èƒŒæ™¯ãƒãƒƒãƒ—å¤‰æ•°ã‚’å–å¾—
 	;		var, BGNo.
 	;
 	a=_p2
@@ -1245,7 +1245,7 @@
 
 #deffunc df_setbgmapfile int _p1, str _p2
 
-	;	”wŒiƒ}ƒbƒv‚ğw’è
+	;	èƒŒæ™¯ãƒãƒƒãƒ—ã‚’æŒ‡å®š
 	;		BGNo., "MAPfile"
 	;
 	if a<0 | a>_dotfw_bgpic_max@ : dialog "Invalid BG#"+a : return
@@ -1254,7 +1254,7 @@
 
 #deffunc df_bgpoint int _p1, int _p2, int _p3
 
-	;	”wŒiQÆƒ|ƒCƒ“ƒg‚ğw’è
+	;	èƒŒæ™¯å‚ç…§ãƒã‚¤ãƒ³ãƒˆã‚’æŒ‡å®š
 	;		BGNo., x, y
 	;
 	a=_p1
@@ -1267,7 +1267,7 @@
 
 #deffunc df_getbgpoint var _p1, var _p2, int _p3
 
-	;	”wŒiQÆƒ|ƒCƒ“ƒg‚ğæ“¾
+	;	èƒŒæ™¯å‚ç…§ãƒã‚¤ãƒ³ãƒˆã‚’å–å¾—
 	;		var1, var2, BGNo.
 	;
 	a=_p3
@@ -1278,7 +1278,7 @@
 
 #deffunc df_bgsize int _p1, int _p2, int _p3, int _p4
 
-	;	”wŒiÅ‘åƒTƒCƒY‚ğw’è
+	;	èƒŒæ™¯æœ€å¤§ã‚µã‚¤ã‚ºã‚’æŒ‡å®š
 	;		BGNo., x, y, padj
 	;
 	a=_p1
@@ -1291,7 +1291,7 @@
 
 #deffunc df_bgscroll int _p1, int _p2, int _p3
 
-	;	”wŒi©“®ƒXƒNƒ[ƒ‹‚ğw’è
+	;	èƒŒæ™¯è‡ªå‹•ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚’æŒ‡å®š
 	;		BGNo., dir, speed
 	;
 	a=_p1
@@ -1308,28 +1308,28 @@
 
 #deffunc df_update0 int _p1
 
-	;	XVˆ—(1)
+	;	æ›´æ–°å‡¦ç†(1)
 	;
 	_dotfw_update_flag@=_p1
 	if _dotfw_update_flag@&UPDATE_PAUSE {
-		es_draw	,,ESDRAW_NOMOVE|ESDRAW_NOANIM	; ƒXƒvƒ‰ƒCƒg•`‰æ
+		es_draw	,,ESDRAW_NOMOVE|ESDRAW_NOANIM	; ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæç”»
 	} else {
-		es_draw					; ƒXƒvƒ‰ƒCƒg•`‰æ
+		es_draw					; ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæç”»
 		_dotfw_frame@++
 	}
 	if (_dotfw_update_flag@&UPDATE_PAUSE)=0 {
-		dfi_sprupdate				; “à•”ƒXƒvƒ‰ƒCƒgXV
+		dfi_sprupdate				; å†…éƒ¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ›´æ–°
 	}
-	dfi_sprdraw					; “à•”ƒXƒvƒ‰ƒCƒg•`‰æ
+	dfi_sprdraw					; å†…éƒ¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæç”»
 	;
-	gosub *df_bgput2			; ‘O–Êƒ}ƒbƒv
+	gosub *df_bgput2			; å‰é¢ãƒãƒƒãƒ—
 	gosub *player_maptrack
 	gosub *df_bgupdate
 	;
 	gosub dupdate0_lb			; DACTION_SPROVER
 	;
 	gmode 1
-	es_putbg texbg				; ƒeƒLƒXƒgVRAM‚ğ•`‰æ
+	es_putbg texbg				; ãƒ†ã‚­ã‚¹ãƒˆVRAMã‚’æç”»
 	;
 	gosub dupdate1_lb			; DACTION_TOPMOST
 	;
@@ -1342,7 +1342,7 @@
 
 #deffunc df_update1 int _p1
 
-	;	XVˆ—(2)
+	;	æ›´æ–°å‡¦ç†(2)
 	;
 	redraw 1
 
@@ -1375,7 +1375,7 @@
 	viewcalc vptype_2d, zoomx, zoomy
 	gosub *df_bgput
 
-	;	ƒQ[ƒ€ƒRƒ“ƒgƒ[ƒ‹
+	;	ã‚²ãƒ¼ãƒ ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
 	if (_dotfw_update_flag@&UPDATE_NOWAIT)=0 {
 		if (_dotfw_update_flag@&UPDATE_NOCONTROL)=0 {
 			gosub *player_main
@@ -1386,7 +1386,7 @@
 
 #deffunc df_update int _p1
 
-	;	‰æ–ÊXV
+	;	ç”»é¢æ›´æ–°
 	;
 	df_update0 _p1
 	df_update1 _p1
@@ -1395,7 +1395,7 @@
 
 #deffunc df_control int _p1
 
-	;	ƒQ[ƒ€ˆ—XV
+	;	ã‚²ãƒ¼ãƒ å‡¦ç†æ›´æ–°
 	;
 	gosub *player_main
 	gosub *enemy_main
@@ -1404,7 +1404,7 @@
 
 #deffunc df_daction label _p1, int _p2
 
-	;	•`‰æ‚ÌƒAƒNƒVƒ‡ƒ““®ìƒ‰ƒxƒ‹‚ğİ’è
+	;	æç”»ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å‹•ä½œãƒ©ãƒ™ãƒ«ã‚’è¨­å®š
 	;		label, mode
 	;
 	if _p2=DACTION_SPROVER {
@@ -1417,7 +1417,7 @@
 
 
 *player_maptrack
-	;	ƒvƒŒƒCƒ„[‚ğ‰æ–Ê“à‚É“ü‚ê‚é
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç”»é¢å†…ã«å…¥ã‚Œã‚‹
 	;
 	if sp_player_bgtrack=0 : return
 	if sp_player_map=0 : return
@@ -1490,7 +1490,7 @@
 
 
 *player_main
-	;	ƒvƒŒƒCƒ„[ƒRƒ“ƒgƒ[ƒ‹ƒƒCƒ“
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒ¡ã‚¤ãƒ³
 	;
 	_dotfw_player@=0
 	if sp_player_mode<0 : return
@@ -1530,14 +1530,14 @@
 		gosub player_btn3lb
 	}
 
-	;	‚â‚ç‚êƒ`ƒFƒbƒN
+	;	ã‚„ã‚‰ã‚Œãƒã‚§ãƒƒã‚¯
 	es_check res, sp_player, TYPE_ENEMY|TYPE_EMISSLE|TYPE_EXTENEMY
 	if res>=0 {
 		_dotfw_cursp@ = res
 		gosub player_misslb
 		if sp_player_mode<0 : return
 	}
-	;	ƒAƒCƒeƒ€ƒ`ƒFƒbƒN
+	;	ã‚¢ã‚¤ãƒ†ãƒ ãƒã‚§ãƒƒã‚¯
 	es_check res, sp_player, TYPE_ITEM
 	if res>=0 {
 		_dotfw_cursp@ = res
@@ -1549,17 +1549,17 @@
 	return
 
 *player_act_shot
-	;	ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Ìˆ—(ƒfƒtƒHƒ‹ƒg)
+	;	ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ™‚ã®å‡¦ç†(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
 	df_getplayer
 	if _dotfw_dir@ {
-		df_addpmis _dotfw_myx@,_dotfw_myy@, DIR_UP, 400, CHR_MISSILE			; ƒ~ƒTƒCƒ‹”­Ë
+		df_addpmis _dotfw_myx@,_dotfw_myy@, DIR_UP, 400, CHR_MISSILE			; ãƒŸã‚µã‚¤ãƒ«ç™ºå°„
 	} else {
-		df_addpmis _dotfw_myx@,_dotfw_myy@, DIR_RIGHT, 400, CHR_MISSILE2		; ƒ~ƒTƒCƒ‹”­Ë
+		df_addpmis _dotfw_myx@,_dotfw_myy@, DIR_RIGHT, 400, CHR_MISSILE2		; ãƒŸã‚µã‚¤ãƒ«ç™ºå°„
 	}
 	return
 
 *player_act_miss
-	;	ƒ~ƒX‚Ìˆ—(ƒfƒtƒHƒ‹ƒg)
+	;	ãƒŸã‚¹æ™‚ã®å‡¦ç†(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
 	if sp_player_mode<0 : return
 	;
 	df_getplayer
@@ -1570,7 +1570,7 @@
 
 
 *enemy_main
-	;	“GƒRƒ“ƒgƒ[ƒ‹ƒƒCƒ“
+	;	æ•µã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒ¡ã‚¤ãƒ³
 	;
 	_dotfw_enemy@=0
 	n=0
@@ -1579,13 +1579,13 @@
 	df_getplayer
 	repeat
 		es_find n,mytype,n
-		if n=-1 : break				; ƒXƒvƒ‰ƒCƒg‚ğŒŸo
+		if n=-1 : break				; ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æ¤œå‡º
 		_dotfw_cursp@ = n
 		es_get etype,n,ESI_TYPE
 		if etype&TYPE_ITEM : goto *skip_echk
 
 		_dotfw_enemy@++
-		es_check res,n,chk_type			; Õ“Ëƒ`ƒFƒbƒN
+		es_check res,n,chk_type			; è¡çªãƒã‚§ãƒƒã‚¯
 		if res>=0 {
 			_dotfw_hitsp@ = res
 			gosub enemy_hitlb
@@ -1612,7 +1612,7 @@
 				}
 			}
 			enemy_turn(n)++
-			if enemy_timer(n) {			; ƒV[ƒPƒ“ƒX§Œä
+			if enemy_timer(n) {			; ã‚·ãƒ¼ã‚±ãƒ³ã‚¹åˆ¶å¾¡
 				enemy_timer(n)--
 				;title "seq"+enemy_seqid(n)+":"+enemy_timer(n)
 				if enemy_timer(n)=0 {
@@ -1637,7 +1637,7 @@
 	return
 
 *enemy_act_hit
-	;	ƒqƒbƒg(ƒfƒtƒHƒ‹ƒg)
+	;	ãƒ’ãƒƒãƒˆæ™‚(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
 	df_getaxis
 	df_addbom _dotfw_cx@,_dotfw_cy@,1
 	es_kill _dotfw_cursp@
@@ -1646,7 +1646,7 @@
 	return
 
 *enemy_act_shot
-	;	ƒVƒ‡ƒbƒg(ƒfƒtƒHƒ‹ƒg)
+	;	ã‚·ãƒ§ãƒƒãƒˆæ™‚(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
 	df_getaxis
 	if enemy_misrange>0 {
 		es_nearobj i,_dotfw_cursp@,TYPE_PLAYER, enemy_misrange
@@ -1656,7 +1656,7 @@
 	return
 
 *enemy_act_move
-	;	ˆÚ“®(ƒfƒtƒHƒ‹ƒg)
+	;	ç§»å‹•æ™‚(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
 	return
 
 *esub_xaim
@@ -1678,7 +1678,7 @@
 
 #deffunc df_bgview int _p1, int _p2, int _p3, int _p4, int _p5, int _p6, int _p7
 
-	;	”wŒiƒ}ƒbƒv‚ÆƒvƒŒƒCƒ„[‚ÌƒŠƒ“ƒN‚ğw’è
+	;	èƒŒæ™¯ãƒãƒƒãƒ—ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒªãƒ³ã‚¯ã‚’æŒ‡å®š
 	;		BGNo., rateX%, rateY%, freex%, freey%, xadj, yadj
 	;
 	gmp_id = _p1+ DOTFW_BGID_BGMAP
@@ -1706,7 +1706,7 @@
 
 #deffunc df_bgviewfix int _p1, int _p2, int _p3
 
-	;	”wŒiƒ}ƒbƒv‚ÌˆÊ’u‚ğŒÅ’è
+	;	èƒŒæ™¯ãƒãƒƒãƒ—ã®ä½ç½®ã‚’å›ºå®š
 	;		BGNo., X, Y
 	;
 	sp_player_bgtrack=2
@@ -1718,7 +1718,7 @@
 
 #deffunc df_mapshoot int _p1
 
-	;	ƒvƒŒƒCƒ„[ƒ}ƒbƒvƒVƒ…[ƒeƒBƒ“ƒOİ’è
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒãƒƒãƒ—ã‚·ãƒ¥ãƒ¼ãƒ†ã‚£ãƒ³ã‚°è¨­å®š
 	;		BGNo.
 	;
 	dim hitinfo,10
@@ -1730,7 +1730,7 @@
 
 #deffunc df_mapaction int _p1, int _p2, int _p3
 
-	;	ƒvƒŒƒCƒ„[ƒ}ƒbƒvƒAƒNƒVƒ‡ƒ“İ’è
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒãƒƒãƒ—ã‚¢ã‚¯ã‚·ãƒ§ãƒ³è¨­å®š
 	;		BGNo., gravity, jumppow
 	;
 
@@ -1826,7 +1826,7 @@
 			sp_player_myact=1
 		}
 		if ky & (2 | KEY_W) {
-			// NOTE: ’òq“o‚è”»’è
+			// NOTE: æ¢¯å­ç™»ã‚Šåˆ¤å®š
 			bgno = DOTFW_BGID_BGMAP + 1
 			bgpx = myx + 4
 			//bgpy = myy + 4 + 12 - PX_CLIMB
@@ -1854,7 +1854,7 @@
 			es_setp sp_player,ESI_SPDY, sp_player_mypy
 		}
 	} else {
-	// Œ³‚ÌƒR[ƒh
+	// å…ƒã®ã‚³ãƒ¼ãƒ‰
 	if ky&(1 | KEY_A) {
 		sp_player_mydir = DIR_LEFT
 		sp_player_mypx = -pxadd
@@ -1881,7 +1881,7 @@
 	es_get sp_player_myres, sp_player,ESI_MOVERES
 	if (sp_player_myres&ESSPRES_GROUND)=0 : sp_player_myact=2
 
-	// NOTE: à–¾‚Å‚Í‘æOˆø”‚Éƒ}ƒCƒiƒX‚ğw’è‚µ‚ë‚Æ‚ ‚é‚ª...
+	// NOTE: èª¬æ˜ã§ã¯ç¬¬ä¸‰å¼•æ•°ã«ãƒã‚¤ãƒŠã‚¹ã‚’æŒ‡å®šã—ã‚ã¨ã‚ã‚‹ãŒ...
 	es_getbghit numinfo,sp_player_map, -1
 	//es_getbghit numinfo,sp_player_map // original
 	//assert 0
@@ -1921,8 +1921,8 @@
 	return
 
 *pcont_normal
-	dialog "" : end // NOTE: NOTE: ‚±‚±’Ê‚Á‚Ä‚È‚¢‚ª;;
-	;	ƒm[ƒ}ƒ‹ˆÚ“®
+	dialog "" : end // NOTE: NOTE: ã“ã“é€šã£ã¦ãªã„ãŒ;;
+	;	ãƒãƒ¼ãƒãƒ«ç§»å‹•
 	ky=key@
 	es_getpos sp_player,myx,myy
 	sp_player_mydir=-1
@@ -1942,7 +1942,7 @@
 		sp_player_mydir = DIR_RIGHT
 		myx+=sp_player_speedx
 	}
-	es_pos sp_player,myx,myy			; ƒXƒvƒ‰ƒCƒgÀ•Wİ’è
+	es_pos sp_player,myx,myy			; ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆåº§æ¨™è¨­å®š
 	sp_player_myani++
 	return
 
@@ -1951,7 +1951,7 @@
 
 #deffunc df_addplayer int _p1, int _p2, int _p3, int _p4
 
-	;	ƒvƒŒƒCƒ„[ƒXƒvƒ‰ƒCƒg“o˜^
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç™»éŒ²
 	;		x,y,chr,opt
 	;
 	sp_player_tamane=1
@@ -1979,7 +1979,7 @@
 
 #deffunc df_addpmis int _p4, int _p5, int _p1, int _p2, int _p3, int _p6
 
-	;	ƒvƒŒƒCƒ„[’e“o˜^
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å¼¾ç™»éŒ²
 	;	x,y, direction, speed, chrno, option
 	;
 	pmchr=CHR_MISSILE
@@ -2005,7 +2005,7 @@
 
 #deffunc df_pattack int _p1, int _p2, int _p3
 
-	;	ƒvƒŒƒCƒ„[UŒ‚
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ”»æ’ƒ
 	;	x,y,CHR No.
 	;
 	es_new spno
@@ -2017,9 +2017,9 @@
 	df_getplayer
 	repeat
 		es_find n,TYPE_ENEMY|TYPE_EXTENEMY|TYPE_NCENEMY,n
-		if n=-1 : break				; ƒXƒvƒ‰ƒCƒg‚ğŒŸo
+		if n=-1 : break				; ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æ¤œå‡º
 		_dotfw_cursp@ = n
-		es_check res,n,chk_type			; Õ“Ëƒ`ƒFƒbƒN
+		es_check res,n,chk_type			; è¡çªãƒã‚§ãƒƒã‚¯
 		if res>=0 {
 			_dotfw_hitsp@ = -1;res
 			gosub enemy_hitlb
@@ -2033,7 +2033,7 @@
 
 #deffunc df_getplayer
 
-	;	ƒvƒŒƒCƒ„[À•W‚ğæ“¾‚·‚é
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	;
 	if sp_player<0 {
 		_dotfw_cursp@ = 0
@@ -2055,7 +2055,7 @@
 
 #deffunc df_getaxis
 
-	;	ƒJƒŒƒ“ƒgƒXƒvƒ‰ƒCƒgÀ•W‚ğæ“¾‚·‚é
+	;	ã‚«ãƒ¬ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆåº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	;
 	es_getpos _dotfw_cursp@,_dotfw_cx@,_dotfw_cy@
 	es_getpos _dotfw_cursp@,_dotfw_movex@,_dotfw_movey@,ESSPSET_ADDPOS|ESSPSET_DIRECT
@@ -2064,8 +2064,8 @@
 
 #deffunc df_putaxis
 
-	;	ƒJƒŒƒ“ƒgƒXƒvƒ‰ƒCƒgˆÚ“®—Ê‚ğÄİ’è‚·‚é
-	;	(df_getaxis‚ğ‚µ‚Ä‚¨‚­‚±‚Æ)
+	;	ã‚«ãƒ¬ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç§»å‹•é‡ã‚’å†è¨­å®šã™ã‚‹
+	;	(df_getaxisã‚’ã—ã¦ãŠãã“ã¨)
 	;
 	es_setp _dotfw_cursp@,ESI_SPDX,_dotfw_movex@
 	es_setp _dotfw_cursp@,ESI_SPDY,_dotfw_movey@
@@ -2074,7 +2074,7 @@
 
 #deffunc df_putemode int _p1
 
-	;	§Œä’†‚Ì“Gî•ñ(ƒ‚[ƒh)‚ğÄİ’è‚·‚é
+	;	åˆ¶å¾¡ä¸­ã®æ•µæƒ…å ±(ãƒ¢ãƒ¼ãƒ‰)ã‚’å†è¨­å®šã™ã‚‹
 	;
 	enemy_mode(_dotfw_cursp@) = _p1
 	return
@@ -2082,7 +2082,7 @@
 
 #deffunc df_getenemyprm
 
-	;	§Œä’†‚Ì“Gî•ñ‚ğæ“¾‚·‚é
+	;	åˆ¶å¾¡ä¸­ã®æ•µæƒ…å ±ã‚’å–å¾—ã™ã‚‹
 	;
 	spno=_dotfw_cursp@
 	_dotfw_enemy_turn@ = enemy_turn(spno)
@@ -2094,7 +2094,7 @@
 
 #deffunc df_putenemyprm
 
-	;	§Œä’†‚Ì“Gî•ñ‚ğÄİ’è‚·‚é
+	;	åˆ¶å¾¡ä¸­ã®æ•µæƒ…å ±ã‚’å†è¨­å®šã™ã‚‹
 	;
 	spno=_dotfw_cursp@
 	enemy_turn(spno) = _dotfw_enemy_turn@
@@ -2106,7 +2106,7 @@
 
 #deffunc df_parea int _p1, int _p2, int _p3, int _p4
 
-	;	ƒvƒŒƒCƒ„[ˆÚ“®”ÍˆÍ‚ğİ’è‚·‚é
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç§»å‹•ç¯„å›²ã‚’è¨­å®šã™ã‚‹
 	;
 	sp_player_x1=_p1
 	sp_player_y1=_p2
@@ -2117,7 +2117,7 @@
 
 #deffunc df_pmode int _p1, int _p2, int _p3
 
-	;	ƒvƒŒƒCƒ„[ƒRƒ“ƒgƒ[ƒ‹İ’è
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨­å®š
 	;		mode, speedx, speedy
 	;
 	sp_player_mode=_p1
@@ -2127,7 +2127,7 @@
 
 #deffunc df_pwipe
 
-	;	ƒvƒŒƒCƒ„[Á‹
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ¶ˆå»
 	;
 	if sp_player_mode>=0 {
 		es_kill sp_player
@@ -2138,7 +2138,7 @@
 
 #deffunc df_paction label _p1, int _p2
 
-	;	ƒvƒŒƒCƒ„[‚ÌƒAƒNƒVƒ‡ƒ““®ìƒ‰ƒxƒ‹‚ğİ’è
+	;	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å‹•ä½œãƒ©ãƒ™ãƒ«ã‚’è¨­å®š
 	;		label, mode
 	;
 	if _p2=PACTION_CONTROL {
@@ -2178,7 +2178,7 @@
 
 #deffunc df_earea int _p1, int _p2, int _p3, int _p4
 
-	;	ƒGƒlƒ~[oŒ»”ÍˆÍ‚ğİ’è‚·‚é
+	;	ã‚¨ãƒãƒŸãƒ¼å‡ºç¾ç¯„å›²ã‚’è¨­å®šã™ã‚‹
 	;
 	enemy_x1=_p1
 	enemy_y1=_p2
@@ -2188,7 +2188,7 @@
 
 #deffunc df_emode int _p1, int _p2, int _p3, int _p4, int _p5, int _p6, int _p7
 
-	;	ƒGƒlƒ~[¶¬İ’è
+	;	ã‚¨ãƒãƒŸãƒ¼ç”Ÿæˆè¨­å®š
 	;		mode, chr, misrate, interval, speed, exprm, opt
 	;
 	enemy_def_seq = 0
@@ -2196,7 +2196,7 @@
 	enemy_def_exprm=_p6
 	enemy_def_mode=_p1
 
-	if enemy_def_mode & EMODE_SEQ {						; ƒV[ƒPƒ“ƒX§Œä
+	if enemy_def_mode & EMODE_SEQ {						; ã‚·ãƒ¼ã‚±ãƒ³ã‚¹åˆ¶å¾¡
 		enemy_def_seq=enemy_def_mode & (EMODE_SEQ-1)
 		if enemy_def_seq>eseq_max : dialog "SEQ ID error" : enemy_def_seq=0
 		enemy_def_mode=eseq_mode(enemy_def_seq)
@@ -2215,9 +2215,9 @@
 
 #deffunc df_mapspawn int _p1, int _p2, int _p3, int _p4, int _p5
 
-	;	ƒ}ƒbƒv‚©‚çƒGƒlƒ~[¶¬
+	;	ãƒãƒƒãƒ—ã‹ã‚‰ã‚¨ãƒãƒŸãƒ¼ç”Ÿæˆ
 	;		dir, size, X-ofs, Y-ofs, opt
-	;		opt : -1=nospwan/1=—Dæ‡ˆÊUP
+	;		opt : -1=nospwan/1=å„ªå…ˆé †ä½UP
 	;		       2=TYPE_EXTENEMY 4=TYPE_NCENEMY
 	;
 	if sp_player_shtmap!=0 : goto *df_mapspawn2
@@ -2234,7 +2234,7 @@
 	return
 
 *df_mapspawn2
-	;	ƒ}ƒbƒv‚©‚çƒGƒlƒ~[¶¬(2)
+	;	ãƒãƒƒãƒ—ã‹ã‚‰ã‚¨ãƒãƒŸãƒ¼ç”Ÿæˆ(2)
 	a = sp_player_shtmap - DOTFW_BGID_BGMAP
 	x=bgp_gx(a)>>10
 	y=bgp_gy(a)>>10
@@ -2253,9 +2253,9 @@
 
 #deffunc df_mapspawnres var _p1,var _p2, var _p3, int _p4
 
-	;	df_mapspawn‚ÌŒ‹‰Ê‚¾‚¯‚ğæ“¾‚·‚é
+	;	df_mapspawnã®çµæœã ã‘ã‚’å–å¾—ã™ã‚‹
 	;		x, y, info, id
-	;		id : 0`index (index’´‰ß‚Ìê‡‚Íinfo‚ª-1‚É‚È‚é)
+	;		id : 0ï½index (indexè¶…éã®å ´åˆã¯infoãŒ-1ã«ãªã‚‹)
 	;
 	if _p4>=numinfo : _p3=-1 : return
 	if sp_player_shtmap!=0 : goto *df_mapspawnres2
@@ -2274,7 +2274,7 @@
 
 #deffunc df_eaction label _p1, int _p2
 
-	;	ƒGƒlƒ~[‚ÌƒAƒNƒVƒ‡ƒ““®ìƒ‰ƒxƒ‹‚ğİ’è
+	;	ã‚¨ãƒãƒŸãƒ¼ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å‹•ä½œãƒ©ãƒ™ãƒ«ã‚’è¨­å®š
 	;		label, mode
 	;
 	if _p2=EACTION_CONTROL {
@@ -2294,9 +2294,9 @@
 
 #deffunc df_addenemy int _p1, int _p2, int _p3, int _p4, int _p5
 
-	;	ƒGƒ~ƒl[ƒXƒvƒ‰ƒCƒg“o˜^
+	;	ã‚¨ãƒŸãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç™»éŒ²
 	;		x,y,dir,speed,opt
-	;		opt : 1=—Dæ“xUP 2=d‚È‚è‚ğ—}§ 16=TYPE_EXTENEMY 32=TYPE_NCENEMY
+	;		opt : 1=å„ªå…ˆåº¦UP 2=é‡ãªã‚Šã‚’æŠ‘åˆ¶ 16=TYPE_EXTENEMY 32=TYPE_NCENEMY
 	;
 	i=0:if _p5&1 : i=128
 	es_new sp_enemy,i
@@ -2336,7 +2336,7 @@
 	return
 
 *dfi_setenemymode
-	;	ƒGƒ~ƒl[ƒ‚[ƒhİ’è
+	;	ã‚¨ãƒŸãƒãƒ¼ãƒ¢ãƒ¼ãƒ‰è¨­å®š
 	;	(sp_enemy) e_mode, e_dir, e_timer, e_exprm
 	;
 	if e_mode>enemy_modemax : e_mode=0
@@ -2351,7 +2351,7 @@
 
 #deffunc df_enemygen int _p1, int _p2, int _p3, int _p4
 
-	;	ŠÔ‚²‚Æ‚ÌƒGƒlƒ~[¶¬
+	;	æ™‚é–“ã”ã¨ã®ã‚¨ãƒãƒŸãƒ¼ç”Ÿæˆ
 	;		dir, rate, interval, option
 	;
 	if _dotfw_update_flag@&UPDATE_PAUSE : return
@@ -2415,7 +2415,7 @@
 
 #deffunc df_emodesub label _p1, int _p2
 
-	;	ƒGƒlƒ~[‚Ìƒ‚[ƒh“®ìƒ‰ƒxƒ‹‚ğİ’è
+	;	ã‚¨ãƒãƒŸãƒ¼ã®ãƒ¢ãƒ¼ãƒ‰å‹•ä½œãƒ©ãƒ™ãƒ«ã‚’è¨­å®š
 	;		label, mode
 	;
 	i=_p2
@@ -2429,7 +2429,7 @@
 
 #deffunc df_addseq int _p1, int _p2, int _p3, int _p4
 
-	;	ƒGƒlƒ~[‚ÌƒV[ƒPƒ“ƒX“o˜^
+	;	ã‚¨ãƒãƒŸãƒ¼ã®ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ç™»éŒ²
 	;		id, mode, timer, exprm
 	;
 	seqid=_p1
@@ -2443,7 +2443,7 @@
 
 #deffunc df_addemis int _p4, int _p5, int _p1, int _p2, int _p3, int _p6
 
-	;	ƒGƒlƒ~[’e“o˜^
+	;	ã‚¨ãƒãƒŸãƒ¼å¼¾ç™»éŒ²
 	;	x,y, direction, speed, chrno, option
 	;
 	x=_p4:y=_p5
@@ -2475,7 +2475,7 @@
 
 #deffunc df_additem int _p1, int _p2, int _p3, int _p4, int _p5, int _p6
 
-	;	ƒAƒCƒeƒ€ƒXƒvƒ‰ƒCƒg“o˜^
+	;	ã‚¢ã‚¤ãƒ†ãƒ ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç™»éŒ²
 	;		x,y,chr,mode,dir,speed
 	;
 	es_new sp_enemy
@@ -2501,7 +2501,7 @@
 
 #deffunc df_enemyconf int _p1, int _p2
 
-	;	ƒGƒlƒ~[‚ÌÚ×İ’è
+	;	ã‚¨ãƒãƒŸãƒ¼ã®è©³ç´°è¨­å®š
 	;		misrange
 	;
 	enemy_misrange=_p1
@@ -2513,7 +2513,7 @@
 
 #deffunc df_efftimer int _p1
 
-	;	ƒGƒtƒFƒNƒgƒ^ƒCƒ}[İ’è
+	;	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¿ã‚¤ãƒãƒ¼è¨­å®š
 	;		time
 	;
 	if spid<0 : return
@@ -2522,7 +2522,7 @@
 
 #deffunc df_effanim int _p1, int _p2
 
-	;	ƒGƒtƒFƒNƒgƒAƒjƒ[ƒVƒ‡ƒ“İ’è
+	;	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
 	;		count, pattern, px, py
 	;
 	if spid<0 : return
@@ -2531,7 +2531,7 @@
 
 #deffunc df_effmove int _p1, int _p2
 
-	;	ƒGƒtƒFƒNƒgˆÚ“®İ’è
+	;	ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç§»å‹•è¨­å®š
 	;		px, py
 	;
 	if spid<0 : return
@@ -2540,7 +2540,7 @@
 
 #deffunc df_addbom int _p1, int _p2, int _p3, int _p4
 
-	;	”š”­ƒGƒtƒFƒNƒg“o˜^
+	;	çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆç™»éŒ²
 	;		x,y,level,aniframe
 	;
 	aniframe=4
@@ -2587,7 +2587,7 @@
 
 #deffunc df_addfire int _p1, int _p2, int _p3, int _p4, int _p5, int _p6
 
-	;	‰Ô‰ÎƒGƒtƒFƒNƒg“o˜^
+	;	èŠ±ç«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç™»éŒ²
 	;		x,y,color,level,speed, frame
 	;
 	bomframe=50
@@ -2610,7 +2610,7 @@
 
 #deffunc df_addeff int _p1, int _p2, int _p3, int _p4
 
-	;	”Ä—pƒXƒvƒ‰ƒCƒgƒGƒtƒFƒNƒg“o˜^
+	;	æ±ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆç™»éŒ²
 	;		x,y,celid,bufid
 	;
 	dfi_sprnew
@@ -2619,7 +2619,7 @@
 
 #deffunc df_addfmes str _p1, int _p2, int _p3, int _p4, int _p5
 
-	;	ƒtƒHƒ“ƒgƒƒbƒZ[ƒW“o˜^(ƒGƒtƒFƒNƒg)
+	;	ãƒ•ã‚©ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç™»éŒ²(ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ)
 	;		"mes",x,y,color,wait
 	;
 	dfi_sprnew
@@ -2631,7 +2631,7 @@
 
 #deffunc df_addmes str _p1, int _p2, int _p3, int _p4, int _p5
 
-	;	BGƒƒbƒZ[ƒW“o˜^(ƒGƒtƒFƒNƒg)
+	;	BGãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç™»éŒ²(ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ)
 	;		"mes",x,y,color,wait
 	;
 	dfi_sprnew
