@@ -1,0 +1,6 @@
+#include "hspinet.as"
+s = "{\"piyo\":true}"
+jsonopen p,s
+jsongets val,"piyo",p
+mes val
+jsonclose
