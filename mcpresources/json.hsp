@@ -13,7 +13,7 @@
 #const T_ARRAY 5
 #const T_OBJECT 6
 
-// ‰üs‚Ìœ‹Badd = 1 ‚Ì‚Æ‚«A—]•ª‚ª1‚ÂˆÈã‚ ‚Á‚½‚çÅŒã‚É0x0a‚ğ’Ç‰Á‚·‚é
+// æ”¹è¡Œã®é™¤å»ã€‚add = 1 ã®ã¨ãã€ä½™åˆ†ãŒ1ã¤ä»¥ä¸Šã‚ã£ãŸã‚‰æœ€å¾Œã«0x0aã‚’è¿½åŠ ã™ã‚‹
 #deffunc j_delnl var text, int add
 	len = strlen(text)
 	offset = 0
@@ -34,7 +34,7 @@
 	}
 	return
 
-// ˆê’iã‚ğ•Ô‚·B–³‚©‚Á‚½‚çì‚éB
+// ä¸€æ®µä¸Šã‚’è¿”ã™ã€‚ç„¡ã‹ã£ãŸã‚‰ä½œã‚‹ã€‚
 #defcfunc j_readyj int pt, str paths
 	s = paths
 	split s, ".", ss
@@ -88,7 +88,7 @@
 	return
 
 
-// ˆê’iã‚ğ•Ô‚·B–³‚©‚Á‚½‚ç 0 ‚ğ•Ô‚·B
+// ä¸€æ®µä¸Šã‚’è¿”ã™ã€‚ç„¡ã‹ã£ãŸã‚‰ 0 ã‚’è¿”ã™ã€‚
 #defcfunc j_getj int pt, str paths
 	s = paths
 	split s, ".", ss

@@ -25,7 +25,7 @@
 #define _log(%1) __log %1, __line__
 
 #module
-// UTF-8 ‚ÌƒƒMƒ“ƒO
+// UTF-8 ã®ãƒ­ã‚®ãƒ³ã‚°
 #deffunc __log str _in_text, int _in_line
 	if DEBUG@ == 0 {
 		return
@@ -56,7 +56,7 @@
 	stderr = stat
 
 	SetConsoleOutputCP CP_UTF8
-	// Œã‚ë‚Ìˆø”‚Å jsonputs ‚Ì•ÏŠ·‚ğw’è
+	// å¾Œã‚ã®å¼•æ•°ã§ jsonputs æ™‚ã®å¤‰æ›ã‚’æŒ‡å®š
 	jsonnkf "Wsc", "Sw"
 
 	_log strf("hsp mcp resources \n")
@@ -147,7 +147,7 @@
 	}
 	if mcp_method == "notifications/initialized" {
 		_log strf("ignore %s \n", mcp_method)
-		return // –³‹‚·‚é
+		return // ç„¡è¦–ã™ã‚‹
 	}
 	if mcp_method == "resources/list" {
 		gosub *res_list
@@ -199,13 +199,13 @@
 
 	mcp_blob = ""
 
-	// “à•”ƒoƒbƒtƒ@‚ÌŠg‘åBÅ‘åA”¼ŠpƒJƒ^ƒJƒi‚Å3”{
+	// å†…éƒ¨ãƒãƒƒãƒ•ã‚¡ã®æ‹¡å¤§ã€‚æœ€å¤§ã€åŠè§’ã‚«ã‚¿ã‚«ãƒŠã§3å€
 	len = strlen(buf)
 	nkfcnv mcp_text, buf, "wS", -1, len * 3 + 16
-	// UTF-8 -> UTF-8 ‚Ö•ÏX‚·‚é
+	// UTF-8 -> UTF-8 ã¸å¤‰æ›´ã™ã‚‹
 	jsonnkf "Wsc", "wW"
 	gosub *res_resource
-	// jsonputs •ÏŠ·‚ğŒ³‚É–ß‚·
+	// jsonputs æ™‚å¤‰æ›ã‚’å…ƒã«æˆ»ã™
 	jsonnkf "Wsc", "Sw"
 	return
 
@@ -226,7 +226,7 @@
 	if mcp_code == EC_PARSE {
 		j_setnull rootp, "id"
 	} else {
-		if vartype(mcp_id) == 2 { // •¶š—ñŒ^
+		if vartype(mcp_id) == 2 { // æ–‡å­—åˆ—å‹
 			j_setstr rootp, "id", mcp_id
 		} else {
 			j_setd rootp, "id", mcp_id
@@ -245,7 +245,7 @@
 *res_ini
 	jsonnewobj rootp
 	j_setstr rootp, "jsonrpc", "2.0"
-	if vartype(mcp_id) == 2 { // •¶š—ñŒ^
+	if vartype(mcp_id) == 2 { // æ–‡å­—åˆ—å‹
 		j_setstr rootp, "id", mcp_id
 	} else {
 		j_setd rootp, "id", mcp_id
@@ -263,7 +263,7 @@
 *res_list
 	jsonnewobj rootp
 	j_setstr rootp, "jsonrpc", "2.0"
-	if vartype(mcp_id) == 2 { // •¶š—ñŒ^
+	if vartype(mcp_id) == 2 { // æ–‡å­—åˆ—å‹
 		j_setstr rootp, "id", mcp_id
 	} else {
 		j_setd rootp, "id", mcp_id
@@ -276,7 +276,7 @@
 		j_setstr p, "name", strf("%s.%s", hs_base_name, ext)
 		j_setstr p, "uri", uris(cnt)
 		j_setstr p, "title", strf("%s help file", hs_base_name)
-		j_setstr p, "description", strf("%s ƒwƒ‹ƒvƒtƒ@ƒCƒ‹", hs_base_name)
+		j_setstr p, "description", strf("%s ãƒ˜ãƒ«ãƒ—ãƒ•ã‚¡ã‚¤ãƒ«", hs_base_name)
 		j_setstr p, "mimeType", "text/plain"
 	loop
 
@@ -295,7 +295,7 @@
 *res_resource
 	jsonnewobj rootp
 	j_setstr rootp, "jsonrpc", "2.0"
-	if vartype(mcp_id) == 2 { // •¶š—ñŒ^
+	if vartype(mcp_id) == 2 { // æ–‡å­—åˆ—å‹
 		j_setstr rootp, "id", mcp_id
 	} else {
 		j_setd rootp, "id", mcp_id

@@ -24,7 +24,7 @@
 #define _log(%1) __log %1, __line__
 
 #module
-// UTF-8 ‚ÌƒƒMƒ“ƒO
+// UTF-8 ã®ãƒ­ã‚®ãƒ³ã‚°
 #deffunc __log str _in_text, int _in_line
 	if DEBUG@ == 0 {
 		return
@@ -55,7 +55,7 @@
 	stderr = stat
 	
 	SetConsoleOutputCP CP_UTF8
-	// Œã‚ë‚Ìˆø”‚Å jsonputs ‚Ì•ÏŠ·‚ğw’è
+	// å¾Œã‚ã®å¼•æ•°ã§ jsonputs æ™‚ã®å¤‰æ›ã‚’æŒ‡å®š
 	jsonnkf "Wsc", "Sw"
 
 	_log strf("hsp mcp tools \n")
@@ -136,7 +136,7 @@
 		return
 	}
 	if mcp_method == "notifications/initialized" {
-		return // –³‹‚·‚é
+		return // ç„¡è¦–ã™ã‚‹
 	}
 	if mcp_method == "tools/list" {
 		gosub *res_list
@@ -191,15 +191,15 @@
 		return
 	}
 
-	mcp_text = "E½Ë‚Ş‚ï¿½E½Ü`"
+	mcp_text = "ãƒ»ï½½ï¾‹ã‚€ã‚‘ï½¿ï½½ãƒ»ï½½ï¾œï½"
 	if 5.0 <= hours & hours < 11.0 {
-		mcp_text = "`"
+		mcp_text = "ï½"
 	}
 	if 11.0 <= hours & hours < 18.0 {
-		mcp_text = "‚Ü`"
+		mcp_text = "ã¾ï½"
 	}
 	if 18.0 <= hours & hours < 11.0 {
-		mcp_text = "`"
+		mcp_text = "ï½"
 	}
 	gosub *res_call
 	return
@@ -303,7 +303,7 @@
 
 	i = 0
 	j_setstr rootp, strf("result.tools.%d.name", i), "get_greeting"
-	j_setstr rootp, strf("result.tools.%d.description", i), "ïˆï"
+	j_setstr rootp, strf("result.tools.%d.description", i), "è¶£èŒ¨"
 
 	osp = j_readyj(rootp, strf("result.tools.%d.outputSchema._", i))
 	j_setstr osp, "type", "object"
@@ -314,24 +314,24 @@
 	isp = j_readyj(rootp, strf("result.tools.%d.inputSchema._", i))
 	j_setstr isp, "type", "object"
 	j_setstr isp, "properties.hours.type", "number"
-	j_setstr isp, "properties.hours.description", "ƒCƒ‰ƒXƒg‚ÍIxy, ‚ç‚®‚Ù‚Ì‚¦‚è‚©"
+	j_setstr isp, "properties.hours.description", "ã‚¤ãƒ©ã‚¹ãƒˆã¯Ixy, ã‚‰ãã»ã®ãˆã‚Šã‹"
 	j_setstr isp, strf("required.%d", i), "hours"
 
 	// 
 	i = 1
 	j_setstr rootp, strf("result.tools.%d.name", i), "get_fav_emoji"
-	j_setstr rootp, strf("result.tools.%d.description", i), "D‚«‚ÈŠG•¶š‚ğ•Ô‚·"
+	j_setstr rootp, strf("result.tools.%d.description", i), "å¥½ããªçµµæ–‡å­—ã‚’è¿”ã™"
 
 	osp = j_readyj(rootp, strf("result.tools.%d.outputSchema._", i)
 	j_setstr osp, "type", "object"
 	j_setstr osp, "properties.emoji.type", "string"
-	j_setstr osp, "properties.emoji.description", "½"
+	j_setstr osp, "properties.emoji.description", "ï½½"
 	j_setstr osp, strf("required.%d", i), "emoji"
 
 	isp = j_readyj(rootp, strf("result.tools.%d.inputSchema._", i))
 	j_setstr isp, "type", "object"
 	j_setstr isp, "properties.hours.type", "number"
-	j_setstr isp, "properties.hours.description", "E"
+	j_setstr isp, "properties.hours.description", "ãƒ»"
 	j_setstr isp, strf("required.%d", i) "hours"
 
 	repeat 2

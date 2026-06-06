@@ -6,37 +6,37 @@
 
 	chdir "data"
 
-	;	ƒ}ƒbƒv‚ğg‚Á‚½ƒTƒ“ƒvƒ‹4
-	;	(ì‰¹‚¿‚á‚ñ‚ÌƒLƒƒƒ‰‚ÅƒWƒƒƒ“ƒvƒAƒNƒVƒ‡ƒ“‚ğÀs‚µ‚Ü‚·)
-// ƒƒgƒƒCƒhƒ”ƒ@ƒjƒA‚ğì‚ê‚Æ‚¢‚¤‚±‚Æ‚Å‚Í??
+	;	ãƒãƒƒãƒ—ã‚’ä½¿ã£ãŸã‚µãƒ³ãƒ—ãƒ«4
+	;	(ç éŸ³ã¡ã‚ƒã‚“ã®ã‚­ãƒ£ãƒ©ã§ã‚¸ãƒ£ãƒ³ãƒ—ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã—ã¾ã™)
+// ãƒ¡ãƒˆãƒ­ã‚¤ãƒ‰ãƒ´ã‚¡ãƒ‹ã‚¢ã‚’ä½œã‚Œã¨ã„ã†ã“ã¨ã§ã¯??
 	//df_config "ps2 Z150"
 	df_config "X320 Y240 Z200 vpad"
 	//df_config "X256 Y192 Z200"
 	df_reset
 
-	//df_setbgpicfile BGPIC_ID,"sozai5.jpg"	; ”wŒi‰æ‘œ
+	//df_setbgpicfile BGPIC_ID,"sozai5.jpg"	; èƒŒæ™¯ç”»åƒ
 
-	//df_loadbgmap MYMAP_ID, "test2.tmap"	; ƒ}ƒbƒvƒtƒ@ƒCƒ‹“Ç‚İ‚İ
-	df_loadbgmap MYMAP_ID, "widejump16_1.tmap"	; ƒ}ƒbƒvƒtƒ@ƒCƒ‹“Ç‚İ‚İ
-	mapsx = _dotfw_curmapx			; ƒ}ƒbƒvƒTƒCƒYX‚ğæ“¾
-	mapsy = _dotfw_curmapy			; ƒ}ƒbƒvƒTƒCƒYY‚ğæ“¾
-	df_getbgmap map, MYMAP_ID		; ƒ}ƒbƒv”z—ñ•Ï”‚ğæ“¾
+	//df_loadbgmap MYMAP_ID, "test2.tmap"	; ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+	df_loadbgmap MYMAP_ID, "widejump16_1.tmap"	; ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
+	mapsx = _dotfw_curmapx			; ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºXã‚’å–å¾—
+	mapsy = _dotfw_curmapy			; ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºYã‚’å–å¾—
+	df_getbgmap map, MYMAP_ID		; ãƒãƒƒãƒ—é…åˆ—å¤‰æ•°ã‚’å–å¾—
 
-	df_mapaction MYMAP_ID, 60, 6 ; d—Í‚ÆƒWƒƒƒ“ƒv(80, 8‚Æ‚©)
-	df_bgview MYMAP_ID, 90,90, 10,10, 32,32	; ƒXƒNƒ[ƒ‹İ’è
-	df_paction *player_mapev,PACTION_MAPITEM	; ƒ}ƒbƒvƒCƒxƒ“ƒgˆ—
+	df_mapaction MYMAP_ID, 60, 6 ; é‡åŠ›ã¨ã‚¸ãƒ£ãƒ³ãƒ—(80, 8ã¨ã‹)
+	df_bgview MYMAP_ID, 90,90, 10,10, 32,32	; ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«è¨­å®š
+	df_paction *player_mapev,PACTION_MAPITEM	; ãƒãƒƒãƒ—ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 
 	if 0 {
-		df_celload bgcel,"tamadot.png"		; ƒLƒƒƒ‰ƒNƒ^[‚Ì‰æ‘œƒtƒ@ƒCƒ‹
-		es_sizeex 64,64,,40,40,12,24		; ƒLƒƒƒ‰ƒNƒ^[‚ÌƒTƒCƒYw’è
-		es_patanim 0, 4, 256, 64, 0, bgcel	; ƒLƒƒƒ‰ƒNƒ^[‚Ì“o˜^(0)
-		es_patanim 4, 4, 256, 192, 0, bgcel	; ƒLƒƒƒ‰ƒNƒ^[‚Ì“o˜^(4)
+		df_celload bgcel,"tamadot.png"		; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«
+		es_sizeex 64,64,,40,40,12,24		; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚µã‚¤ã‚ºæŒ‡å®š
+		es_patanim 0, 4, 256, 64, 0, bgcel	; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç™»éŒ²(0)
+		es_patanim 4, 4, 256, 192, 0, bgcel	; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç™»éŒ²(4)
 	} else {
-		df_celload bgcel,"tamane16.png"		; ƒLƒƒƒ‰ƒNƒ^[‚Ì‰æ‘œƒtƒ@ƒCƒ‹
-		es_sizeex 16,16, ,16,16, 0,0		; ƒLƒƒƒ‰ƒNƒ^[‚ÌƒTƒCƒYw’è
-		es_patanim 0, 4, 0,16, 0, bgcel	; ƒLƒƒƒ‰ƒNƒ^[‚Ì“o˜^(0)
-		es_patanim 4, 4, 64,16, 0, bgcel	; ƒLƒƒƒ‰ƒNƒ^[‚Ì“o˜^(4)
+		df_celload bgcel,"tamane16.png"		; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«
+		es_sizeex 16,16, ,16,16, 0,0		; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚µã‚¤ã‚ºæŒ‡å®š
+		es_patanim 0, 4, 0,16, 0, bgcel	; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç™»éŒ²(0)
+		es_patanim 4, 4, 64,16, 0, bgcel	; ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç™»éŒ²(4)
 	}
 
 	WID_KEI = 4
@@ -52,21 +52,21 @@
 	es_patanim 40, 4, 0,16*3, frnum, WID_KEI
 	es_patanim 44, 4, 16*4,16*3, frnum, WID_KEI
 
-	df_addplayer 300,200,0			; ƒvƒŒƒCƒ„[‚ğ’Ç‰Á
-	//df_pmode 0, 2	; ˆÚ“®ƒXƒs[ƒh(16ƒhƒbƒg‚É‚ÍX=2‚ª‚¢‚¢Š´‚¶
+	df_addplayer 300,200,0			; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¿½åŠ 
+	//df_pmode 0, 2	; ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰(16ãƒ‰ãƒƒãƒˆã«ã¯X=2ãŒã„ã„æ„Ÿã˜
 	//df_pmode 0, 1, 1
 
 	dim hitinfo, 7
 	
 *main
-	// key ‚Í dotfw ‚ÅƒZƒbƒg‚³‚ê‚é‚Ì‚©
-	if key&PLAYER_KEY_ESC : end		; [ESC]ƒL[‚ÅI—¹
+	// key ã¯ dotfw ã§ã‚»ãƒƒãƒˆã•ã‚Œã‚‹ã®ã‹
+	if key&PLAYER_KEY_ESC : end		; [ESC]ã‚­ãƒ¼ã§çµ‚äº†
 	df_getplayer
 	mysp = _dotfw_cursp
 	mypx_x = _dotfw_myx
 	mypx_y = _dotfw_myy
 
-//// ‰º‚ÖƒXƒC[ƒv + 1
+//// ä¸‹ã¸ã‚¹ã‚¤ãƒ¼ãƒ— + 1
 
 	bgno = 1 + 1
 	pxx = mypx_x + 4
@@ -86,15 +86,15 @@
 			break
 		}
 	loop
-//// ƒXƒC[ƒv‚±‚±‚Ü‚Å
+//// ã‚¹ã‚¤ãƒ¼ãƒ—ã“ã“ã¾ã§
 
-	//// XV
+	//// æ›´æ–°
 	es_get curchr, mysp, ESI_CHRNO
 	mask = 0x3c00f
 	es_get opt, mysp, ESI_OPTION
 	if opt & MASK_LADDER@HSP3MOD_DOTFW {
-		// ‚±‚±‚ÅƒXƒs[ƒh0‚É‚·‚é‚Æˆê’i‰º‚¾‚¯‚É‚È‚é
-		//es_setp mysp, ESI_SPDY, 0, 0 // ã‘‚«
+		// ã“ã“ã§ã‚¹ãƒ”ãƒ¼ãƒ‰0ã«ã™ã‚‹ã¨ä¸€æ®µä¸‹ã ã‘ã«ãªã‚‹
+		//es_setp mysp, ESI_SPDY, 0, 0 // ä¸Šæ›¸ã
 
 		opt -= BIT_LADDER@HSP3MOD_DOTFW
 		es_setp mysp, ESI_OPTION, opt, 0
@@ -124,16 +124,16 @@
 	es_setp spno, ESI_ACCELY, 0, 0
 	es_get opt, spno, ESI_OPTION
 	opt |= BIT_LADDER@HSP3MOD_DOTFW * 2
-	es_setp spno, ESI_OPTION, opt, 0 // ã‘‚«
+	es_setp spno, ESI_OPTION, opt, 0 // ä¸Šæ›¸ã
 	return
 #global
 
 *player_mapev
-	;	ƒCƒxƒ“ƒgˆ—
+	;	ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 	op=_dotfw_curmapattr
 	if op==0 {
-		; ƒAƒCƒeƒ€æ“¾
-		map(mapsx*_dotfw_curmapy+_dotfw_curmapx)=0	; ƒAƒCƒeƒ€‚ğÁ‚·
+		; ã‚¢ã‚¤ãƒ†ãƒ å–å¾—
+		map(mapsx*_dotfw_curmapy+_dotfw_curmapx)=0	; ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¶ˆã™
 	}
 	if op==1 {
 		goto *miss
@@ -148,9 +148,9 @@
 
 
 *miss
-	; ƒgƒQ‚É‚ ‚½‚é‚Æƒ~ƒX
-	df_mes "PLAYER MISS!",1,2		; ƒeƒLƒXƒg•\¦
-	//df_pwipe ; ƒvƒŒƒCƒ„[‚ğÁ‹
+	; ãƒˆã‚²ã«ã‚ãŸã‚‹ã¨ãƒŸã‚¹
+	df_mes "PLAYER MISS!",1,2		; ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤º
+	//df_pwipe ; ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¶ˆå»
 	gosub *mesrest
 	wait 100 * 3
 	// 
