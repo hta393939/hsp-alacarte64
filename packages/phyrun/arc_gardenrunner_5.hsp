@@ -1,5 +1,7 @@
 #include "hgimg4.as"
 
+	//dialog "top"
+
 	PHY = GPDRAW_OPT_OBJUPDATE
 	DRAW = GPDRAW_OPT_DRAWSCENE | GPDRAW_OPT_DRAW2D
 	LATE = GPDRAW_OPT_DRAWSCENE_LATE | GPDRAW_OPT_DRAW2D_LATE
@@ -56,9 +58,15 @@
 	//gpload tamaid, "res/tamane2"
 	//setscale tamaid, 0.1, 0.1, 0.1
 
+	dialog "pre gpload"
 
 	// カーブの配置
 	gpload curveid, "res/curve1"
+	if curveid < 0 {
+		gpgetlog message
+		dialog message, 1, "gpload err"
+		end
+	}
 	repeat 10
 		i = cnt
 		repeat 4
@@ -113,6 +121,8 @@
 
 	//setpos GPOBJ_CAMERA, 0,5,12		; カメラ位置を設定
 	//gplookat GPOBJ_CAMERA, 0,0,0	; カメラから指定した座標を見る
+
+	//dialog "pre main"
 
 *main
 	getreq fps, SYSREQ_FPS
