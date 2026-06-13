@@ -1,3 +1,4 @@
+// 未確認。handle 型が32bitのままでは??
 // resolve #include
 
 #include "shell32.as"
