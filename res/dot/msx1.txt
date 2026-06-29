@@ -1,0 +1,48 @@
+0 Transparent
+-
+-
+1 Black
+#000000
+(0, 0, 0)
+2 Medium Green
+#3EB849
+(62, 184, 73)
+3 Light Green
+#74D07D
+(116, 208, 125)
+4 Dark Blue
+#5955E0
+(89, 85, 224)
+5 Light Blue
+#8076F1
+(128, 118, 241)
+6 Dark Red
+#B95E51
+(185, 94, 81)
+7 Cyan
+#65DBEF
+(101, 219, 239)
+8 Medium Red
+#DB6559
+(219, 101, 89)
+9 Light Red
+#FF897D
+(255, 137, 125)
+10 Dark Yellow
+#CCC35E
+(204, 195, 94)
+11 Light Yellow
+#DED087
+(222, 208, 135)
+12 Dark Green
+#3AA241
+(58, 162, 65)
+13 Magenta
+#B766B5
+(183, 102, 181)
+14 Gray
+#CCCCCC
+(204, 204, 204)
+15 White
+#FFFFFF
+(255, 255, 255)
